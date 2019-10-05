@@ -100,6 +100,7 @@ class KerasPilot(object):
                         verbose=1, 
                         validation_data=val_gen,
                         callbacks=callbacks_list, 
+                        use_multiprocessing=True, # Add here Nakagawa
                         validation_steps=steps*(1.0 - train_split))
         return hist
 
