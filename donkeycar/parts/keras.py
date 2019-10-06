@@ -14,6 +14,8 @@ models to help direct the vehicles motion.
 
 import os
 import numpy as np
+
+
 try: #Colab用の例外処理
     from tensorflow import ConfigProto
     from tensorflow import Session
@@ -108,7 +110,7 @@ class KerasPilot(object):
                         verbose=1, 
                         validation_data=val_gen,
                         callbacks=callbacks_list,
-                        #use_multiprocessing=False, # Add Nakagawa
+                        use_multiprocessing=False, # Add Nakagawa
                         validation_steps=steps*(1.0 - train_split))
         return hist
 
