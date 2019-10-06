@@ -14,9 +14,9 @@ models to help direct the vehicles motion.
 
 import os
 import numpy as np
-try: #Colab用の例外処理
-    from tensorflow import ConfigProto
-    from tensorflow import Session
+#try: #Colab用の例外処理
+#    from tensorflow import ConfigProto
+#    from tensorflow import Session
 from tensorflow.python import keras
 from tensorflow.python.keras.layers import Input, Dense
 from tensorflow.python.keras.models import Model, Sequential
