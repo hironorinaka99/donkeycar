@@ -28,6 +28,8 @@ MAX_LOOPS = None        # the vehicle loop can abort after this many iterations,
 CAMERA_TYPE = "PICAM"   # (PICAM|WEBCAM|CVCAM|CSIC|V4L|MOCK)
 IMAGE_W = 160
 IMAGE_H = 120
+#IMAGE_H = 160 #ダブルカメラのとき
+
 IMAGE_DEPTH = 3         # default RGB=3, make 1 for mono
 CAMERA_FRAMERATE = DRIVE_LOOP_HZ
 # For CSIC camera - If the camera is mounted in a rotated position, changing the below parameter will correct the output frame orientation
