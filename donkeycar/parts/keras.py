@@ -14,9 +14,12 @@ models to help direct the vehicles motion.
 
 import os
 import numpy as np
-#try: #Colab用の例外処理
-#    from tensorflow import ConfigProto
-#    from tensorflow import Session
+try: #Colab用の例外処理
+    from tensorflow import ConfigProto
+    from tensorflow import Session
+except:
+    print("Colab")
+
 from tensorflow.python import keras
 from tensorflow.python.keras.layers import Input, Dense
 from tensorflow.python.keras.models import Model, Sequential
@@ -37,6 +40,8 @@ try: #Colab用の例外処理
     config.gpu_options.allow_growth = True
     session = Session(config=config)
     keras.backend.set_session(session)
+except:
+    print("Colab")
 
 class KerasPilot(object):
     '''
