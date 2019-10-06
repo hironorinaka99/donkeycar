@@ -3,6 +3,9 @@ import io
 from PIL import Image
 import numpy as np
 from donkeycar.utils import img_to_binary, binary_to_img, arr_to_img, img_to_arr
+#Kambe add
+import donkeycar as dk
+
 
 class ImgArrToJpg():
 
@@ -104,3 +107,17 @@ class ImgStack:
 
     def shutdown(self):
         pass
+
+class CombindPair:
+    def run(self, image_a, image_b):
+        import cv2
+        import numpy as np
+        
+        if image_a is not None and image_b is not None:
+            image_a = image_a[40:120, 0:160] #WebCam (Rear) [Top:Bottom, Left:Right]
+            image_b = image_b[40:120, 0:160] #PiCam (Front) [Top:Bottom, Left:Right]
+
+            im_v = cv2.vconcat([image_a, image_b])
+        else:
+            im_v = []
+        return np.array(im_v)

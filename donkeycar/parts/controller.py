@@ -651,6 +651,7 @@ class JoystickController(object):
         self.tub = None
         self.num_records_to_erase = 100
         self.estop_state = self.ES_IDLE
+        self.chaos_monkey_status = None  #Modified
         self.chaos_monkey_steering = None
         self.dead_zone = 0.0
 
@@ -877,7 +878,7 @@ class JoystickController(object):
             self.mode = 'user'
         print('new mode:', self.mode)
 
-
+    '''
     def chaos_monkey_on_left(self):
         self.chaos_monkey_steering = -0.2
 
@@ -885,11 +886,16 @@ class JoystickController(object):
     def chaos_monkey_on_right(self):
         self.chaos_monkey_steering = 0.2
 
-
     def chaos_monkey_off(self):
         self.chaos_monkey_steering = None
+    '''
+    
+    def chaos_monkey_start(self):
+        self.chaos_monkey_status = True
 
-
+    def chaos_monkey_stop(self):
+        self.chaos_monkey_status = None
+    
     def run_threaded(self, img_arr=None):
         self.img_arr = img_arr
 
@@ -914,8 +920,24 @@ class JoystickController(object):
                     self.estop_state = self.ES_IDLE
                 return 0.0, self.throttle, self.mode, False
 
-        if self.chaos_monkey_steering is not None:
-            return self.chaos_monkey_steering, self.throttle, self.mode, False
+        if self.chaos_monkey_status is not None: #Modified
+            t = int(time.time()*10)%100 #　10秒間を0.1秒単位で100に分割
+            if t > 0 and t < 5:  #0.5秒間
+                self.chaos_monkey_steering = -0.3
+                return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
+            elif t >20 and t < 25: #2秒から2.5秒
+                self.chaos_monkey_steering = 0.3
+                return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
+            elif t >50 and t < 55: #5秒から5.5秒
+                self.chaos_monkey_steering = -0.3
+                return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
+            elif t >70 and t < 75: #7秒から7.5秒
+                self.chaos_monkey_steering = 0.3
+                return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
+            else:
+                return self.angle, self.throttle, self.mode, self.recording
+
+
 
         return self.angle, self.throttle, self.mode, self.recording
 
@@ -988,6 +1010,7 @@ class PS3JoystickController(JoystickController):
         init set of mapping from buttons to function calls
         '''
 
+        '''
         self.button_down_trigger_map = {
             'select' : self.toggle_mode,
             'circle' : self.toggle_manual_recording,
@@ -1004,10 +1027,28 @@ class PS3JoystickController(JoystickController):
             "R1" : self.chaos_monkey_off,
             "L1" : self.chaos_monkey_off,
         }
+        '''
+        self.button_down_trigger_map = {
+            'select' : self.toggle_mode,
+            'circle' : self.toggle_manual_recording,
+            'triangle' : self.erase_last_N_records,
+            'cross' : self.emergency_stop,
+            'dpad_up' : self.increase_max_throttle,
+            'dpad_down' : self.decrease_max_throttle,
+            'start' : self.toggle_constant_throttle,
+            "R1" : self.chaos_monkey_start, #Modified
+        }
+
+        self.button_up_trigger_map = {
+            "L1" : self.chaos_monkey_stop, #Modified
+        }
+
 
         self.axis_trigger_map = {
-            'left_stick_horz' : self.set_steering,
-            'right_stick_vert' : self.set_throttle,
+#            'left_stick_horz' : self.set_steering,
+#            'right_stick_vert' : self.set_throttle,  左右入れ替え
+            'left_stick_vert' : self.set_throttle,
+            'right_stick_horz' : self.set_steering,
         }
 
 
