@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#確認用
+
 """
 Scripts to drive a donkey 2 car
 
