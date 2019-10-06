@@ -17,7 +17,7 @@ Options:
 """
 import os
 import time
-
+#確認用
 from docopt import docopt
 import numpy as np
 
