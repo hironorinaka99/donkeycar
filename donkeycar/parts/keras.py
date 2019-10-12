@@ -440,7 +440,7 @@ def default_bhv(num_outputs, num_bvh_inputs, input_shape):
 
 
 def default_loc(num_locations, input_shape):
-    drop = 0.2
+    drop = 0.1
 
     img_in = Input(shape=input_shape, name='img_in')
     
