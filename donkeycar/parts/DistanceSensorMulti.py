@@ -16,11 +16,11 @@ GPIO.setmode(GPIO.BCM)
 # set GPIO Pins
 pinTrigger1 = 18
 pinEcho1 = 24
-brakingDistance1 = 120
+brakingDistance1 = 20
 
 pinTrigger2 = 23
 pinEcho2 = 25
-brakingDistance2 = 120
+brakingDistance2 = 20
 
 sleepTime = 0.2 # run sensor 5 times to second
 
