@@ -32,6 +32,8 @@ from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
 from donkeycar.parts.launch import AiLaunch
 from donkeycar.utils import *
+from donkeycar.parts.DistanceSensor import DistanceSensor
+from donkeycar.parts.DistanceSensor2 import DistanceSensor2
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -159,6 +161,21 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     V.add(PilotCondition(), inputs=['user/mode'], outputs=['run_pilot'])
     
+    # Distance sensor part  Nakagawa-add
+    distanceSensorPart = DistanceSensor()
+    V.add(distanceSensorPart,
+        outputs=['distance', 'user/throttle', 'user/mode'],
+        run_condition='run_pilot',
+        threaded=True)
+    #Nakagawa
+    # Distance2 sensor part  Nakagawa-add
+    distanceSensor2Part = DistanceSensor2()
+    V.add(distanceSensor2Part,
+        outputs=['distance', 'user/throttle', 'user/mode'],
+        run_condition='run_pilot',
+        threaded=True)
+    #Nakagawa
+
     class LedConditionLogic:
         def __init__(self, cfg):
             self.cfg = cfg
