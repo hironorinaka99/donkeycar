@@ -54,7 +54,8 @@ class DistanceSensorMulti():
 
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
-        return None, None, None, None
+        #return None, None, None, None
+        return self.distance1, self.distance2, self.throttle, self.mode
 
     def update(self):
         print("In DistanceSensorMulti update")
