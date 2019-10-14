@@ -36,6 +36,9 @@ from donkeycar.parts.DistanceSensor import DistanceSensor
 from donkeycar.parts.DistanceSensor2 import DistanceSensor2
 from donkeycar.parts.DistanceSensorMulti import DistanceSensorMulti
 
+time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
+
+
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
     Construct a working robotic vehicle from many parts.
@@ -411,10 +414,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         V.add(kl, inputs=inputs, 
             outputs=outputs,
             run_condition='run_pilot')            
-    
+
     #Choose what inputs should change the car.
     class DriveMode:
-        time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
+        global time_dis_short_start
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
