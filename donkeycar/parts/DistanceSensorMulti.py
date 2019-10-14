@@ -22,7 +22,7 @@ pinTrigger2 = 23
 pinEcho2 = 25
 brakingDistance2 = 20
 
-sleepTime = 0.2 # run sensor 5 times to second
+sleepTime = 0.1 # run sensor 5 times to second
 
 class DistanceSensorMulti():
 
@@ -50,13 +50,13 @@ class DistanceSensorMulti():
         return
 
     def run_threaded(self):
-        print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2 + "    Throttle" + str(self.throttle) + "   mode" + self.mode)
-        return self.distance1, self.distance2, self.throttle, self.mode
+        print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
+        return self.distance1, self.distance2
 
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
         #return None, None, None, None
-        return self.distance1, self.distance2, self.throttle, self.mode
+        return self.distance1, self.distance2
 
     def update(self):
         print("In DistanceSensorMulti update")
@@ -115,12 +115,14 @@ class DistanceSensorMulti():
         # and divide by 2, because there and back
         self.distance2 = (TimeElapsed2 * 34300) / 2
 
+        """
         if self.distance1 < brakingDistance1 or self.distance2 < brakingDistance2:
             print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2 + " stopping...")
             self.throttle = 0
             self.mode = 'user'
         else:
             self.mode = 'run_pilot'
+        """
 
         time.sleep(sleepTime) 
 

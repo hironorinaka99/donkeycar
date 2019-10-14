@@ -181,9 +181,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     # Distance sensor part  Nakagawa-add
     distanceSensorMultiPart = DistanceSensorMulti()
     V.add(distanceSensorMultiPart,
-        outputs=['distance1','distance2', 'user/throttle', 'user/mode'],
+        outputs=['distance1','distance2'],
+        #run_condition='user',
         #run_condition='run_pilot',
-        run_condition='user',
         threaded=True)
 
     class LedConditionLogic:
@@ -413,13 +413,16 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             run_condition='run_pilot')            
     
     #Choose what inputs should change the car.
+    distance1 = 100
+    distance2 = 100
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
-            print("Drive Mode" + mode)
+            print("Drive Mode:" + mode)
             if mode == 'user': 
-                if distance1 < 20: #Test
+
+                if true:#distance1 < 20: #Test
                     return user_angle, 0 #test
                 else:
                     return user_angle, user_throttle
