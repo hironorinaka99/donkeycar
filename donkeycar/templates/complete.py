@@ -411,6 +411,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle):
+            print("Drive Mode" + mode)
             if mode == 'user': 
                 return user_angle, user_throttle
             
