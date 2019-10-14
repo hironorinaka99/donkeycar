@@ -417,11 +417,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #Choose what inputs should change the car.
     class DriveMode:
-        global time_dis_short_start
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
             #print("Drive Mode:" + mode)
+            global time_dis_short_start
+
             if mode == 'user': 
                 return user_angle, user_throttle           
             elif mode == 'local_angle':
