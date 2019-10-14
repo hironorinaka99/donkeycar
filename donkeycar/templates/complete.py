@@ -417,7 +417,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
-            print("Drive Mode:" + mode)
+            #print("Drive Mode:" + mode)
             if mode == 'user': 
                 return user_angle, user_throttle
             
@@ -426,8 +426,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             
             else: #local
                 if distance1 < 20 or distance2 < 20:
+                    print("distance short")
                     return pilot_angle, 0
                 else:
+                    print("distance ok")
+
                     return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
