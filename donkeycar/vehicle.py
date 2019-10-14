@@ -89,7 +89,6 @@ class Vehicle:
         entry['inputs'] = inputs
         entry['outputs'] = outputs
         entry['run_condition'] = run_condition
-        print(entry)
 
         if threaded:
             t = Thread(target=part.update, args=())
