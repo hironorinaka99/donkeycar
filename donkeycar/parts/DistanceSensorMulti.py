@@ -50,6 +50,7 @@ class DistanceSensorMulti():
         return
 
     def run_threaded(self):
+        print("run_threded")
         return self.distance1, self.distance2, self.throttle, self.mode
 
     def run(self):
