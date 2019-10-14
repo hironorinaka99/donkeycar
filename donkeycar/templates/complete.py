@@ -410,10 +410,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle):
+                    pilot_angle, pilot_throttle,distance1,distance2):
             print("Drive Mode" + mode)
             if mode == 'user': 
-                return user_angle, user_throttle
+                if distance1 < 20: #Test
+                    return user_angle, 0 #test
+                else:
+                    return user_angle, user_throttle
             
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
@@ -423,7 +426,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle'], 
+                  'pilot/angle', 'pilot/throttle', 'distance1','distance2'], 
           outputs=['angle', 'throttle'])
 
     
