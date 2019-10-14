@@ -421,8 +421,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_angle, pilot_throttle,distance1,distance2):
             print("Drive Mode:" + mode)
             if mode == 'user': 
-
                 if True: #distance1 < 20: #Test
+                    print("distance1 = " + str(distance1))
+
                     return user_angle, 0 #test
                 else:
                     return user_angle, user_throttle
