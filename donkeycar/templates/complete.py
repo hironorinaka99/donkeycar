@@ -430,13 +430,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             else: #local
                 if distance1 < 20 or distance2 < 20:
                     time_dis_gap = time.time() - time_dis_short_start
-                    if time_dis_gap > 2:
+                    if time_dis_gap > 1:
                         time_dis_short_start = time.time()
                         print("set new start time")
-                    elif time_dis_gap > 1:
+                    elif time_dis_gap > 0.5:
                         return pilot_angle, -0.3
                         print("reverse")
-                    elif time_dis_gap > 0.5:
+                    elif time_dis_gap > 0.1:
                         return pilot_angle, 0
                         print("wait at zero")
                 else:
