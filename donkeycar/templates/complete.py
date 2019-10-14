@@ -178,7 +178,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         threaded=True)
     #Nakagawa
     """
-
+    # Distance sensor part  Nakagawa-add
+    distanceSensorMultiPart = DistanceSensorMulti()
+    V.add(distanceSensorMultiPart,
+        outputs=['distance1','distance2', 'user/throttle', 'user/mode'],
+        run_condition='run_pilot',
+        threaded=True)
 
     class LedConditionLogic:
         def __init__(self, cfg):
@@ -437,12 +442,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         inputs=['user/mode', 'throttle'],
         outputs=['throttle'])
 
-    # Distance sensor part  Nakagawa-add
-    distanceSensorMultiPart = DistanceSensorMulti()
-    V.add(distanceSensorMultiPart,
-        outputs=['distance1','distance2', 'user/throttle', 'user/mode'],
-        run_condition='run_pilot',
-        threaded=True)
 
 
     if isinstance(ctr, JoystickController):
