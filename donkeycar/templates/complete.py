@@ -413,8 +413,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             run_condition='run_pilot')            
     
     #Choose what inputs should change the car.
-    time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
     class DriveMode:
+        time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
