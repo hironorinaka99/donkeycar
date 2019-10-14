@@ -182,7 +182,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     distanceSensorMultiPart = DistanceSensorMulti()
     V.add(distanceSensorMultiPart,
         outputs=['distance1','distance2', 'user/throttle', 'user/mode'],
-        run_condition='run_pilot',
+    #   run_condition='run_pilot',
         threaded=True)
 
     class LedConditionLogic:
