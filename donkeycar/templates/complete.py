@@ -413,21 +413,28 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             run_condition='run_pilot')            
     
     #Choose what inputs should change the car.
+    time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
             #print("Drive Mode:" + mode)
             if mode == 'user': 
-                return user_angle, user_throttle
-            
+                return user_angle, user_throttle           
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
-            
             else: #local
                 if distance1 < 20 or distance2 < 20:
-                    #print("distance short")
-                    return pilot_angle, -0.3
+                    time_dis_gap = time.time() - time_dis_short_start
+                    if time_dis_gap > 2:
+                        time_dis_short_start = time.time()
+                        print("set new start time")
+                    elif time_dis_gap > 1:
+                        return pilot_angle, -0.3
+                        print("reverse")
+                    elif time_dis_gap > 0.5:
+                        return pilot_angle, 0
+                        print("wait at zero")
                 else:
                     #print("distance ok")
                     return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
