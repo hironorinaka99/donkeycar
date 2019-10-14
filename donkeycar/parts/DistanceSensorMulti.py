@@ -32,7 +32,7 @@ class DistanceSensorMulti():
         self.distance2 = 0.00
         self.throttle = 0
         self.running = True
-        self.mode = 'run_pilot'
+        #self.mode = 'run_pilot'
 
         def close(signal, frame):
             print("\nTurning off ultrasonic distance detection...\n")
@@ -50,7 +50,7 @@ class DistanceSensorMulti():
         return
 
     def run_threaded(self):
-        print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
+        #print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
         return self.distance1, self.distance2
 
     def run(self):
@@ -63,7 +63,7 @@ class DistanceSensorMulti():
         while self.running:
             try: #Nakagawa
                 self.listenToDistanceSensor()
-                print ("Update Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
+                #print ("Update Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
 
             except: #Nakagawa
                 pass

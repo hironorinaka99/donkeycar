@@ -430,7 +430,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     return pilot_angle, 0
                 else:
                     #print("distance ok")
-
                     return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
