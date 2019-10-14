@@ -430,13 +430,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             else: #local
                 if distance1 < 20 or distance2 < 20:
                     time_dis_gap = time.time() - time_dis_short_start
-                    if time_dis_gap > 1:
+                    if time_dis_gap > 1: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
                         print("set new start time")
-                    elif time_dis_gap > 0.5:
+                    elif time_dis_gap > 0.8: #いったんバックする時間
                         return pilot_angle, -0.3
                         print("reverse")
-                    elif time_dis_gap > 0.1:
+                    elif time_dis_gap > 0.3: #バックする為に一度0を入力
                         return pilot_angle, 0
                         print("wait at zero")
                 else:
