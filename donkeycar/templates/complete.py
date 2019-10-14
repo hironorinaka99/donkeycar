@@ -426,10 +426,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             
             else: #local
                 if distance1 < 20 or distance2 < 20:
-                    print("distance short")
+                    #print("distance short")
                     return pilot_angle, 0
                 else:
-                    print("distance ok")
+                    #print("distance ok")
 
                     return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
