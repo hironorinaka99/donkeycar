@@ -50,7 +50,7 @@ class DistanceSensorMulti():
         return
 
     def run_threaded(self):
-        print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
+        #print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2)
         return self.distance1, self.distance2
 
     def run(self):
@@ -114,15 +114,6 @@ class DistanceSensorMulti():
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
         self.distance2 = (TimeElapsed2 * 34300) / 2
-
-        """
-        if self.distance1 < brakingDistance1 or self.distance2 < brakingDistance2:
-            print ("Dis1 is: %.1f cm" % self.distance1 +"  " "Dis2 is: %.1f cm" % self.distance2 + " stopping...")
-            self.throttle = 0
-            self.mode = 'user'
-        else:
-            self.mode = 'run_pilot'
-        """
 
         time.sleep(sleepTime) 
 

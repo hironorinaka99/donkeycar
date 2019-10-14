@@ -413,26 +413,22 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             run_condition='run_pilot')            
     
     #Choose what inputs should change the car.
-    distance1 = 100
-    distance2 = 100
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distance1,distance2):
             print("Drive Mode:" + mode)
             if mode == 'user': 
-                if distance1 < 20: #Test
-                    print("distance1 = " + str(distance1))
-
-                    return user_angle, 0 #test
-                else:
-                    return user_angle, user_throttle
+                return user_angle, user_throttle
             
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
             
-            else: 
-                return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
+            else: #local
+                if distance1 < 20 or distance2 < 20:
+                    return pilot_angle, 0
+                else:
+                    return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
