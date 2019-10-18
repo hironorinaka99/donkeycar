@@ -101,7 +101,7 @@ class DistanceSensorMulti2():
         # and divide by 2, because there and back
         self.distanceL = (TimeElapsedL * 34300) / 2
 
-        time.sleep(0.001) #混信防止
+        time.sleep(0.01) #混信防止
 
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
@@ -126,6 +126,8 @@ class DistanceSensorMulti2():
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
         self.distanceC = (TimeElapsedC * 34300) / 2
+
+        time.sleep(0.01) #混信防止
 
         # set Trigger to HIGH  DistanceSensorRight
         GPIO.output(pinTriggerR, True)
