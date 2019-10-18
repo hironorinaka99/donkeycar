@@ -27,7 +27,7 @@ pinEchoR = 7
 brakingDistanceR = 20
 sleepTime = 0.1 # run sensor 5 times to second
 
-class DistanceSensorMulti():
+class DistanceSensorMulti2():
 
     def __init__(self):
 
@@ -57,7 +57,7 @@ class DistanceSensorMulti():
         return
 
     def run_threaded(self):
-        #print ("DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
+        print ("DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
         return self.distanceL, self.distanceC, self.distanceR
 
     def run(self):
@@ -70,7 +70,7 @@ class DistanceSensorMulti():
         while self.running:
             try: #Nakagawa
                 self.listenToDistanceSensor()
-                #print ("DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
+                print ("Update  DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
 
             except: #Nakagawa
                 pass
