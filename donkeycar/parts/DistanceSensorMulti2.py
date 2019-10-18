@@ -57,7 +57,7 @@ class DistanceSensorMulti2():
         return
 
     def run_threaded(self):
-        print ("DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
+        #print ("DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
         return self.distanceL, self.distanceC, self.distanceR
 
     def run(self):
@@ -70,7 +70,7 @@ class DistanceSensorMulti2():
         while self.running:
             try: #Nakagawa
                 self.listenToDistanceSensor()
-                print ("Update  DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
+                #print ("Update  DisL is: %.1f cm" % self.distanceL +"  " "DisC is: %.1f cm" % self.distanceC + "  " "DisR is: %.1f cm" % self.distanceR)
 
             except: #Nakagawa
                 pass
