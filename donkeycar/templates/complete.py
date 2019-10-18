@@ -406,6 +406,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             global time_dis_short_start
 
             if mode == 'user': 
+                """
                 if distanceL < 20 or distanceC < 20 or distanceR < 20:
                     time_dis_gap = time.time() - time_dis_short_start
                     if time_dis_gap > 1: #初期タイマー無反応（下記数値より大きいこと）
@@ -428,9 +429,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return 0, 0 #中央が近い場合は、ハンドル中央に戻し、スロットル0で待機
                 else:
                     #print("distance ok")
-                    return user_angle, user_thorottle
+                    return user_angle, user_throttle
+                """
 
-                #return user_angle, user_throttle           
+                return user_angle, user_throttle           
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
             else: #local
