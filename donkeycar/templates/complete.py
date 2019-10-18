@@ -428,7 +428,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return 0, 0 #中央が近い場合は、ハンドル中央に戻し、スロットル0で待機
                 else:
                     #print("distance ok")
-                    return user_angle, user_throttl
+                    return user_angle, user_thorottle
 
                 #return user_angle, user_throttle           
             elif mode == 'local_angle':
