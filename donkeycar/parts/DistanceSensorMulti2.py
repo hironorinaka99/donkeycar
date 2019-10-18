@@ -25,7 +25,7 @@ brakingDistanceC = 20
 pinTriggerR = 8
 pinEchoR = 7
 brakingDistanceR = 20
-sleepTime = 0.2 # run sensor 5 times to second
+sleepTime = 0.1 # run sensor 5 times to second
 
 class DistanceSensorMulti2():
 
@@ -91,7 +91,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoL) and temp_count < 1000:
+        while 1 == GPIO.input(pinEchoL) and temp_count < 100:
             temp_count +=1
             stopTimeL = time.time()
 
@@ -118,7 +118,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoC) and temp_count < 1000:
+        while 1 == GPIO.input(pinEchoC) and temp_count < 100:
             temp_count +=1
 
         # time difference between start and arrival
@@ -144,7 +144,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoR) and temp_count < 1000:
+        while 1 == GPIO.input(pinEchoR) and temp_count < 100:
             temp_count +=1
 
         # time difference between start and arrival
