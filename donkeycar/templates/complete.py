@@ -32,9 +32,7 @@ from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
 from donkeycar.parts.launch import AiLaunch
 from donkeycar.utils import *
-from donkeycar.parts.DistanceSensor import DistanceSensor
-from donkeycar.parts.DistanceSensor2 import DistanceSensor2
-from donkeycar.parts.DistanceSensorMulti import DistanceSensorMulti
+from donkeycar.parts.DistanceSensorMulti2 import DistanceSensorMulti2
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 
@@ -165,26 +163,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     V.add(PilotCondition(), inputs=['user/mode'], outputs=['run_pilot'])
     
-    """
     # Distance sensor part  Nakagawa-add
-    distanceSensorPart = DistanceSensor()
-    V.add(distanceSensorPart,
-        outputs=['distance', 'user/throttle', 'user/mode'],
-        run_condition='run_pilot',
-        threaded=True)
-    #Nakagawa
-    # Distance2 sensor part  Nakagawa-add
-    distanceSensor2Part = DistanceSensor2()
-    V.add(distanceSensor2Part,
-        outputs=['distance', 'user/throttle', 'user/mode'],
-        run_condition='run_pilot',
-        threaded=True)
-    #Nakagawa
-    """
-    # Distance sensor part  Nakagawa-add
-    distanceSensorMultiPart = DistanceSensorMulti()
-    V.add(distanceSensorMultiPart,
-        outputs=['distance1','distance2'],
+    distanceSensorMultiPart2 = DistanceSensorMulti2()
+    V.add(distanceSensorMultiPart2,
+        outputs=['distanceL','distanceC','distanceR'],
         #run_condition='user',
         #run_condition='run_pilot',
         threaded=True)
@@ -419,7 +401,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distance1,distance2):
+                    pilot_angle, pilot_throttle,distanceL,distanceC,distanceR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
 
@@ -428,7 +410,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
             else: #local
-                if distance1 < 20 or distance2 < 20:
+                if distanceL < 20 or distanceC < 20 or distanceR < 20:
                     time_dis_gap = time.time() - time_dis_short_start
                     if time_dis_gap > 1: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
@@ -445,7 +427,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distance1','distance2'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceL','distanceC','distanceR'], 
           outputs=['angle', 'throttle'])
 
     
