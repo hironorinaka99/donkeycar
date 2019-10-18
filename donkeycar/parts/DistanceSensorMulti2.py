@@ -91,7 +91,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoL) and temp_count < 100:
+        while 1 == GPIO.input(pinEchoL) and temp_count < 10000:
             temp_count +=1
             stopTimeL = time.time()
 
@@ -118,7 +118,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoC) and temp_count < 100:
+        while 1 == GPIO.input(pinEchoC) and temp_count < 10000:
             temp_count +=1
 
         # time difference between start and arrival
@@ -142,7 +142,7 @@ class DistanceSensorMulti2():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoR) and temp_count < 100:
+        while 1 == GPIO.input(pinEchoR) and temp_count < 10000:
             temp_count +=1
 
         # time difference between start and arrival
