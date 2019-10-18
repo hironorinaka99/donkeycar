@@ -32,7 +32,6 @@ from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
 from donkeycar.parts.launch import AiLaunch
 from donkeycar.utils import *
-from donkeycar.parts.DistanceSensorMulti2 import DistanceSensorMulti2
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 
@@ -164,6 +163,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     V.add(PilotCondition(), inputs=['user/mode'], outputs=['run_pilot'])
     
     # Distance sensor part  Nakagawa-add
+    from donkeycar.parts.DistanceSensorMulti2 import DistanceSensorMulti2
     distanceSensorMultiPart2 = DistanceSensorMulti2()
     V.add(distanceSensorMultiPart2,
         outputs=['distanceL','distanceC','distanceR'],
