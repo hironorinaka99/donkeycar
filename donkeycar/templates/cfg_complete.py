@@ -109,7 +109,7 @@ PI_DONKEY_ROOT = "/home/pi/mycar"   # the location of the mycar dir on the pi. t
 # Region of interst cropping
 # only supported in Categorical and Linear models.
 # If these crops values are too large, they will cause the stride values to become negative and the model with not be valid.
-ROI_CROP_TOP = 0                    #the number of rows of pixels to ignore on the top of the image
+ROI_CROP_TOP = 40                    #the number of rows of pixels to ignore on the top of the image
 ROI_CROP_BOTTOM = 0                 #the number of rows of pixels to ignore on the bottom of the image
 
 #Model transfer options
