@@ -95,6 +95,7 @@ class DistanceSensorMulti2():
             temp_count +=1
             stopTimeL = time.time()
 
+
         # time difference between start and arrival
         TimeElapsedL = stopTimeL - startTimeL
         # multiply with the sonic speed (34300 cm/s)
@@ -143,8 +144,7 @@ class DistanceSensorMulti2():
         # save start time
         while 0 == GPIO.input(pinEchoR):
             startTimeR = time.time()
-            stopTimeR = time.time()
-
+        
         # save time of arrival
         temp_count =0 
         while 1 == GPIO.input(pinEchoR) and temp_count < 1000:
