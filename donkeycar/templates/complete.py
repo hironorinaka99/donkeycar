@@ -416,8 +416,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         time_dis_short_start = time.time()
                         print("set new start time")
                     elif time_dis_gap > 0.8: #いったんバックする時間
-                        print("reverse")
-                        return pilot_angle, -0.3
+                        if min(distanceL, distanceC, distanceR) == distanceL:
+                            return -1, -0.3 #左が近い場合は、右にハンドル切って後退
+                        elif min(distanceL, distanceC, distanceR) == distanceL:
+                            return 1, -0.3 #右が近い場合は、左にハンドル切って後退
+                        else:
+                            return 0, -0.3 #中央が近い場合は、ハンドル中央に戻し、後退
+
                     elif time_dis_gap > 0.3: #バックする為に一度0を入力
                         if min(distanceL, distanceC, distanceR) == distanceL:
                             return -1, 0 #左が近い場合は、右にハンドル切ってスロットル0で待機
