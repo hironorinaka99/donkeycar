@@ -416,10 +416,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_back_throttle = -0.3 #後退速度
 
             if mode == 'user': 
-                """
                 #LKA適な動作
-                if distanceLL < dis_LL_range:
-                    user_angle -= 
+                if distanceLL < dis_LL_range: #左横センサ近いとき
+                    user_angle += 0.3 #ハンドル指示値を右に少し
+                if distanceRR < dis_RR_range: #右横センサ近いとき
+                    user_angle -= 0.3 #ハンドル指示値を右に少し
                 
                 
                 #後退させる必要があるとき
