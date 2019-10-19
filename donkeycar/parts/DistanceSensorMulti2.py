@@ -165,7 +165,7 @@ class DistanceSensorMulti2():
             temp_count +=1
             startTimeR = time.time()
 
-        time.sleep(0.0003) #チャタリング防止
+        #time.sleep(0.0003) #チャタリング防止
 
         # save time of arrival
         temp_count =0 
