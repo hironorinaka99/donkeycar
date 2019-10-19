@@ -406,12 +406,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             global time_dis_short_start
 
             if mode == 'user': 
-                """
+
                 if distanceL < 20 or distanceC < 20 or distanceR < 20:
                     time_dis_gap = time.time() - time_dis_short_start
                     if time_dis_gap > 1: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
                         print("set new start time")
+                        return 0, 0 #ニュートラルに戻す
                     elif time_dis_gap > 0.8: #いったんバックする時間
                         if min(distanceL, distanceC, distanceR) == distanceL:
                             return -1, -0.3 #左が近い場合は、右にハンドル切って後退
@@ -430,12 +431,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 else:
                     #print("distance ok")
                     return user_angle, user_throttle
-                """
+
                 #if distanceL < 20 or distanceC < 20 or distanceR < 20:
                 #    time_dis_gap = time.time() - time_dis_short_start
                 #    print("short!")
                 #else:
-                return user_angle, user_throttle
+                #return user_angle, user_throttle
 
             elif mode == 'local_angle':
                 return pilot_angle, user_throttle
