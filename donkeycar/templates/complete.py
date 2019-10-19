@@ -448,7 +448,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     #print("distance ok")
                     return user_angle, user_throttle
                 """
-                return -1.5, 0
+                return 0.3, 0
 
                 #if distanceL < 20 or distanceC < 20 or distanceR < 20:
                 #    time_dis_gap = time.time() - time_dis_short_start
