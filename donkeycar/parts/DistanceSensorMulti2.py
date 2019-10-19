@@ -165,6 +165,8 @@ class DistanceSensorMulti2():
             temp_count +=1
             startTimeR = time.time()
 
+        time.sleep(0.0001) #チャタリング防止
+
         # save time of arrival
         temp_count =0 
         while 1 == GPIO.input(pinEchoR) and temp_count < 1000:
