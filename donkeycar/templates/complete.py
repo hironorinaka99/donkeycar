@@ -417,9 +417,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             if mode == 'user': 
                 #LKA適な動作
-                if distanceLL < dis_LL_range: #左横センサ近いとき
-                    user_angle += 0.3 #ハンドル指示値を右に少し
-                if distanceRR < dis_RR_range: #右横センサ近いとき
+                if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
+                    #user_angle += 0.3 #ハンドル指示値を右に少し
+                    user_angle += (dis_LL_range - distanceLL) * 0.03  #ハンドル指示値を右に少し 0.03は係数
+                if distanceRR < dis_RR_range: #右横センサ近いとき(マイナス値は除く)
                     user_angle -= 0.3 #ハンドル指示値を右に少し
                 
                 
