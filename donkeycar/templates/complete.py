@@ -434,17 +434,17 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("set new start time")
                         return 0, 0 #ニュートラルに戻す
                     elif time_dis_gap > dis_timer_back + dis_timer_wait: #いったんバックする時間
-                        if min(distanceL, distanceC, distanceR) == distanceL:
+                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
                             return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
-                        elif min(distanceL, distanceC, distanceR) == distanceR:
+                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
                             return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
                         else:
                             return 0, dis_back_throttle #中央が近い場合は、ハンドル中央に戻し、後退
 
                     elif time_dis_gap > dis_timer_back: #バックする為に一度0を入力
-                        if min(distanceL, distanceC, distanceR) == distanceL:
+                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
                             return -1, 0 #左が近い場合は、左にハンドル切ってスロットル0で待機
-                        elif min(distanceL, distanceC, distanceR) == distanceR:
+                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
                             return 1, 0 #右が近い場合は、右にハンドル切ってスロットル0で待機
                         else:
                             return 0, 0 #中央が近い場合は、ハンドル中央に戻し、スロットル0で待機
