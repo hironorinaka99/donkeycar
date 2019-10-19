@@ -14,7 +14,6 @@ import sys
 GPIO.setmode(GPIO.BCM)
 
 # set GPIO Pins
-"""
 pinTriggerL = 18
 pinEchoL = 23
 brakingDistanceL = 20
@@ -25,18 +24,6 @@ brakingDistanceC = 20
 
 pinTriggerR = 8
 pinEchoR = 7
-brakingDistanceR = 20
-"""
-pinTriggerL = 19
-pinEchoL =  20
-brakingDistanceL = 20
-
-pinTriggerC = 25
-pinEchoC = 24
-brakingDistanceC = 20
-
-pinTriggerR = 26
-pinEchoR = 21
 brakingDistanceR = 20
 
 sleepTime = 0.1 # run sensor 5 times to second
@@ -122,8 +109,8 @@ class DistanceSensorMulti2():
 
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
-        # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
+        # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
 
         startTimeC = time.time()
@@ -164,8 +151,6 @@ class DistanceSensorMulti2():
         while 0 == GPIO.input(pinEchoR) and temp_count < 1000:
             temp_count +=1
             startTimeR = time.time()
-
-        #time.sleep(0.0003) #チャタリング防止
 
         # save time of arrival
         temp_count =0 
