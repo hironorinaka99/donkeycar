@@ -163,10 +163,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     V.add(PilotCondition(), inputs=['user/mode'], outputs=['run_pilot'])
     
     # Distance sensor part  Nakagawa-add
-    from donkeycar.parts.DistanceSensorMulti2 import DistanceSensorMulti2
-    distanceSensorMultiPart2 = DistanceSensorMulti2()
-    V.add(distanceSensorMultiPart2,
-        outputs=['distanceL','distanceC','distanceR'],
+    from donkeycar.parts.DistanceSensorMulti3 import DistanceSensorMulti3
+    distanceSensorMultiPart3 = DistanceSensorMulti2()
+    V.add(distanceSensorMultiPart3,
+        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR'],
         #run_condition='user',
         #run_condition='run_pilot',
         threaded=True)
@@ -401,12 +401,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceL,distanceC,distanceR):
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
+            dis_LL_range = 10 #左横センサーの反応範囲
             dis_L_range = 20 #左センサーの反応範囲 
             dis_C_range = 40 #中央センサーの反応範囲 
             dis_R_range = 20 #右センサーの反応範囲 
+            dis_RR_range = 10 #右横センサーの反応範囲 
+            
             dis_timer_all = 1.0 #待ち時間全体
             dis_timer_back = 0.5 #後退時間
             dis_timer_wait = 0.3 #後退待ち時間
@@ -473,7 +476,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceL','distanceC','distanceR'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR'], 
           outputs=['angle', 'throttle'])
 
     
