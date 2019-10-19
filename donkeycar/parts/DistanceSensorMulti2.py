@@ -27,8 +27,8 @@ pinTriggerR = 8
 pinEchoR = 7
 brakingDistanceR = 20
 """
-pinTriggerL = 19
-pinEchoL = 20
+pinTriggerL = 18 #19　
+pinEchoL =  23 #20
 brakingDistanceL = 20
 
 pinTriggerC = 25
