@@ -27,16 +27,16 @@ pinTriggerR = 8
 pinEchoR = 7
 brakingDistanceR = 20
 """
-pinTriggerL = 18 #19　
-pinEchoL =  23 #20
+pinTriggerL = 19　
+pinEchoL =  20
 brakingDistanceL = 20
 
 pinTriggerC = 25
 pinEchoC = 24
 brakingDistanceC = 20
 
-pinTriggerR = 26
-pinEchoR = 21
+pinTriggerR = 8 #26
+pinEchoR = 7 #21
 brakingDistanceR = 20
 
 sleepTime = 0.1 # run sensor 5 times to second
