@@ -14,6 +14,7 @@ import sys
 GPIO.setmode(GPIO.BCM)
 
 # set GPIO Pins
+"""
 pinTriggerL = 18
 pinEchoL = 23
 brakingDistanceL = 20
@@ -25,6 +26,19 @@ brakingDistanceC = 20
 pinTriggerR = 8
 pinEchoR = 7
 brakingDistanceR = 20
+"""
+pinTriggerL = 19
+pinEchoL = 20
+brakingDistanceL = 20
+
+pinTriggerC = 25
+pinEchoC = 24
+brakingDistanceC = 20
+
+pinTriggerR = 26
+pinEchoR = 21
+brakingDistanceR = 20
+
 sleepTime = 0.1 # run sensor 5 times to second
 
 class DistanceSensorMulti2():
