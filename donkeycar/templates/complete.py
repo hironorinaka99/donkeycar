@@ -164,7 +164,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     
     # Distance sensor part  Nakagawa-add
     from donkeycar.parts.DistanceSensorMulti3 import DistanceSensorMulti3
-    distanceSensorMultiPart3 = DistanceSensorMulti2()
+    distanceSensorMultiPart3 = DistanceSensorMulti3()
     V.add(distanceSensorMultiPart3,
         outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR'],
         #run_condition='user',
