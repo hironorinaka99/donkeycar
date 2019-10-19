@@ -36,7 +36,7 @@ brakingDistanceRR = 10
 
 sleepTime = 0.1 # run sensor 10 times to second
 
-class DistanceSensorMulti2():
+class DistanceSensorMulti3():
 
     def __init__(self):
 
