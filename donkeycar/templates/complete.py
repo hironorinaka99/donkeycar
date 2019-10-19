@@ -404,24 +404,30 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_angle, pilot_throttle,distanceL,distanceC,distanceR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
+            dis_L_range = 20 #左センサーの反応範囲 
+            dis_C_range = 40 #中央センサーの反応範囲 
+            dis_R_range = 20 #右センサーの反応範囲 
+            dis_timer_all = 1.0 #待ち時間全体
+            dis_timer_back = 0.5 #後退時間
+            dis_timer_wait = 0.3 #後退待ち時間
+            dis_back_throttle = -0.3 #後退速度
 
             if mode == 'user': 
-
-                if distanceL < 20 or distanceC < 20 or distanceR < 20:
+                if distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range:
                     time_dis_gap = time.time() - time_dis_short_start
-                    if time_dis_gap > 1: #初期タイマー無反応（下記数値より大きいこと）
+                    if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
-                        print("set new start time")
+                        #print("set new start time")
                         return 0, 0 #ニュートラルに戻す
-                    elif time_dis_gap > 0.8: #いったんバックする時間
+                    elif time_dis_gap > dis_timer_back + dis_timer_wait: #いったんバックする時間
                         if min(distanceL, distanceC, distanceR) == distanceL:
-                            return -1, -0.3 #左が近い場合は、右にハンドル切って後退
+                            return -1, dis_back_throttle #左が近い場合は、右にハンドル切って後退
                         elif min(distanceL, distanceC, distanceR) == distanceR:
-                            return 1, -0.3 #右が近い場合は、左にハンドル切って後退
+                            return 1, dis_back_throttle #右が近い場合は、左にハンドル切って後退
                         else:
-                            return 0, -0.3 #中央が近い場合は、ハンドル中央に戻し、後退
+                            return 0, dis_back_throttle #中央が近い場合は、ハンドル中央に戻し、後退
 
-                    elif time_dis_gap > 0.3: #バックする為に一度0を入力
+                    elif time_dis_gap > dis_timer_back: #バックする為に一度0を入力
                         if min(distanceL, distanceC, distanceR) == distanceL:
                             return -1, 0 #左が近い場合は、右にハンドル切ってスロットル0で待機
                         elif min(distanceL, distanceC, distanceR) == distanceR:
