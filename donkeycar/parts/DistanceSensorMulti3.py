@@ -118,32 +118,6 @@ class DistanceSensorMulti3():
         TimeElapsedLL = stopTimeLL - startTimeLL
         self.distanceLL = (TimeElapsedLL * 34300) / 2
 
-        time.sleep(0.001)
-        # set Trigger to HIGH  DistanceSensorLeft
-        GPIO.output(pinTriggerL, True)
-        # set Trigger after 0.01ms to LOW
-        time.sleep(0.00001)
-        GPIO.output(pinTriggerL, False)
-
-        startTimeL = time.time()
-        stopTimeL = time.time()
-
-        # save start time
-        temp_count =0 
-        while 0 == GPIO.input(pinEchoL) and temp_count < 1000:
-            temp_count +=1
-            startTimeL = time.time()
-
-        # save time of arrival
-        temp_count =0 
-        while 1 == GPIO.input(pinEchoL) and temp_count < 1000:
-            temp_count +=1
-            stopTimeL = time.time()
-
-        TimeElapsedL = stopTimeL - startTimeL
-        self.distanceL = (TimeElapsedL * 34300) / 2
-
-        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
@@ -168,7 +142,55 @@ class DistanceSensorMulti3():
         TimeElapsedC = stopTimeC - startTimeC
         self.distanceC = (TimeElapsedC * 34300) / 2
 
-        time.sleep(0.001)
+        # set Trigger to HIGH  DistanceSensorRightRight
+        GPIO.output(pinTriggerRR, True)
+        # set Trigger after 0.01ms to LOW
+        time.sleep(0.00001)
+        GPIO.output(pinTriggerRR, False)
+
+        startTimeRR = time.time()
+        stopTimeRR = time.time()
+
+        # save start time
+        temp_count = 0
+        while 0 == GPIO.input(pinEchoRR) and temp_count < 1000:
+            temp_count +=1
+            startTimeRR = time.time()
+
+        # save time of arrival
+        temp_count =0 
+        while 1 == GPIO.input(pinEchoRR) and temp_count < 1000:
+            temp_count +=1
+            stopTimeRR = time.time()
+            
+        TimeElapsedRR = stopTimeRR - startTimeRR
+        self.distanceRR = (TimeElapsedRR * 34300) / 2
+
+        # set Trigger to HIGH  DistanceSensorLeft
+        GPIO.output(pinTriggerL, True)
+        # set Trigger after 0.01ms to LOW
+        time.sleep(0.00001)
+        GPIO.output(pinTriggerL, False)
+
+        startTimeL = time.time()
+        stopTimeL = time.time()
+
+        # save start time
+        temp_count =0 
+        while 0 == GPIO.input(pinEchoL) and temp_count < 1000:
+            temp_count +=1
+            startTimeL = time.time()
+
+        # save time of arrival
+        temp_count =0 
+        while 1 == GPIO.input(pinEchoL) and temp_count < 1000:
+            temp_count +=1
+            stopTimeL = time.time()
+
+        TimeElapsedL = stopTimeL - startTimeL
+        self.distanceL = (TimeElapsedL * 34300) / 2
+
+
         # set Trigger to HIGH  DistanceSensorRight
         GPIO.output(pinTriggerR, True)
         # set Trigger after 0.01ms to LOW
@@ -193,30 +215,6 @@ class DistanceSensorMulti3():
         TimeElapsedR = stopTimeR - startTimeR
         self.distanceR = (TimeElapsedR * 34300) / 2
 
-        time.sleep(0.001)
-        # set Trigger to HIGH  DistanceSensorRightRight
-        GPIO.output(pinTriggerRR, True)
-        # set Trigger after 0.01ms to LOW
-        time.sleep(0.00001)
-        GPIO.output(pinTriggerRR, False)
-
-        startTimeRR = time.time()
-        stopTimeRR = time.time()
-
-        # save start time
-        temp_count = 0
-        while 0 == GPIO.input(pinEchoRR) and temp_count < 1000:
-            temp_count +=1
-            startTimeRR = time.time()
-
-        # save time of arrival
-        temp_count =0 
-        while 1 == GPIO.input(pinEchoRR) and temp_count < 1000:
-            temp_count +=1
-            stopTimeRR = time.time()
-            
-        TimeElapsedRR = stopTimeRR - startTimeRR
-        self.distanceRR = (TimeElapsedRR * 34300) / 2
 
         time.sleep(sleepTime) 
 
