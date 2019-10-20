@@ -100,7 +100,7 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
 
-        #startTimeLL = time.time()
+        startTimeLL = time.time()
         #stopTimeLL = time.time()
 
         # save start time
@@ -125,7 +125,7 @@ class DistanceSensorMulti3():
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
 
-        #startTimeC = time.time()
+        startTimeC = time.time()
         #stopTimeC = time.time()
 
         # save start time
@@ -150,7 +150,7 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
 
-        #startTimeRR = time.time()
+        startTimeRR = time.time()
         #stopTimeRR = time.time()
 
         # save start time
@@ -175,7 +175,7 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
 
-        #startTimeL = time.time()
+        startTimeL = time.time()
         #stopTimeL = time.time()
 
         # save start time
@@ -201,7 +201,7 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
 
-        #startTimeR = time.time()
+        startTimeR = time.time()
         #stopTimeR = time.time()
 
         # save start time
