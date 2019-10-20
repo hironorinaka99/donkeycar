@@ -415,7 +415,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_all = 1.2 #待ち時間全体
             dis_timer_back = 0.7 #後退時間
             dis_timer_wait = 0.3 #後退待ち時間
-            dis_back_throttle = -0.3 #後退速度
+            dis_back_throttle = -0.35 #後退速度
 
             if mode == 'user': 
                 #LKA適な動作
