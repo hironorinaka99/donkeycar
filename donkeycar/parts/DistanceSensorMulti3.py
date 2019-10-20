@@ -117,7 +117,8 @@ class DistanceSensorMulti3():
 
         TimeElapsedLL = stopTimeLL - startTimeLL
         self.distanceLL = (TimeElapsedLL * 34300) / 2
-
+        
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
@@ -142,6 +143,7 @@ class DistanceSensorMulti3():
         TimeElapsedC = stopTimeC - startTimeC
         self.distanceC = (TimeElapsedC * 34300) / 2
 
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRightRight
         GPIO.output(pinTriggerRR, True)
         # set Trigger after 0.01ms to LOW
@@ -166,6 +168,7 @@ class DistanceSensorMulti3():
         TimeElapsedRR = stopTimeRR - startTimeRR
         self.distanceRR = (TimeElapsedRR * 34300) / 2
 
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorLeft
         GPIO.output(pinTriggerL, True)
         # set Trigger after 0.01ms to LOW
@@ -191,6 +194,7 @@ class DistanceSensorMulti3():
         self.distanceL = (TimeElapsedL * 34300) / 2
 
 
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRight
         GPIO.output(pinTriggerR, True)
         # set Trigger after 0.01ms to LOW
