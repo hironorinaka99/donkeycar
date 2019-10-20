@@ -105,7 +105,7 @@ class DistanceSensorMulti3():
 
         # save start time
         temp_count =0 
-        while 0 == GPIO.input(pinEchoLL) and temp_count < 1000:
+        while 0 == GPIO.input(pinEchoLL) and temp_count < 10000:
             temp_count +=1
             startTimeLL = time.time()
 
@@ -130,7 +130,7 @@ class DistanceSensorMulti3():
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoC) and temp_count < 1000:
+        while 0 == GPIO.input(pinEchoC) and temp_count < 10000:
             temp_count +=1
             startTimeC = time.time()
 
@@ -155,7 +155,7 @@ class DistanceSensorMulti3():
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoRR) and temp_count < 1000:
+        while 0 == GPIO.input(pinEchoRR) and temp_count < 10000:
             temp_count +=1
             startTimeRR = time.time()
 
@@ -180,7 +180,7 @@ class DistanceSensorMulti3():
 
         # save start time
         temp_count =0 
-        while 0 == GPIO.input(pinEchoL) and temp_count < 1000:
+        while 0 == GPIO.input(pinEchoL) and temp_count < 10000:
             temp_count +=1
             startTimeL = time.time()
 
@@ -206,7 +206,7 @@ class DistanceSensorMulti3():
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoR) and temp_count < 1000:
+        while 0 == GPIO.input(pinEchoR) and temp_count < 10000:
             temp_count +=1
             startTimeR = time.time()
 
