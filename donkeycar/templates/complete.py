@@ -412,10 +412,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
 
-            dis_timer_all = 1.3 #待ち時間全体
-            dis_timer_back = 0.8 #後退時間
+            dis_timer_all = 1.5 #待ち時間全体
+            dis_timer_back = 1.0 #後退時間
             dis_timer_wait = 0.3 #後退待ち時間
-            dis_back_throttle = -0.3 #後退速度
+            dis_back_throttle = -0.4 #後退速度
 
             if mode == 'user': 
                 #LKA適な動作
