@@ -100,12 +100,12 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
 
-        startTimeLL = time.time()
-        stopTimeLL = time.time()
+        #startTimeLL = time.time()
+        #stopTimeLL = time.time()
 
         # save start time
         temp_count =0 
-        while 0 == GPIO.input(pinEchoLL) and temp_count < 100:
+        while 0 == GPIO.input(pinEchoLL) and temp_count < 1000:
             temp_count +=1
             startTimeLL = time.time()
 
@@ -125,12 +125,12 @@ class DistanceSensorMulti3():
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
 
-        startTimeC = time.time()
-        stopTimeC = time.time()
+        #startTimeC = time.time()
+        #stopTimeC = time.time()
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoC) and temp_count < 100:
+        while 0 == GPIO.input(pinEchoC) and temp_count < 1000:
             temp_count +=1
             startTimeC = time.time()
 
@@ -150,12 +150,12 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
 
-        startTimeRR = time.time()
-        stopTimeRR = time.time()
+        #startTimeRR = time.time()
+        #stopTimeRR = time.time()
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoRR) and temp_count < 100:
+        while 0 == GPIO.input(pinEchoRR) and temp_count < 1000:
             temp_count +=1
             startTimeRR = time.time()
 
@@ -175,12 +175,12 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
 
-        startTimeL = time.time()
-        stopTimeL = time.time()
+        #startTimeL = time.time()
+        #stopTimeL = time.time()
 
         # save start time
         temp_count =0 
-        while 0 == GPIO.input(pinEchoL) and temp_count < 100:
+        while 0 == GPIO.input(pinEchoL) and temp_count < 1000:
             temp_count +=1
             startTimeL = time.time()
 
@@ -201,12 +201,12 @@ class DistanceSensorMulti3():
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
 
-        startTimeR = time.time()
-        stopTimeR = time.time()
+        #startTimeR = time.time()
+        #stopTimeR = time.time()
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoR) and temp_count < 100:
+        while 0 == GPIO.input(pinEchoR) and temp_count < 1000:
             temp_count +=1
             startTimeR = time.time()
 
