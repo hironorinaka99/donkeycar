@@ -461,11 +461,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #後退させる必要があるとき
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
                     time_dis_gap = time.time() - time_dis_short_start
-                    if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
+                    if time_dis_gap >  10 #dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
                         #print("set new start time")
-                        return 0, 0 #ニュートラルに戻す
-                    elif time_dis_gap > dis_timer_back + dis_timer_wait: #いったんバックする時間
+                        return pilot_angle, 0 #ニュートラルに戻す
+                    elif time_dis_gap > 5 #dis_timer_back + dis_timer_wait: #いったんバックする時間
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
                             return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
@@ -473,7 +473,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         else:
                             return 0, dis_back_throttle #中央が近い場合は、ハンドル中央に戻し、後退
 
-                    elif time_dis_gap > dis_timer_wait: #バックする為に一度0を入力
+                    elif time_dis_gap > 2 #dis_timer_wait: #バックする為に一度0を入力
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
                             return pilot_angle, 0 #左が近い場合は、スロットル0で待機
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
