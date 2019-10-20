@@ -413,7 +413,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
 
             dis_timer_all = 1.2 #待ち時間全体
-            dis_timer_back = 0.4 #後退時間
+            dis_timer_back = 0.3 #後退時間
             dis_timer_wait = 0.3 #後退待ち時間
             dis_back_throttle = -0.3 #後退速度
 
