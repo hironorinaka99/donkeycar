@@ -405,12 +405,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             dis_LL_range = 20 #左横センサーの反応範囲
-            dis_LL_rev_range = 7 #左横センサーの後退反応範囲
-            dis_L_range = 20 #左センサーの反応範囲 
-            dis_C_range = 40 #中央センサーの反応範囲 
-            dis_R_range = 20 #右センサーの反応範囲 
+            dis_LL_rev_range = 8 #左横センサーの後退反応範囲
+            dis_L_range = 30 #左センサーの反応範囲 
+            dis_C_range = 50 #中央センサーの反応範囲 
+            dis_R_range = 30 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
-            dis_RR_rev_range = 7 #右横センサーの後退反応範囲
+            dis_RR_rev_range = 8 #右横センサーの後退反応範囲
 
             dis_timer_all = 1.5 #待ち時間全体
             dis_timer_back = 1.0 #後退時間
@@ -421,7 +421,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #LKA適な動作
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
                     user_angle += (dis_LL_range - distanceLL) * 0.05  #ハンドル指示値を右に少し 0.05は係数
-                if distanceRR < dis_RR_range: #右横センサ近いとき(マイナス値は除く)
+                if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
                     user_angle -= (dis_RR_range - distanceRR) * 0.05  #ハンドル指示値を左にに少し 0.05は係数
                 
                 #後退させる必要があるとき
