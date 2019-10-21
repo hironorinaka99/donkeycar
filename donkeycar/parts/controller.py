@@ -654,7 +654,6 @@ class JoystickController(object):
         self.chaos_monkey_status = None  #Modified
         self.chaos_monkey_steering = None
         self.dead_zone = 0.0
-        self.angle_new #Nakagawa
 
         self.button_down_trigger_map = {}
         self.button_up_trigger_map = {}
@@ -940,13 +939,12 @@ class JoystickController(object):
                 return self.angle, self.throttle, self.mode, self.recording
 
 
-        self.angle_new = prev_angle + (self.angle - prev_angle) / 10  #ステアリングを鈍感にする
-        print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % self.angle_new  + "   prev_angle  %.2f" % prev_angle)
+        angle_new = prev_angle + (self.angle - prev_angle) / 10  #ステアリングを鈍感にする
+        print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
 
-        prev_angle = self.angle_new #前回ステアリング値をglobal変数で保持
+        prev_angle = angle_new #前回ステアリング値をglobal変数で保持
 
-
-        return self.angle_new, self.throttle, self.mode, self.recording
+        return angle_new, self.throttle, self.mode, self.recording
 
 
     def run(self, img_arr=None):
