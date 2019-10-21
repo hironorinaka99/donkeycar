@@ -953,7 +953,8 @@ class JoystickController(object):
                 angle_new = prev_angle - steering_change_val #steering_change_val変化
         else:
             angle_new = self.angle
-
+        prev_angle = angle_new
+                
         print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
         return angle_new, self.throttle, self.mode, self.recording
         #return self.angle, self.throttle, self.mode, self.recording
