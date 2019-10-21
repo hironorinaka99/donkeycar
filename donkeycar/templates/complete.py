@@ -436,7 +436,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         return pilot_angle, 0 #ニュートラルに戻す
 
                     elif time_dis_gap < dis_timer_wait: #バックする為に一度0を入力
-                        print("back wait" + str(time_dis_gap))
+                        #print("back wait" + str(time_dis_gap))
+                        print("back wait %3.1f" % time_dis_gap)
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
                             return pilot_angle+0.5, 0 #左が近い場合は少し右に切って、スロットル0で待機
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
@@ -445,7 +446,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return pilot_angle, 0 #中央が近い場合は、スロットル0で待機
 
                     elif time_dis_gap < (dis_timer_back + dis_timer_wait): #いったんバックする時間
-                        print("back" + str(time_dis_gap))
+                        #print("back" + str(time_dis_gap))
+                        print("back %3.1f" % time_dis_gap)
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
                             return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
