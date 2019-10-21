@@ -421,7 +421,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                #LKA適な動作
+                #LKA適な動作    #ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
                     pilot_angle += (dis_LL_range - distanceLL) * 0.05  #ハンドル指示値を右に少し 0.05は係数
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
@@ -439,9 +439,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("back wait" + str(time_dis_gap))
                         print("back wait %3.1f" % time_dis_gap)
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
-                            return pilot_angle+0.5, 0 #左が近い場合は少し右に切って、スロットル0で待機
+                            return pilot_angle+0.5, 0 #左が近い場合は少し右に切って(惰性前進中)、スロットル0で待機
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
-                            return pilot_angle-0.5, 0 #右が近い場合は少し左に切って、スロットル0で待機
+                            return pilot_angle-0.5, 0 #右が近い場合は少し左に切って(惰性前進中)、スロットル0で待機
                         else:
                             return pilot_angle, 0 #中央が近い場合は、スロットル0で待機
 
@@ -452,9 +452,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
                             return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
-                        else:
-                            return 0, dis_back_throttle #中央が近い場合は、ハンドル中央に戻し、後退
-
+                        else:                           #中央が近い場合
+                            if distanceL > distanceR:   #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                                return -0.2, dis_back_throttle 
+                            else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                                return 0.2, dis_back_throttle
                 else:
                     #print("distance ok")
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
