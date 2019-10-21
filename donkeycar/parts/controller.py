@@ -7,8 +7,8 @@ import random
 from threading import Thread
 import logging
 from prettytable import PrettyTable
-global prev_steering #Nakagawa
-prev_steering = 0.0
+global prev_angle #Nakagawa
+prev_angle = 0.0
 
 #import for syntactical ease
 from donkeycar.parts.web_controller.web import LocalWebController
@@ -898,7 +898,7 @@ class JoystickController(object):
     
     def run_threaded(self, img_arr=None):
         self.img_arr = img_arr
-        global prev_steering
+        global prev_angle
 
         '''
         process E-Stop state machine
@@ -939,9 +939,10 @@ class JoystickController(object):
                 return self.angle, self.throttle, self.mode, self.recording
 
 
-        print("self.angle %.2f" % self.angle +  "    calc %.2f" % (prev_steering + (self.angle - prev_steering) / 10)  + "   prev_steering  %.2f" % prev_steering)
-        self.angle = prev_steering + (self.angle - prev_steering) / 10  #ステアリングを鈍感にする
-        prev_steering = self.angle #前回ステアリング値をglobal変数で保持
+        print("self.angle %.2f" % self.angle +  "    calc %.2f" % (prev_angle + (self.angle - prev_angle) / 10)  + "   prev_angle  %.2f" % prev_angle)
+        self.angle = prev_angle + (self.angle - prev_angle) / 10  #ステアリングを鈍感にする
+        prev_angle = self.angle #前回ステアリング値をglobal変数で保持
+
 
         return self.angle, self.throttle, self.mode, self.recording
 
