@@ -7,7 +7,8 @@ import random
 from threading import Thread
 import logging
 from prettytable import PrettyTable
-global prev_steering = 0.0 #Nakagawa
+global prev_steering #Nakagawa
+prev_steering = 0.0
 
 #import for syntactical ease
 from donkeycar.parts.web_controller.web import LocalWebController
