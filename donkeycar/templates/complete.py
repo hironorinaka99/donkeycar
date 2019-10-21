@@ -421,6 +421,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
             if mode == 'user': 
+                #LKA適な動作    #ハンドル右はプラス、左はマイナス
+                if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
+                    user_angle += (dis_LL_range - distanceLL) * 0.05  #ハンドル指示値を右に少し 0.05は係数
+                if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
+                    user_angle -= (dis_RR_range - distanceRR) * 0.05  #ハンドル指示値を左にに少し 0.05は係数
+
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
