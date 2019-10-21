@@ -20,6 +20,34 @@ class AiLaunch():
         self.enabled = True
         print('AiLauncher is enabled.')
 
+    #local_angle でも使えるように修正
+    def run(self, mode, ai_throttle):
+        new_throttle = ai_throttle
+
+        if mode != self.prev_mode:
+            self.prev_mode = mode
+            if (mode == "local"  or mode == "local_angle") and self.trigger_on_switch:
+                self.enabled = True
+
+        if (mode == "local"  or mode == "local_angle") and self.enabled:
+            if not self.active:
+                self.active = True
+                self.timer_start = time.time()
+            else:
+                duration = time.time() - self.timer_start
+                if duration > self.timer_duration:
+                    self.active = False
+                    self.enabled = False
+        else:
+            self.active = False
+
+        if self.active:
+            print('AiLauncher is active!!!')
+            new_throttle = self.launch_throttle
+
+        return new_throttle
+
+    """
     def run(self, mode, ai_throttle):
         new_throttle = ai_throttle
 
@@ -45,4 +73,4 @@ class AiLaunch():
             new_throttle = self.launch_throttle
 
         return new_throttle
-
+    """

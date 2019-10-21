@@ -455,37 +455,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 else:
                     #print("distance ok")
-                    return pilot_angle, user_throttle
+                    return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
 
             else: #local
-                #LKA適な動作
-                if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
-                    pilot_angle += (dis_LL_range - distanceLL) * 0.05  #ハンドル指示値を右に少し 0.05は係数
-                if distanceRR < dis_RR_range: #右横センサ近いとき(マイナス値は除く)
-                    pilot_angle -= (dis_RR_range - distanceRR) * 0.05  #ハンドル指示値を左にに少し 0.05は係数
-                
-                #後退させる必要があるとき
-                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
-                    time_dis_gap = time.time() - time_dis_short_start
-                    if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
-                        time_dis_short_start = time.time()
-                        #print("set new start time")
-                        return 0, 0 #ニュートラルに戻す
-                    elif time_dis_gap > dis_timer_back + dis_timer_wait: #いったんバックする時間
-                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
-                            return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
-                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
-                            return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
-                        else:
-                            return 0, dis_back_throttle #中央が近い場合は、ハンドル中央に戻し、後退
-
-                    elif time_dis_gap > dis_timer_back: #バックする為に一度0を入力
-                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
-                            return -1, 0 #左が近い場合は、左にハンドル切ってスロットル0で待機
-                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
-                            return 1, 0 #右が近い場合は、右にハンドル切ってスロットル0で待機
-                        else:
-                            return 0, 0 #中央が近い場合は、ハンドル中央に戻し、スロットル0で待機
                 else:
                     return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
