@@ -417,6 +417,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_wait = 0.25 #後退待ち時間
             dis_back_throttle = -0.3 #後退速度
 
+            angle_adj_1 = 0.7 #惰性前進時のハンドル修正 #初回完走時0.5
+            angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
+
             if mode == 'user': 
                 return user_angle, user_throttle
                                 
@@ -439,9 +442,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("back wait" + str(time_dis_gap))
                         print("back wait %3.1f" % time_dis_gap)
                         if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
-                            return pilot_angle+0.5, 0 #左が近い場合は少し右に切って(惰性前進中)、スロットル0で待機
+                            return pilot_angle + angle_adj_1, 0 #左が近い場合は少し(angle_adj_1分)右に切って(惰性前進中)、スロットル0で待機
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
-                            return pilot_angle-0.5, 0 #右が近い場合は少し左に切って(惰性前進中)、スロットル0で待機
+                            return pilot_angle - angle_adj_1, 0 #右が近い場合は少し(angle_adj_1分)左に切って(惰性前進中)、スロットル0で待機
                         else:
                             return pilot_angle, 0 #中央が近い場合は、スロットル0で待機
 
@@ -453,12 +456,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
                             return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
                         else:                           #中央が近い場合
-                            if distanceL > distanceR:   #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                            if distanceL > distanceR:   #中央が近く、左側が大きく開いている場合、ハンドルを少し右(angle_adj_2 * -1.0)に切って後退
                                 print("中央センサ停止、左センサ方向空きの為、右に切って下がる")
-                                return -0.2, dis_back_throttle 
-                            else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                                return angle_adj_2 * -1.0 , dis_back_throttle 
+                            else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右(angle_adj_2 * 1.0)に切って後退
                                 print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
-                                return 0.2, dis_back_throttle
+                                return angle_adj_2 * 1.0, dis_back_throttle
                 else:
                     #print("distance ok")
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
