@@ -134,7 +134,7 @@ class Vehicle:
 
             # wait until the parts warm up.
             print('Starting vehicle...')
-            print('スタート前確認、スロットル値調整、AiLauncher ON(R2)、"Select"->local_Angle、"Startボタン”)
+            print('スタート前確認、スロットル値調整、AiLauncher ON(R2)、"Select"->local_Angle、"Startボタン”')
 
             loop_count = 0
             while self.on:
