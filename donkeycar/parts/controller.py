@@ -954,6 +954,7 @@ class JoystickController(object):
         else:
             angle_new = self.angle
 
+        print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
         return angle_new, self.throttle, self.mode, self.recording
         #return self.angle, self.throttle, self.mode, self.recording
 
