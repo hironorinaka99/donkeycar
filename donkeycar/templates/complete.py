@@ -479,7 +479,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
                   'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR'], 
-          outputs=['angle', 'throttle'])
+          outputs=['angle', 'throttle','user/angle']) #'user/angle'を追加してみる
 
     
     #to give the car a boost when starting ai mode in a race.
