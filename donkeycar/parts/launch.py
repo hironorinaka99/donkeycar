@@ -26,10 +26,10 @@ class AiLaunch():
 
         if mode != self.prev_mode:
             self.prev_mode = mode
-            if (mode == "local"  or (mode == "local_angle" and ai_throttle != 0)) and self.trigger_on_switch:
+            if (mode == "local"  or (mode == "local_angle" and ai_throttle > 0)) and self.trigger_on_switch:
                 self.enabled = True
 
-        if (mode == "local"  or (mode == "local_angle" and ai_throttle != 0)) and self.enabled:
+        if (mode == "local"  or (mode == "local_angle" and ai_throttle > 0)) and self.enabled:
             if not self.active:
                 self.active = True
                 self.timer_start = time.time()
