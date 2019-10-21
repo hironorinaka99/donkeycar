@@ -454,8 +454,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
                         else:                           #中央が近い場合
                             if distanceL > distanceR:   #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                                print("中央センサ停止、左センサ方向空きの為、右に切って下がる")
                                 return -0.2, dis_back_throttle 
                             else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右に切って後退
+                                print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
                                 return 0.2, dis_back_throttle
                 else:
                     #print("distance ok")
