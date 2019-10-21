@@ -939,7 +939,7 @@ class JoystickController(object):
                 return self.angle, self.throttle, self.mode, self.recording
 
 
-        angle_new = prev_angle + (self.angle - prev_angle) / 10  #ステアリングを鈍感にする
+        angle_new = prev_angle + (self.angle - prev_angle) / 2  #ステアリングを鈍感にする
         print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
 
         prev_angle = angle_new #前回ステアリング値をglobal変数で保持
