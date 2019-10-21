@@ -944,12 +944,13 @@ class JoystickController(object):
         print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
         prev_angle = angle_new #前回ステアリング値をglobal変数で保持
         """
+    
         steering_change_val = 0.2 #1ループあたりのステアリング変更値（急ハンドルしない）
         if abs(self.angle -prev_angle) > steering_change_val: #ステアリングがsteering_change_val以上操作されたら
             if self.angle - prev_angle > 0:
-                angle_new += steering_change_val  #steering_change_val変化
+                angle_new = prev_angle + steering_change_val  #steering_change_val変化
             else:
-                angle_new -= steering_change_val #steering_change_val変化
+                angle_new = prev_angle - steering_change_val #steering_change_val変化
         else:
             angle_new = self.angle
 
