@@ -34,7 +34,7 @@ pinTriggerRR = 26
 pinEchoRR = 21
 brakingDistanceRR = 10
 
-sleepTime = 0.5 # run sensor 10 times to second
+sleepTime = 0.0 # run sensor 10 times to second
 
 class DistanceSensorMulti3():
 
