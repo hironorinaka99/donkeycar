@@ -71,27 +71,23 @@ class DistanceSensorMulti3():
 
         return
 
-    def run_threaded(self):
+    def run_threaded(self): #呼び出されて距離を返す
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             print("DMS sensor error!!")
             print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
 
-        print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
+        #print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
         return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR
 
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
         return None, None, None, None
 
-    def update(self):
-        print("In DistanceSensorMulti update")
+    def update(self): #距離測定を繰り返す
+        #print("In DistanceSensorMulti update")
         while self.running:
-            try: #Nakagawa
-                self.listenToDistanceSensor()
-                print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
-        
-            except: #Nakagawa
-                pass
+            self.listenToDistanceSensor()
+            #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
     def listenToDistanceSensor(self):
         # set Trigger to HIGH  DistanceSensorLeftLeft
