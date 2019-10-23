@@ -97,7 +97,7 @@ class DistanceSensorMulti3():
         GPIO.output(pinTriggerLL, False)
 
         startTimeLL = time.time()
-        #stopTimeLL = time.time()
+        stopTimeLL = time.time()
 
         # save start time
         temp_count =0 
@@ -122,7 +122,7 @@ class DistanceSensorMulti3():
         GPIO.output(pinTriggerC, False)
 
         startTimeC = time.time()
-        #stopTimeC = time.time()
+        stopTimeC = time.time()
 
         # save start time
         temp_count = 0
@@ -147,7 +147,7 @@ class DistanceSensorMulti3():
         GPIO.output(pinTriggerRR, False)
 
         startTimeRR = time.time()
-        #stopTimeRR = time.time()
+        stopTimeRR = time.time()
 
         # save start time
         temp_count = 0
@@ -172,7 +172,7 @@ class DistanceSensorMulti3():
         GPIO.output(pinTriggerL, False)
 
         startTimeL = time.time()
-        #stopTimeL = time.time()
+        stopTimeL = time.time()
 
         # save start time
         temp_count =0 
@@ -198,7 +198,7 @@ class DistanceSensorMulti3():
         GPIO.output(pinTriggerR, False)
 
         startTimeR = time.time()
-        #stopTimeR = time.time()
+        stopTimeR = time.time()
 
         # save start time
         temp_count = 0
