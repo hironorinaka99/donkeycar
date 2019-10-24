@@ -53,7 +53,7 @@ class InferenceEngine(BasicEngine):
     print("Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0]) #Nakagawa
 
     assert height == img.shape[0], "Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0] #Nakagawa
-    assert(width == img.shape[1])
+    assert width == img.shape[1],  "Nakagawa: Error Check width %s" %width + "img.shape[1] %s" %img.shape[1] #Nakagawa
     input_tensor = img.flatten()
     return self.RunInferenceWithInputTensor(input_tensor)
 
