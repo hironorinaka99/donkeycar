@@ -51,8 +51,8 @@ class InferenceEngine(BasicEngine):
           'Invalid input tensor shape! Expected: [1, height, width, 3]')
     _, height, width, _ = input_tensor_shape
     print("Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0]) #Nakagawa
-    
-    assert(height == img.shape[0])
+
+    assert height == img.shape[0], "Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0] #Nakagawa
     assert(width == img.shape[1])
     input_tensor = img.flatten()
     return self.RunInferenceWithInputTensor(input_tensor)
