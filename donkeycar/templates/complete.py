@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.03 #左右センサーLKA反応係数
+            dis_LR_value = 0.05 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 #条件が良い時には加速
@@ -442,13 +442,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
                     user_angle += (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #LKA_Rangeの残り分ｘ係数
-                    print("dis_L_LKA_range %1.2f    distanceL %1.2f    dis_L_range %1.2f    dis_LR_value %1.2f" %(dis_L_LKA_range, distanceL, dis_L_range, dis_LR_value))
+                    #print("dis_L_LKA_range %1.2f    distanceL %1.2f    dis_L_range %1.2f    dis_LR_value %1.2f" %(dis_L_LKA_range, distanceL, dis_L_range, dis_LR_value))
                     print("dis_L_LKA value %1.2f" %((dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value))
                     #print("LKA 左前　%1.1f " % (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value)
 
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     user_angle -= (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #LKA_Rangeの残り分ｘ係数　           
-                    #print("LKA 右前　%1.1f " % (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value)
+                    print("dis_R_LKA value %1.2f" %((dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value))
                 
                 return user_angle, user_throttle
                                 
