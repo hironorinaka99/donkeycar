@@ -454,6 +454,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
+                #pilot_angle *= 1.2 #速度を上げたときに、angle切増し
+
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15:
@@ -505,7 +507,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
                                 return angle_adj_2 * 1.0, dis_back_throttle
                 else:
-                    #print("distance ok")
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
 
             else: #local
