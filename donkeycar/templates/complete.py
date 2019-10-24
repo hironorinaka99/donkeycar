@@ -428,7 +428,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             if mode == 'user': 
                 #条件が良い時には加速
                 print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
-                if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15:
+                if distanceLL > 15 and distanceL > 60 and distanceC > 60 and distanceR > 60 and distanceRR > 15:
                     user_throttle *= 1.2 #全開条件での係数
                     print("boost")                
                 
