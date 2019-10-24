@@ -50,7 +50,7 @@ class InferenceEngine(BasicEngine):
       raise RuntimeError(
           'Invalid input tensor shape! Expected: [1, height, width, 3]')
     _, height, width, _ = input_tensor_shape
-    print("Nakagawa1: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0]) #Nakagawa
+    #print("Nakagawa1: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0]) #Nakagawa
 
     assert height == img.shape[0], "Nakagawa2: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0] #Nakagawa
     assert width == img.shape[1],  "Nakagawa3: Error Check width %s" %width + "img.shape[1] %s" %img.shape[1] #Nakagawa
@@ -97,7 +97,3 @@ class CoralLinearPilot(object):
       return steering, throttle
 
 
-def adjust_input_shape(input_shape, roi_crop): #Nakagawa　使ってない
-    height = input_shape[0]
-    new_height = height - roi_crop[0] - roi_crop[1]
-    return (new_height, input_shape[1], input_shape[2])
