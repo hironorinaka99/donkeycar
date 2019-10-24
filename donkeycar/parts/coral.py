@@ -52,7 +52,7 @@ class InferenceEngine(BasicEngine):
     _, height, width, _ = input_tensor_shape
     print("Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0]) #Nakagawa
 
-    #assert height == img.shape[0], "Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0] #Nakagawa
+    assert height == img.shape[0], "Nakagawa: Error Check height %s" %height + "img.shape[0] %s" %img.shape[0] #Nakagawa
     assert width == img.shape[1],  "Nakagawa: Error Check width %s" %width + "img.shape[1] %s" %img.shape[1] #Nakagawa
     input_tensor = img.flatten()
     return self.RunInferenceWithInputTensor(input_tensor)
@@ -92,5 +92,12 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
+      image = image[40:0, 0:160] #Nakagawa Copr40のみに対応
       steering, throttle = self.engine.Inference(image)[0]
       return steering, throttle
+
+
+def adjust_input_shape(input_shape, roi_crop): #Nakagawa　使ってない
+    height = input_shape[0]
+    new_height = height - roi_crop[0] - roi_crop[1]
+    return (new_height, input_shape[1], input_shape[2])
