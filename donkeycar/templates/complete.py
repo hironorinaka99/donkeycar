@@ -443,6 +443,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
                     user_angle += (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #LKA_Rangeの残り分ｘ係数
                     print("dis_L_LKA_range %1.2f    distanceL %1.2f    dis_L_range %1.2f    dis_LR_value %1.2f" %(dis_L_LKA_range, distanceL, dis_L_range, dis_LR_value))
+                    print("dis_L_LKA value %1.2f" %((dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value))
                     #print("LKA 左前　%1.1f " % (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value)
 
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
