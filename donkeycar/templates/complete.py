@@ -428,7 +428,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             if mode == 'user': 
                 #条件が良い時には加速
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15:
-                    user_throttle *= 1.1 #全開条件での係数                
+                    user_throttle *= 1.2 #全開条件での係数
+                    print("boost")                
                 
                 #jsonに反映されない？なんで？
                 #LKA適な動作    #ハンドル右はプラス、左はマイナス
