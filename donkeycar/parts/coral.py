@@ -70,8 +70,9 @@ class InferenceEngine(BasicEngine):
     Raises:
       ValueError: when input param is invalid.
     """
-    _, self._raw_result = self.RunInference(
-        input_tensor)
+    #_, self._raw_result = self.RunInference(
+    _, self._raw_result = self.run_inference( #中川変更Warning出るので
+        input_tensor) 
     return [self._raw_result]
 
 
