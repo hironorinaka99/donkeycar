@@ -426,12 +426,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LR_value = 0.05 #左右センサーLKA反応係数
 
             if mode == 'user': 
+                """
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15:
                     user_throttle *= 1.2 #全開条件での係数
                     print("boost")                
-                """
+                
                 #jsonに反映されない？なんで？
                 #LKA適な動作    #ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
