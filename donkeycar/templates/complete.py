@@ -458,7 +458,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
-                if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15: #順全開条件
+                if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
                         pilot_angle *= 1.5 #全開条件整ったら
                         user_throttle *= 1.5
@@ -466,7 +466,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                     else: #準全開条件
                         pilot_angle *= 1.2 #準全開条件整ったら
-                        user_throttle *= 1.1
+                        user_throttle *= 1.2
                         print("boost    1.1") 
 
                 #条件が悪いときに減速
