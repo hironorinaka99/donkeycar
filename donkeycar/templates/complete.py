@@ -411,7 +411,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_R_range = 20 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
-            dis_LLRR_value = 0.03 #横センサーの反応係数
+            dis_LLRR_value = 0.05 #横センサーの反応係数
 
             dis_timer_all = 0.7 #待ち時間全体
             dis_timer_back = 0.3 #後退時間
@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.03 #左右センサーLKA反応係数
+            dis_LR_value = 0.05 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
@@ -456,18 +456,16 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 
             elif mode == 'local_angle':
                 
-                pilot_angle *= 1.0#速度を上げたときに、angle切増し
-
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
-                        pilot_angle *= 1.3 #全開条件整ったら
-                        user_throttle *= 1.3
+                        pilot_angle *= 1.5 #全開条件整ったら
+                        user_throttle *= 1.5
                         print("boost 1.3")                
 
                     else: #準全開条件
-                        pilot_angle *= 1.1 #準全開条件整ったら
+                        pilot_angle *= 1.2 #準全開条件整ったら
                         user_throttle *= 1.1
                         print("boost    1.1") 
 
