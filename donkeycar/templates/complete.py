@@ -462,14 +462,20 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15: #順全開条件
                     if distanceL > 100 and distanceC > 120 and distanceR > 100: #全開条件
-                        return pilot_angle *= 1.3, user_throttle *= 1.3 #全開条件整ったら
+                        pilot_angle *= 1.3 #全開条件整ったら
+                        user_throttle *= 1.3
+                        print("boost 1.3")                
+
                     else: #準全開条件
-                        return pilot_angle *= 1.1, user_throttle *= 1.1 #全開条件整ったら
-    
-                    user_throttle *= 1.2 #全開条件での係数
-    
-                    print("boost")                
-                
+                        pilot_angle *= 1.1 #準全開条件整ったら
+                        user_throttle *= 1.1
+                        print("boost    1.1") 
+
+                #条件が悪いときに減速
+                if distanceLL < 12 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 12: #減速走行条件
+                    pilot_angle *= 0.9 #減速条件整ったら
+                    print("Slow!          0.9")                
+                    
                 #LKA的な動作    #ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
                     pilot_angle += (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.05は係数
