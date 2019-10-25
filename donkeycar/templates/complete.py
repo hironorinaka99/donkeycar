@@ -406,14 +406,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             global time_dis_short_start
             dis_LL_range = 20 #左横センサーの反応範囲
             dis_LL_rev_range = 8 #左横センサーの後退反応範囲
-            dis_L_range = 25 #左センサーの反応範囲 
-            dis_C_range = 50 #中央センサーの反応範囲 
-            dis_R_range = 25 #右センサーの反応範囲 
+            dis_L_range = 20 #左センサーの反応範囲 
+            dis_C_range = 40 #中央センサーの反応範囲 
+            dis_R_range = 20 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
-            dis_LLRR_value = 0.05 #横センサーの反応係数
+            dis_LLRR_value = 0.04 #横センサーの反応係数
 
-            dis_timer_all = 1.2 #待ち時間全体
+            dis_timer_all = 1.0 #待ち時間全体
             dis_timer_back = 0.3 #後退時間
             dis_timer_wait = 0.25 #後退待ち時間
             dis_back_throttle = -0.3 #後退速度
@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.05 #左右センサーLKA反応係数
+            dis_LR_value = 0.03 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
@@ -456,7 +456,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 
             elif mode == 'local_angle':
                 
-                pilot_angle *= 1.1 #速度を上げたときに、angle切増し
+                pilot_angle *= 1.0#速度を上げたときに、angle切増し
 
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
