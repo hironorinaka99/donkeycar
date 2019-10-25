@@ -454,27 +454,28 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                """
-                #pilot_angle *= 1.2 #速度を上げたときに、angle切増し
+                
+                pilot_angle *= 1.2 #速度を上げたときに、angle切増し
 
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 15 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 15:
                     user_throttle *= 1.2 #全開条件での係数
                     print("boost")                
-                """
+                
                 #LKA的な動作    #ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
                     pilot_angle += (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.05は係数
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
                     pilot_angle -= (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.05は係数
-                """
+                
+                
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
                     pilot_angle += (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #LKA_Rangeの残り分ｘ係数
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     pilot_angle -= (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #LKA_Rangeの残り分ｘ係数　           
-                """
+                
 
                 #後退させる必要があるとき
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
