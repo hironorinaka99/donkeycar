@@ -447,7 +447,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             if mode == 'user': 
                 if dis_gapLL < 0:
                     print("%3.1f cm ちかく " % dis_gapLL)
-                else:
+                elif dis_gapRR > 0:
                     print("%3.1f cm 離れてる " % dis_gapLL)
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
