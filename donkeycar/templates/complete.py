@@ -427,12 +427,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LR_value = 0.05 #左右センサーLKA反応係数
 
             if mode == 'user': 
-                t = int(time.time()*10)%2 #0.05秒単位
+                t = int(time.time()*20)%2 #0.05秒単位
                 if abs(user_angle) < 0.2:
                     if t == 0:
                         user_angle += 0.2
                     else:
-                        user_angle -= -0.2
+                        user_angle -= 0.2
 
                 """
                 #条件が良い時には加速
