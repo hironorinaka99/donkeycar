@@ -35,7 +35,6 @@ from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 
-
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
     Construct a working robotic vehicle from many parts.
@@ -163,10 +162,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     V.add(PilotCondition(), inputs=['user/mode'], outputs=['run_pilot'])
     
     # Distance sensor part  Nakagawa-add
-    from donkeycar.parts.DistanceSensorMulti3 import DistanceSensorMulti3
-    distanceSensorMultiPart3 = DistanceSensorMulti3()
-    V.add(distanceSensorMultiPart3,
-        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR'],
+    from donkeycar.parts.DistanceSensorMulti4 import DistanceSensorMulti4
+    distanceSensorMultiPart4 = DistanceSensorMulti4()
+    V.add(distanceSensorMultiPart4,
+        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'],
         #run_condition='user',
         #run_condition='run_pilot',
         threaded=True)
@@ -401,7 +400,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR):
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             dis_LL_range = 20 #左横センサーの反応範囲
