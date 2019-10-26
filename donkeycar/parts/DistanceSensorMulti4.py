@@ -94,7 +94,7 @@ class DistanceSensorMulti4():
         print ("Prev LL: %.1f cm" % prev_distanceLL +"L: %.1f cm" % prev_distanceL +"  " "C: %.1f cm" % prev_distanceC + "  " "R: %.1f cm" % prev_distanceR + "  " "RR: %.1f cm" % prev_distanceRR)
         #return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, prev_distanceLL, prev_distanceL, prev_distanceC, prev_distanceR, prev_distanceRR
         return 1,2,3,4,5,6,7,8,9,10
-        
+
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
         return None, None, None, None, None, None, None, None
@@ -107,11 +107,11 @@ class DistanceSensorMulti4():
 
     def listenToDistanceSensor(self):
 
-        prev_distanceLL = self.distanceLL #前回測定値を保持
-        prev_distanceL = self.distanceL
-        prev_distanceC = self.distanceC
-        prev_distanceR = self.distanceR
-        prev_distanceRR = self.distanceRR
+        global prev_distanceLL = self.distanceLL #前回測定値を保持
+        global prev_distanceL = self.distanceL
+        global prev_distanceC = self.distanceC
+        global prev_distanceR = self.distanceR
+        global prev_distanceRR = self.distanceRR
 
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
