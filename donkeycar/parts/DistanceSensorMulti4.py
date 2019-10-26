@@ -76,8 +76,7 @@ class DistanceSensorMulti4():
         return
 
     def run_threaded(self): #呼び出されて距離を返す
-        print("3 runThreaded")
-
+        #print("runThreaded")
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             print("DMS sensor error!!")
             print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
@@ -95,8 +94,8 @@ class DistanceSensorMulti4():
         while self.running:
             self.listenToDistanceSensor()
             #self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
-            print ("Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
-            print ("UpdatePrev LL: %.1f cm" % self.prev_distanceLL +"L: %.1f cm" % self.prev_distanceL +"  " "C: %.1f cm" % self.prev_distanceC + "  " "R: %.1f cm" % self.prev_distanceR + "  " "RR: %.1f cm" % self.prev_distanceRR)
+            #print ("Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
+            #print ("UpdatePrev LL: %.1f cm" % self.prev_distanceLL +"L: %.1f cm" % self.prev_distanceL +"  " "C: %.1f cm" % self.prev_distanceC + "  " "R: %.1f cm" % self.prev_distanceR + "  " "RR: %.1f cm" % self.prev_distanceRR)
 
     def listenToDistanceSensor(self):    
     #def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
