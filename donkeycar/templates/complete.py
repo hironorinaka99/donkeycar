@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#確認用
 
 """
 Scripts to drive a donkey 2 car
@@ -17,7 +16,6 @@ Options:
 """
 import os
 import time
-#確認用
 from docopt import docopt
 import numpy as np
 
@@ -408,7 +406,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,aprev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR): #,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
+
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             dis_LL_range = 20 #左横センサーの反応範囲
