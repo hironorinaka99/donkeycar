@@ -46,11 +46,11 @@ class DistanceSensorMulti4():
         self.distanceR = 0.00
         self.distanceRR = 0.00
 
-        self.prev_distanceLL = 0.00 #前回測定値を保持するため
-        self.prev_distanceL = 0.00
-        self.prev_distanceC = 0.00
-        self.prev_distanceR = 0.00
-        self.prev_distanceRR = 0.00     
+        float self.prev_distanceLL = 0.00 #前回測定値を保持するため
+        float self.prev_distanceL = 0.00
+        float self.prev_distanceC = 0.00
+        float self.prev_distanceR = 0.00
+        float self.prev_distanceRR = 0.00     
 
         self.throttle = 0
         self.running = True
@@ -98,7 +98,7 @@ class DistanceSensorMulti4():
             self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
             #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
-    def listenToDistanceSensor(distanceLL, distanceL, distanceC, distanceR, distanceRR):
+    def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
         #前回測定値を保持
         print("1 listenToDS")
         self.prev_distanceLL = distanceLL
