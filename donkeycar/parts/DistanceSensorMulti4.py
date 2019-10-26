@@ -38,19 +38,18 @@ sleepTime = 0.0 # run sensor 10 times to second
 
 class DistanceSensorMulti4():
 
-    def __init__(self):
+    self.prev_distanceLL  #前回測定値を保持するため
+    self.prev_distanceL 
+    self.prev_distanceC 
+    self.prev_distanceR 
+    self.prev_distanceRR      
 
+    def __init__(self):
         self.distanceLL = 0.00
         self.distanceL = 0.00
         self.distanceC = 0.00
         self.distanceR = 0.00
         self.distanceRR = 0.00
-
-        float self.prev_distanceLL = 0.00 #前回測定値を保持するため
-        float self.prev_distanceL = 0.00
-        float self.prev_distanceC = 0.00
-        float self.prev_distanceR = 0.00
-        float self.prev_distanceRR = 0.00     
 
         self.throttle = 0
         self.running = True
