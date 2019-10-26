@@ -81,8 +81,8 @@ class DistanceSensorMulti4():
             print("DMS sensor error!!")
             print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
 
-        print ("Prev LL: %3.1f cm" % self.prev_distanceLL +"L: %3.1f cm" % self.prev_distanceL +"  " "C: %3.1f cm" % self.prev_distanceC + "  " "R: %3.1f cm" % self.prev_distanceR + "  " "RR: %3.1f cm" % self.prev_distanceRR)
-        print ("     LL: %3.1f cm" % self.distanceLL +"L: %3.1f cm" % self.distanceL +"  " "C: %3.1f cm" % self.distanceC + "  " "R: %3.1f cm" % self.distanceR + "  " "RR: %3.1f cm" % self.distanceRR)
+        #print ("Prev LL: %3.1f cm" % self.prev_distanceLL +"L: %3.1f cm" % self.prev_distanceL +"  " "C: %3.1f cm" % self.prev_distanceC + "  " "R: %3.1f cm" % self.prev_distanceR + "  " "RR: %3.1f cm" % self.prev_distanceRR)
+        #print ("     LL: %3.1f cm" % self.distanceLL +"L: %3.1f cm" % self.distanceL +"  " "C: %3.1f cm" % self.distanceC + "  " "R: %3.1f cm" % self.distanceR + "  " "RR: %3.1f cm" % self.distanceRR)
         return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, self.prev_distanceLL, self.prev_distanceL, self.prev_distanceC, self.prev_distanceR, self.prev_distanceRR
 
     def run(self):
@@ -231,7 +231,6 @@ class DistanceSensorMulti4():
             
         TimeElapsedR = stopTimeR - startTimeR
         self.distanceR = (TimeElapsedR * 34300) / 2
-        print("3(end) listenToDS")
 
         time.sleep(sleepTime) 
 
