@@ -176,7 +176,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'],
         #run_condition='user',
         #run_condition='run_pilot',
-        threaded=True)
+        #threaded=True) #こっちが正しい
+        threaded=False) #確認用あとで戻す
 
     class LedConditionLogic:
         def __init__(self, cfg):
