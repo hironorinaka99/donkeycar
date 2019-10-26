@@ -475,31 +475,31 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
                         pilot_angle *= 1.3 #全開条件整ったら
-                        user_throttle *= 1.2
+                        user_throttle *= 1.3
                         print("boost 1.3")                
 
                     else: #準全開条件
                         pilot_angle *= 1.1 #準全開条件整ったら
-                        user_throttle *= 1.1
+                        user_throttle *= 1.2
                         print("boost    1.1") 
 
                 #条件が悪いときに減速
                 if distanceLL < 10 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 10: #減速走行条件
-                    pilot_throttle *= 0.9 #減速条件整ったら
+                    pilot_throttle *= 0.8 #減速条件整ったら
                     print("Slow!          0.9")                
                     
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
-                    pilot_angle += 0.2 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
+                    pilot_angle += 0.15 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
-                    pilot_angle -= 0.2 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.2+係数分
+                    pilot_angle -= 0.15 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.2+係数分
                 
                 
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
-                    pilot_angle += 0.2 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
+                    pilot_angle += 0.15 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
-                    pilot_angle -= 0.2 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
+                    pilot_angle -= 0.15 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                 
 
                 #後退させる必要があるとき
