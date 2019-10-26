@@ -430,9 +430,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 t = int(time.time()*10)%2 #0.1秒単位
                 if user_angle == 0:
                     if t == 0:
-                        user_angle =0.1
+                        user_angle =0.2
                     else:
-                        user_angle =-0.1
+                        user_angle =-0.2
 
                 """
                 #条件が良い時には加速
