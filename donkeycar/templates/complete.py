@@ -432,9 +432,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LR_value = 0.02 #左右センサーLKA反応係数
 
             if mode == 'user': 
-                if prev_distanceLL == distanceLL:
+                dis_gapLL = distanceLL - prev_distanceLL
+                if abs(dis_gapLL) < 0.2: #0.2cm以下なら
                     print("同じ")
-                elif prev_distanceLL > distanceLL:
+                elif dis_gapLL < 0:
                     print("ちかくなってる")
                 else:
                     print("離れてる")
