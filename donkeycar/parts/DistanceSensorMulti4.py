@@ -106,13 +106,6 @@ class DistanceSensorMulti4():
             #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
     def listenToDistanceSensor(self):
-
-        global prev_distanceLL = self.distanceLL #前回測定値を保持
-        global prev_distanceL = self.distanceL
-        global prev_distanceC = self.distanceC
-        global prev_distanceR = self.distanceR
-        global prev_distanceRR = self.distanceRR
-
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
