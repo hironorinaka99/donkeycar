@@ -97,7 +97,7 @@ class DistanceSensorMulti4():
             self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, self.prev_distanceLL)
             #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
-    def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR, distanceLL):
+    def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
         #前回測定値を保持
         self.prev_distanceLL = distanceLL
         self.prev_distanceL = distanceL
