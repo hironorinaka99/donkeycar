@@ -411,7 +411,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_R_range = 20 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
-            dis_LLRR_value = 0.02 #横センサーの反応係数
+            dis_LLRR_value = 0.03 #横センサーの反応係数
 
             dis_timer_all = 0.7 #待ち時間全体
             dis_timer_back = 0.3 #後退時間
@@ -474,25 +474,25 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
-                        pilot_angle *= 1.3 #全開条件整ったら
+                        pilot_angle *= 1.4 #全開条件整ったら
                         user_throttle *= 1.3
                         print("boost 1.3")                
 
                     else: #準全開条件
-                        pilot_angle *= 1.1 #準全開条件整ったら
+                        pilot_angle *= 1.2 #準全開条件整ったら
                         user_throttle *= 1.2
                         print("boost    1.1") 
 
                 #条件が悪いときに減速
                 if distanceLL < 10 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 10: #減速走行条件
-                    pilot_throttle *= 0.8 #減速条件整ったら
+                    pilot_throttle *= 0.9 #減速条件整ったら
                     print("Slow!          0.9")                
                     
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
-                    pilot_angle += 0.15 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
+                    pilot_angle += 0.20 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
-                    pilot_angle -= 0.15 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.2+係数分
+                    pilot_angle -= 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.2+係数分
                 
                 
                 #LKA的な動作　左右前センサー分
