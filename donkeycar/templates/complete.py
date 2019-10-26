@@ -404,14 +404,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
-            dis_LL_range = 20 #左横センサーの反応範囲
+            dis_LL_range = 18 #左横センサーの反応範囲
             dis_LL_rev_range = 8 #左横センサーの後退反応範囲
             dis_L_range = 20 #左センサーの反応範囲 
             dis_C_range = 40 #中央センサーの反応範囲 
             dis_R_range = 20 #右センサーの反応範囲 
-            dis_RR_range = 20 #右横センサーの反応範囲 
+            dis_RR_range = 18 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
-            dis_LLRR_value = 0.05 #横センサーの反応係数
+            dis_LLRR_value = 0.04 #横センサーの反応係数
 
             dis_timer_all = 0.7 #待ち時間全体
             dis_timer_back = 0.3 #後退時間
@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.05 #左右センサーLKA反応係数
+            dis_LR_value = 0.04 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
@@ -460,18 +460,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
-                        pilot_angle *= 1.5 #全開条件整ったら
-                        user_throttle *= 1.5
+                        pilot_angle *= 1.3 #全開条件整ったら
+                        user_throttle *= 1.2
                         print("boost 1.3")                
 
                     else: #準全開条件
-                        pilot_angle *= 1.2 #準全開条件整ったら
-                        user_throttle *= 1.2
+                        pilot_angle *= 1.1 #準全開条件整ったら
+                        user_throttle *= 1.1
                         print("boost    1.1") 
 
                 #条件が悪いときに減速
-                if distanceLL < 12 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 12: #減速走行条件
-                    pilot_angle *= 0.9 #減速条件整ったら
+                if distanceLL < 10 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 10: #減速走行条件
+                    pilot_throttle *= 0.9 #減速条件整ったら
                     print("Slow!          0.9")                
                     
                 #LKA的な動作    #ハンドル右はプラス、左はマイナス
