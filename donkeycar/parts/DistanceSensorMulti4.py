@@ -91,18 +91,18 @@ class DistanceSensorMulti4():
         return None, None, None, None, None, None, None, None
 
     def update(self): #距離測定を繰り返す
-        #print("In DistanceSensorMulti update")
+        print("In DistanceSensorMulti update")
         while self.running:
             self.listenToDistanceSensor()
             #self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
-            #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
+            print (" 5 Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
     def listenToDistanceSensor(self):    
     #def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
         #前回測定値を保持
         print("1 listenToDS")
         self.prev_distanceLL = self.distanceLL
-        print("self.prev_distanceLL" + str(self.prev_distanceLL) + "self.distanceLL" + str(self.distanceLL))
+        #print("self.prev_distanceLL" + str(self.prev_distanceLL) + "self.distanceLL" + str(self.distanceLL))
         self.prev_distanceL = self.distanceL
         self.prev_distanceC = self.distanceC
         self.prev_distanceR = self.distanceR
