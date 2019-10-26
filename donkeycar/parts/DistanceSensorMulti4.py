@@ -37,19 +37,18 @@ brakingDistanceRR = 10
 sleepTime = 0.0 # run sensor 10 times to second
 
 class DistanceSensorMulti4():
-
-    self.prev_distanceLL  #前回測定値を保持するため
-    self.prev_distanceL 
-    self.prev_distanceC 
-    self.prev_distanceR 
-    self.prev_distanceRR      
-
     def __init__(self):
         self.distanceLL = 0.00
         self.distanceL = 0.00
         self.distanceC = 0.00
         self.distanceR = 0.00
         self.distanceRR = 0.00
+
+        self.prev_distanceLL = 0.00  #前回測定値を保持するため
+        self.prev_distanceL  = 0.00
+        self.prev_distanceC  = 0.00
+        self.prev_distanceR  = 0.00
+        self.prev_distanceRR = 0.00
 
         self.throttle = 0
         self.running = True
@@ -94,17 +93,20 @@ class DistanceSensorMulti4():
     def update(self): #距離測定を繰り返す
         #print("In DistanceSensorMulti update")
         while self.running:
-            self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
+            self.listenToDistanceSensor()
+            #self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
             #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
-    def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
+    def listenToDistanceSensor(self):    
+    #def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
         #前回測定値を保持
         print("1 listenToDS")
-        self.prev_distanceLL = distanceLL
-        self.prev_distanceL = distanceL
-        self.prev_distanceC = distanceC
-        self.prev_distanceR = distanceR
-        self.prev_distanceRR = distanceRR
+        self.prev_distanceLL = self.distanceLL
+        print("self.prev_distanceLL" + str(self.prev_distanceLL) + "self.distanceLL" + str(self.distanceLL))
+        self.prev_distanceL = self.distanceL
+        self.prev_distanceC = self.distanceC
+        self.prev_distanceR = self.distanceR
+        self.prev_distanceRR = self.distanceRR
         print("2 listenToDS")
 
         # set Trigger to HIGH  DistanceSensorLeftLeft
