@@ -34,7 +34,6 @@ from donkeycar.parts.launch import AiLaunch
 from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
-time_start_all = 0 ##ダミー初期時刻
 
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
@@ -427,13 +426,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LR_value = 0.05 #左右センサーLKA反応係数
 
             if mode == 'user': 
+                """
                 t = int(time.time()*10)%2 #0.05秒単位
                 if abs(user_angle) < 0.2:
                     if t == 0:
                         user_angle += 0.2
                     else:
                         user_angle -= 0.2
-
+                """
                 """
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
@@ -463,6 +463,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
+                t = int(time.time()*10)%2 #0.05秒単位
+                if abs(pilot_angle) < 0.2:
+                    if t == 0:
+                        pilot_angle += 0.2
+                    else:
+                        pilot_angle -= 0.2
+
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
