@@ -457,12 +457,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     if dis_gapLL <= 0: #gapが増えているときはハンドル補正しない
                         user_angle += 0.20 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                     else:
-                        print("離れ始めたので補正しない)
+                        print("離れ始めたので補正しない")
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
                     if dis_gapRR <= 0: #gapが増えているときはハンドル補正しない
                         user_angle += 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
                     else:
-                        print("離れ始めたので補正しない)
+                        print("離れ始めたので補正しない")
                 
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
