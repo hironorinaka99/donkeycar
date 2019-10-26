@@ -435,7 +435,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if prev_distanceLL == distanceLL:
                     print("同じ")
                 elif prev_distanceLL > distanceLL:
-                    print("ちかくなってる)
+                    print("ちかくなってる")
                 else:
                     print("離れてる")
 
