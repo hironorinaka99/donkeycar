@@ -433,7 +433,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             if mode == 'user': 
                 dis_gapLL = distanceLL - prev_distanceLL
-                if abs(dis_gapLL) < 0.2: #0.2cm以下なら
+                if abs(dis_gapLL) < 0.5: #0.5cm以下なら
                     print("同じ")
                 elif dis_gapLL < 0:
                     print("ちかくなってる")
