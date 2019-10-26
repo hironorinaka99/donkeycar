@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.02 #左右センサーLKA反応係数
+            dis_LR_value = 0.03 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
