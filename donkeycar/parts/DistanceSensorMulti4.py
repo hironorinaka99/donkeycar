@@ -92,8 +92,9 @@ class DistanceSensorMulti4():
 
         print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
         print ("Prev LL: %.1f cm" % prev_distanceLL +"L: %.1f cm" % prev_distanceL +"  " "C: %.1f cm" % prev_distanceC + "  " "R: %.1f cm" % prev_distanceR + "  " "RR: %.1f cm" % prev_distanceRR)
-        return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, prev_distanceLL, prev_distanceL, prev_distanceC, prev_distanceR, prev_distanceRR
-
+        #return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, prev_distanceLL, prev_distanceL, prev_distanceC, prev_distanceR, prev_distanceRR
+        return 1,2,3,4,5,6,7,8,9,10
+        
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
         return None, None, None, None, None, None, None, None
