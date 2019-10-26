@@ -173,7 +173,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     from donkeycar.parts.DistanceSensorMulti4 import DistanceSensorMulti4
     distanceSensorMultiPart4 = DistanceSensorMulti4()
     V.add(distanceSensorMultiPart4,
-        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'],
+        #outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'],
+        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR'],
         #run_condition='user',
         #run_condition='run_pilot',
         threaded=True)
