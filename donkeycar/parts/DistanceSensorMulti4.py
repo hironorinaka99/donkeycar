@@ -50,7 +50,7 @@ class DistanceSensorMulti4():
         self.prevdistanceL = 0.00
         self.prevdistanceC = 0.00
         self.prevdistanceR = 0.00
-        self.prevdistanceRR = 0.00
+        #self.prevdistanceRR = 0.00
         
 
         self.throttle = 0
