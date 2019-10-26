@@ -448,8 +448,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
 
             if mode == 'user': 
-                print("front cencer gap %3.1f cm" % dis_gapC)
-                
+                print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+
                 """
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
