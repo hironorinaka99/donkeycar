@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.03 #左右センサーLKA反応係数
+            dis_LR_value = 0.02 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
@@ -474,13 +474,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
-                        pilot_angle *= 1.4 #全開条件整ったら
+                        pilot_angle *= 1.2 #全開条件整ったら
                         user_throttle *= 1.3
                         print("boost 1.3")                
 
                     else: #準全開条件
-                        pilot_angle *= 1.2 #準全開条件整ったら
-                        user_throttle *= 1.2
+                        pilot_angle *= 1.1 #準全開条件整ったら
+                        user_throttle *= 1.1
                         print("boost    1.1") 
 
                 #条件が悪いときに減速
