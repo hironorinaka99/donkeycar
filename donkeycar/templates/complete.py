@@ -413,10 +413,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
-            dis_timer_all = 0.7 #待ち時間全体
-            dis_timer_back = 0.3 #後退時間
-            dis_timer_wait = 0.25 #後退待ち時間
-            dis_back_throttle = -0.3 #後退速度
+            dis_timer_all = 0.7 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_back = 0.4 #後退時間
+            dis_timer_wait = 0.2 #後退待ち時間
+            dis_back_throttle = -0.35 #後退速度
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.1 #中央センサが近い時、開けている方向に向くハンドル操作値
