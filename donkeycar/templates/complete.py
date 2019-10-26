@@ -453,7 +453,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #近い距離で、距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル0.5
                 if distanceL < 120 and dis_gapC < 0: #前センサーで障害物（距離センサーが縮まっている）発見
-                    user_throttle *= 0.5 
+                    user_throttle *= 0.0 
                     print("前方障害物ありのため、スロットル０")
 
                 """
