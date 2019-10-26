@@ -78,6 +78,7 @@ class DistanceSensorMulti4():
         return
 
     def run_threaded(self): #呼び出されて距離を返す
+        print("3 runThreaded")
 
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             print("DMS sensor error!!")
@@ -99,11 +100,13 @@ class DistanceSensorMulti4():
 
     def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR):
         #前回測定値を保持
+        print("1 listenToDS")
         self.prev_distanceLL = distanceLL
         self.prev_distanceL = distanceL
         self.prev_distanceC = distanceC
         self.prev_distanceR = distanceR
         self.prev_distanceRR = distanceRR
+        print("2 listenToDS")
 
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
@@ -229,6 +232,7 @@ class DistanceSensorMulti4():
             
         TimeElapsedR = stopTimeR - startTimeR
         self.distanceR = (TimeElapsedR * 34300) / 2
+        print("3(end) listenToDS")
 
         time.sleep(sleepTime) 
 
