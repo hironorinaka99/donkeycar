@@ -431,7 +431,21 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
             dis_LR_value = 0.02 #左右センサーLKA反応係数
 
+            #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときは誤差として０とする
+            dis_gapLL = distanceLL - prev_distanceLL
+            if abs(dis_gapLL) < 0.5: dis_gapLL = 0 
+            dis_gapL = distanceL - prev_distanceL
+            if abs(dis_gapL) < 0.5: dis_gapL = 0 
+            dis_gapC = distanceC - prev_distanceC
+            if abs(dis_gapC) < 0.5: dis_gapC = 0 
+            dis_gapR = distanceR - prev_distanceR
+            if abs(dis_gapR) < 0.5: dis_gapR = 0 
+            dis_gapRR = distanceRR - prev_distanceRR
+            if abs(dis_gapRR) < 0.5: dis_gapRR = 0 
+
+
             if mode == 'user': 
+                """
                 dis_gapLL = distanceLL - prev_distanceLL
                 if abs(dis_gapLL) < 0.5: #0.5cm以下なら
                     print("%3.1f cm 同じような " % dis_gapLL)
@@ -439,6 +453,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     print("%3.1f cm ちかく " % dis_gapLL)
                 else:
                     print("%3.1f cm すこしづつ離れてる " % dis_gapLL)
+                """
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
