@@ -434,11 +434,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             if mode == 'user': 
                 dis_gapLL = distanceLL - prev_distanceLL
                 if abs(dis_gapLL) < 0.5: #0.5cm以下なら
-                    #print("同じ")
+                    print("%3.1f cm 同じような " % dis_gapLL)
                 elif dis_gapLL < 0:
-                    print("ちかくなってる")
+                    print("%3.1f cm ちかく " % dis_gapLL)
                 else:
-                    print("離れてる")
+                    print("%3.1f cm すこしづつ離れてる " % dis_gapLL)
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
