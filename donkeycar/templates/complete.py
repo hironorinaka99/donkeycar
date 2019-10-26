@@ -404,12 +404,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
-            dis_LL_range = 18 #左横センサーの反応範囲
+            dis_LL_range = 20 #左横センサーの反応範囲
             dis_LL_rev_range = 8 #左横センサーの後退反応範囲
             dis_L_range = 20 #左センサーの反応範囲 
             dis_C_range = 40 #中央センサーの反応範囲 
             dis_R_range = 20 #右センサーの反応範囲 
-            dis_RR_range = 18 #右横センサーの反応範囲 
+            dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.04 #横センサーの反応係数
 
@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.04 #左右センサーLKA反応係数
+            dis_LR_value = 0.03 #左右センサーLKA反応係数
 
             if mode == 'user': 
                 """
