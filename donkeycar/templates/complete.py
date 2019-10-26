@@ -434,17 +434,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
             dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_fast = 10
 
             dis_gapLL = distanceLL - prev_distanceLL
-            if abs(dis_gapLL) < dis_gap_ignor_range_side: dis_gapLL = 0 
+            if abs(dis_gapLL) < dis_gap_ignor_range_side or abs(dis_gapLL) > dis_gap_ignor_range_fast: dis_gapLL = 0 
             dis_gapL = distanceL - prev_distanceL
-            if abs(dis_gapL) < dis_gap_ignor_range_front: dis_gapL = 0 
+            if abs(dis_gapL) < dis_gap_ignor_range_front or abs(dis_gapL) > dis_gap_ignor_range_fast: dis_gapL = 0 
             dis_gapC = distanceC - prev_distanceC
-            if abs(dis_gapC) < dis_gap_ignor_range_front: dis_gapC = 0 
+            if abs(dis_gapC) < dis_gap_ignor_range_front or abs(dis_gapC) > dis_gap_ignor_range_fast: dis_gapC = 0 
             dis_gapR = distanceR - prev_distanceR
-            if abs(dis_gapR) < dis_gap_ignor_range_front: dis_gapR = 0 
+            if abs(dis_gapR) < dis_gap_ignor_range_front or abs(dis_gapR) > dis_gap_ignor_range_fast: dis_gapR = 0 
             dis_gapRR = distanceRR - prev_distanceRR
-            if abs(dis_gapRR) < dis_gap_ignor_range_side: dis_gapRR = 0 
+            if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
 
             if mode == 'user': 
@@ -530,19 +531,27 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
-                        pilot_angle *= 1.2 #全開条件整ったら
-                        user_throttle *= 1.3
-                        print("boost 1.3")                
+                        if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
+                            pilot_angle *= 1.2 #全開条件整ったら
+                            user_throttle *= 1.3
+                            print("boost 1.3")
+                        else:
+                            print("距離が縮まっているため全開ブーストなし")              
 
                     else: #準全開条件
-                        pilot_angle *= 1.1 #準全開条件整ったら
-                        user_throttle *= 1.1
-                        print("boost    1.1") 
+                        if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
+                            pilot_angle *= 1.1 #準全開条件整ったら
+                            user_throttle *= 1.1
+                            print("boost 1.1")
+                        else:
+                            print("距離が縮まっているため準全開ブーストなし")              
 
                 #条件が悪いときに減速
                 if distanceLL < 10 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 10: #減速走行条件
                     pilot_throttle *= 0.9 #減速条件整ったら
-                    print("Slow!          0.9")                
+                    print("Slow!          0.9")
+
+                           
                 """                    
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
