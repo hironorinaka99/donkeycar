@@ -165,7 +165,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     from donkeycar.parts.DistanceSensorMulti4 import DistanceSensorMulti4
     distanceSensorMultiPart4 = DistanceSensorMulti4()
     V.add(distanceSensorMultiPart4,
-        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'],
+        outputs=['distanceLL','distanceL','distanceC','distanceR','distanceRR','prevdistanceLL','prevdistanceL','prevdistanceC','prevdistanceR','prevdistanceRR'],
         #run_condition='user',
         #run_condition='run_pilot',
         threaded=True)
@@ -400,7 +400,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prevdistanceLL,prevdistanceL,prevdistanceC,prevdistanceR,prevdistanceRR):
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             dis_LL_range = 20 #左横センサーの反応範囲

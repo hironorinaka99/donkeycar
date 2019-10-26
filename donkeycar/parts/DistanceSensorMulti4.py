@@ -46,11 +46,11 @@ class DistanceSensorMulti4():
         self.distanceR = 0.00
         self.distanceRR = 0.00
 
-        self.prev_distanceLL = 0.00 #前回測定値を保持するため
-        self.prev_distanceL = 0.00
-        self.prev_distanceC = 0.00
-        self.prev_distanceR = 0.00
-        self.prev_distanceRR = 0.00
+        self.prevdistanceLL = 0.00 #前回測定値を保持するため
+        self.prevdistanceL = 0.00
+        self.prevdistanceC = 0.00
+        self.prevdistanceR = 0.00
+        self.prevdistanceRR = 0.00
         
 
         self.throttle = 0
@@ -84,8 +84,8 @@ class DistanceSensorMulti4():
             print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
 
         print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
-        print ("Prev LL: %.1f cm" % self.prev_distanceLL +"L: %.1f cm" % self.prev_distanceL +"  " "C: %.1f cm" % self.prev_distanceC + "  " "R: %.1f cm" % self.prev_distanceR + "  " "RR: %.1f cm" % self.prev_distanceRR)
-        return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR #, self.prev_distanceLL, self.prev_distanceL, self.prev_distanceC, self.prev_distanceR, self.prev_distanceRR
+        print ("Prev LL: %.1f cm" % self.prevdistanceLL +"L: %.1f cm" % self.prevdistanceL +"  " "C: %.1f cm" % self.prevdistanceC + "  " "R: %.1f cm" % self.prevdistanceR + "  " "RR: %.1f cm" % self.prevdistanceRR)
+        return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, self.prevdistanceLL, self.prevdistanceL, self.prevdistanceC, self.prevdistanceR, self.prevdistanceRR
 
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
@@ -99,11 +99,11 @@ class DistanceSensorMulti4():
 
     def listenToDistanceSensor(self):
 
-        self.prev_distanceLL = self.distanceLL #前回測定値を保持
-        self.prev_distanceL = self.distanceL
-        self.prev_distanceC = self.distanceC
-        self.prev_distanceR = self.distanceR
-        self.prev_distanceRR = self.distanceRR
+        self.prevdistanceLL = self.distanceLL #前回測定値を保持
+        self.prevdistanceL = self.distanceL
+        self.prevdistanceC = self.distanceC
+        self.prevdistanceR = self.distanceR
+        self.prevdistanceRR = self.distanceRR
 
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
