@@ -431,25 +431,24 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
             dis_LR_value = 0.02 #左右センサーLKA反応係数
 
-            #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときは誤差として０とする
+            #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
+            dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲
+
             dis_gapLL = distanceLL - prev_distanceLL
-            if abs(dis_gapLL) < 0.5: dis_gapLL = 0 
+            if abs(dis_gapLL) < dis_gap_ignor_range_side: dis_gapLL = 0 
             dis_gapL = distanceL - prev_distanceL
-            if abs(dis_gapL) < 0.5: dis_gapL = 0 
+            if abs(dis_gapL) < dis_gap_ignor_range_front: dis_gapL = 0 
             dis_gapC = distanceC - prev_distanceC
-            if abs(dis_gapC) < 0.5: dis_gapC = 0 
+            if abs(dis_gapC) < dis_gap_ignor_range_front: dis_gapC = 0 
             dis_gapR = distanceR - prev_distanceR
-            if abs(dis_gapR) < 0.5: dis_gapR = 0 
+            if abs(dis_gapR) < dis_gap_ignor_range_front: dis_gapR = 0 
             dis_gapRR = distanceRR - prev_distanceRR
-            if abs(dis_gapRR) < 0.5: dis_gapRR = 0 
+            if abs(dis_gapRR) < dis_gap_ignor_range_side: dis_gapRR = 0 
 
 
             if mode == 'user': 
-                """
-                if dis_gapLL < 0:
-                    print("%3.1f cm ちかく " % dis_gapLL)
-                elif dis_gapLL > 0:
-                    print("%3.1f cm 離れてる " % dis_gapLL)
+                print("front cencer gap %3.1f cm" % dis_gapC)
                 
                 """
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
@@ -515,10 +514,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
                 else:
                     return user_angle, user_throttle
-
+                """
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
+                #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
                 if abs(pilot_angle) < 0.2:
                     if t == 0:
@@ -543,13 +543,26 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceLL < 10 or distanceL < 40 or distanceC < 60 and distanceR < 40 or distanceRR < 10: #減速走行条件
                     pilot_throttle *= 0.9 #減速条件整ったら
                     print("Slow!          0.9")                
-                    
+                """                    
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値は除く)
                     pilot_angle += 0.20 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値は除く)
                     pilot_angle -= 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を左にに少し 0.2+係数分
-                
+                """
+
+                #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
+                if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
+                    if dis_gapLL < 0: #gapが減っているときのみ補正
+                        pilot_angle += 0.20 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
+                    else:
+                        print("離れ始めたので補正しない")
+                if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
+                    if dis_gapRR < 0: #gapが減っているときのみ補正
+                        pilot_angle += 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
+                    else:
+                        print("離れ始めたので補正しない")
+
                 
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
