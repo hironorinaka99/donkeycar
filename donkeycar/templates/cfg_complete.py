@@ -23,7 +23,7 @@ MODELS_PATH = os.path.join(CAR_PATH, 'models')
 DEFAULT_MODEL_TYPE = 'coral_tflite_linear'   #(linear|tflite_linear|coral_tflite_linear|categorical|rnn|imu|behavior|3d|localizer|latent)
 
 #VEHICLE
-DRIVE_LOOP_HZ = 20      # the vehicle loop will pause if faster than this speed.
+DRIVE_LOOP_HZ = 50      # the vehicle loop will pause if faster than this speed.
 MAX_LOOPS = None        # the vehicle loop can abort after this many iterations, when given a positive integer.
 
 #CAMERA
