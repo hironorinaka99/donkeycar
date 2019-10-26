@@ -247,12 +247,5 @@ class DistanceSensorMulti4():
         self.distanceC = 0
         self.distanceR = 0
         self.distanceRR = 0
-
-        prev_distanceLL = 0
-        prev_distanceL = 0
-        prev_distanceC = 0
-        prev_distanceR = 0
-        prev_distanceRR = 0
-
         self.running = False ;
         return
