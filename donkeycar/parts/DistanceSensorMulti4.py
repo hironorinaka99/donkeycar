@@ -36,12 +36,6 @@ brakingDistanceRR = 10
 
 sleepTime = 0.0 # run sensor 10 times to second
 
-prev_distanceLL = 0.00 #前回測定値を保持するため
-prev_distanceL = 0.00
-prev_distanceC = 0.00
-prev_distanceR = 0.00
-prev_distanceRR = 0.00
-
 class DistanceSensorMulti4():
 
     def __init__(self):
@@ -52,7 +46,11 @@ class DistanceSensorMulti4():
         self.distanceR = 0.00
         self.distanceRR = 0.00
 
-        
+        self.prev_distanceLL = 0.00 #前回測定値を保持するため
+        self.prev_distanceL = 0.00
+        self.prev_distanceC = 0.00
+        self.prev_distanceR = 0.00
+        self.prev_distanceRR = 0.00     
 
         self.throttle = 0
         self.running = True
@@ -80,17 +78,6 @@ class DistanceSensorMulti4():
         return
 
     def run_threaded(self): #呼び出されて距離を返す
-        global prev_distanceLL
-        global prev_distanceL
-        global prev_distanceC
-        global prev_distanceR
-        global prev_distanceRR
-
-        prev_distanceLL = self.distanceLL
-        prev_distanceL = self.distanceL
-        prev_distanceC = self.distanceC
-        prev_distanceR = self.distanceR
-        prev_distanceRR = self.distanceRR
 
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             print("DMS sensor error!!")
@@ -98,8 +85,7 @@ class DistanceSensorMulti4():
 
         print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
         print ("Prev LL: %.1f cm" % prev_distanceLL +"L: %.1f cm" % prev_distanceL +"  " "C: %.1f cm" % prev_distanceC + "  " "R: %.1f cm" % prev_distanceR + "  " "RR: %.1f cm" % prev_distanceRR)
-        return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, prev_distanceLL, prev_distanceL, prev_distanceC, prev_distanceR, prev_distanceRR
-        #return 1,2,3,4,5,6,7,8,9,10
+        return self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, self.prev_distanceLL, self.prev_distanceL, self.prev_distanceC, self.prev_distanceR, self.prev_distanceRR
 
     def run(self):
         raise Exception("We expect DistanceSensor Part to be run with the threaded=True argument.")
@@ -108,10 +94,17 @@ class DistanceSensorMulti4():
     def update(self): #距離測定を繰り返す
         #print("In DistanceSensorMulti update")
         while self.running:
-            self.listenToDistanceSensor()
+            self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR, self.prev_distanceLL)
             #print ("  Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
 
-    def listenToDistanceSensor(self):
+    def listenToDistanceSensor(self, distanceLL, distanceL, distanceC, distanceR, distanceRR, distanceLL):
+        #前回測定値を保持
+        self.prev_distanceLL = distanceLL
+        self.prev_distanceL = distanceL
+        self.prev_distanceC = distanceC
+        self.prev_distanceR = distanceR
+        self.prev_distanceRR = distanceRR
+
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
@@ -237,7 +230,6 @@ class DistanceSensorMulti4():
         TimeElapsedR = stopTimeR - startTimeR
         self.distanceR = (TimeElapsedR * 34300) / 2
 
-
         time.sleep(sleepTime) 
 
 
@@ -247,6 +239,6 @@ class DistanceSensorMulti4():
         self.distanceC = 0
         self.distanceR = 0
         self.distanceRR = 0
-        
+
         self.running = False ;
         return

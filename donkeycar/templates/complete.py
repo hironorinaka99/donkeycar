@@ -35,12 +35,13 @@ from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 
+"""
 global prev_distanceLL
 global prev_distanceL
 global prev_distanceC
 global prev_distanceR
 global prev_distanceRR
-
+"""
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
