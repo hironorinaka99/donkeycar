@@ -406,7 +406,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode, 
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR): #,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR):
 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
@@ -584,7 +584,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'], 
           outputs=['angle', 'throttle']) 
 
     
