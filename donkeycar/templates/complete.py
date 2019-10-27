@@ -449,7 +449,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
 
             if mode == 'user': 
-                print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
 
                 #近い距離で、距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル0.5
                 if distanceC < 100 and dis_gapC < 0: #前センサーで障害物（距離センサーが縮まっている）発見
