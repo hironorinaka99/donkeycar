@@ -129,7 +129,10 @@ class DistanceSensorMulti4():
             stopTimeLL = time.time()
 
         TimeElapsedLL = stopTimeLL - startTimeLL
-        self.distanceLL = (TimeElapsedLL * 34300) / 2
+        if (TimeElapsedLL * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+            self.distanceLL = (TimeElapsedLL * 34300) / 2
+        else: 
+            self.distanceLL = 60
         
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
@@ -154,7 +157,10 @@ class DistanceSensorMulti4():
             stopTimeC = time.time()
 
         TimeElapsedC = stopTimeC - startTimeC
-        self.distanceC = (TimeElapsedC * 34300) / 2
+        if (TimeElapsedC * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
+            self.distanceC = (TimeElapsedC * 34300) / 2
+        else: 
+            self.distanceC = 140
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRightRight
@@ -179,7 +185,10 @@ class DistanceSensorMulti4():
             stopTimeRR = time.time()
             
         TimeElapsedRR = stopTimeRR - startTimeRR
-        self.distanceRR = (TimeElapsedRR * 34300) / 2
+        if (TimeElapsedRR * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+            self.distanceRR = (TimeElapsedRR * 34300) / 2
+        else: 
+            self.distanceRR = 60
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorLeft
@@ -204,8 +213,10 @@ class DistanceSensorMulti4():
             stopTimeL = time.time()
 
         TimeElapsedL = stopTimeL - startTimeL
-        self.distanceL = (TimeElapsedL * 34300) / 2
-
+        if (TimeElapsedL * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
+            self.distanceL = (TimeElapsedL * 34300) / 2
+        else: 
+            self.distanceL = 140
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRight
@@ -230,7 +241,11 @@ class DistanceSensorMulti4():
             stopTimeR = time.time()
             
         TimeElapsedR = stopTimeR - startTimeR
-        self.distanceR = (TimeElapsedR * 34300) / 2
+        if (TimeElapsedR * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+            self.distanceR = (TimeElapsedR * 34300) / 2
+        else: 
+            self.distanceR = 60
+
 
         time.sleep(sleepTime) 
 
