@@ -540,10 +540,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         pilot_angle -= 0.2
 
                 #条件が良い時には加速
-                #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
+                print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
+                print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                 if distanceLL > 12 and distanceL > 60 and distanceC > 80 and distanceR > 60 and distanceRR > 12: #順全開条件
+                    print("準全開条件成立")
                     if distanceL > 80 and distanceC > 100 and distanceR > 80: #全開条件
+                        print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
+                            print("ギャップ条件成立")
                             pilot_angle *= 1.1 #全開条件整ったら
                             user_throttle *= 1.1
                             print("boost 1.1")
@@ -567,9 +571,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #近い距離で、距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル0.5
                 if distanceC < 120 and dis_gapC < 0: #前センサーで障害物（距離センサーが縮まっている）発見
                     if distanceC < 80: #距離100未満のときの速度
-                        user_throttle *= 0.8    
-                    user_throttle *= 0.9 #距離120未満のときの速度
-                    print("1前方障害物ありのため、スロットル0.9倍")
+                        user_throttle *= 0.9    
+                        print("1前方障害物 近くにありのため、スロットル0.9倍")
+                    else:
+                        user_throttle *= 0.95 #距離120未満のときの速度
+                        print("1前方障害物 遠くにありのため、スロットル0.95倍")
 
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル０
                 if (distanceL > 80 and dis_gapL < 0) or (distanceC > 100 and dis_gapC < 0) or (distanceR > 80 and dis_gapR <0): #前センサーで障害物（距離センサーが縮まっている）発見
