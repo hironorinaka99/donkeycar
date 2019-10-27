@@ -433,7 +433,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
-            dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_front = 2.0 #（前）センサーばらつきで、前回差を０とする範囲
             dis_gap_ignor_range_fast = 10
 
             dis_gapLL = distanceLL - prev_distanceLL
@@ -458,7 +458,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     print("1前方障害物ありのため、スロットル0.5倍")
 
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル０
-                if dis_gapL < 0 or dis_gapC < 0 or dis_gapR <0: #前センサーで障害物（距離センサーが縮まっている）発見
+                if (distanceL > 80 and dis_gapL < 0) or (distanceC > 100 and dis_gapC < 0) or (distanceR > 80 and dis_gapR <0): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle = 0
                     print("2前方障害物ありのため、スロットル０")
