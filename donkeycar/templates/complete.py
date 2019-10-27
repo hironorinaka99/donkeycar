@@ -531,7 +531,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                pilot_angle *= 1.2 #速度UPに伴うステアリング値アップ
+                pilot_angle *= 1.1 #速度UPに伴うステアリング値アップ
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
                 if abs(pilot_angle) < 0.2:
@@ -549,7 +549,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             print("ギャップ条件成立")
-                            pilot_angle *= 1.3 #全開条件整ったら
+                            pilot_angle *= 1.1 #全開条件整ったら
                             user_throttle *= 1.1
                             print("boost 1.1")
                         else:
@@ -557,7 +557,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                     else: #準全開条件
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            pilot_angle *= 1.2 #準全開条件整ったら
+                            pilot_angle *= 1.05 #準全開条件整ったら
                             user_throttle *= 1.05
                             print("boost 1.05")
                         else:
