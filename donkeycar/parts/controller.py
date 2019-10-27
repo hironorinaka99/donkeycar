@@ -1049,11 +1049,11 @@ class PS3JoystickController(JoystickController):
             'dpad_up' : self.increase_max_throttle,
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
-            #"R1" : self.chaos_monkey_start, #Modified
+            "R1" : self.chaos_monkey_start, #Modified
         }
 
         self.button_up_trigger_map = {
-            #"L1" : self.chaos_monkey_stop, #Modified
+            "L1" : self.chaos_monkey_stop, #Modified
         }
 
 
