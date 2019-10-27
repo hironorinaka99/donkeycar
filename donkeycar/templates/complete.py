@@ -449,6 +449,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
 
             if mode == 'user': 
+                """
                 print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                 #近い距離で、距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル0.5
                 if distanceC < 120 and dis_gapC < 0: #前センサーで障害物（距離センサーが縮まっている）発見
@@ -460,6 +461,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle = 0
                     print("2前方障害物ありのため、スロットル０")
+                """
 
                 """
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
@@ -561,10 +563,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     user_throttle *= 0.9 #減速条件整ったら
                     print("Slow!          0.9")
 
+                #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                #近い距離で、距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル0.5
+                if distanceC < 120 and dis_gapC < 0: #前センサーで障害物（距離センサーが縮まっている）発見
+                    user_throttle *= 0.5
+                    print("1前方障害物ありのため、スロットル0.5倍")
+
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときはスロットル０
-                if dis_gapL < 0 or dis_gapC < 0 or dis_gapR <0: #前センサーで障害物（距離センサーが縮まっている）発見
+                if (distanceL > 80 and dis_gapL < 0) or (distanceC > 100 and dis_gapC < 0) or (distanceR > 80 and dis_gapR <0): #前センサーで障害物（距離センサーが縮まっている）発見
+                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle = 0
-                    print("前方障害物ありのため、スロットル０")
+                    print("2前方障害物ありのため、スロットル０")
+
                           
                 """                    
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス
