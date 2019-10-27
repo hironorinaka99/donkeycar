@@ -419,17 +419,17 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
-            dis_timer_all = 0.7 #待ち時間全体 下記2つの時間より長いこと
-            dis_timer_back = 0.4 #後退時間
+            dis_timer_all = 0.8 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_back = 0.5 #後退時間
             dis_timer_wait = 0.2 #後退待ち時間
             dis_back_throttle = -0.35 #後退速度
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
-            angle_adj_2 = 0.1 #中央センサが近い時、開けている方向に向くハンドル操作値
+            angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
             dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.02 #左右センサーLKA反応係数
+            dis_LR_value = 0.01 #左右センサーLKA反応係数
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
@@ -608,9 +608,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
-                    pilot_angle += 0.15 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
+                    pilot_angle += 0.1 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
-                    pilot_angle -= 0.15 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
+                    pilot_angle -= 0.1 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                 
 
                 #後退させる必要があるとき
