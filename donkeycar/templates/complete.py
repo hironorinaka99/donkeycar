@@ -624,9 +624,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     elif time_dis_gap < dis_timer_wait: #バックする為に一度0を入力
                         #print("back wait" + str(time_dis_gap))
                         print("back wait %3.1f" % time_dis_gap)
-                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
+                        if distanceLL < dis_LL_rev_range or min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
                             return pilot_angle + angle_adj_1, 0 #左が近い場合は少し(angle_adj_1分)右に切って(惰性前進中)、スロットル0で待機
-                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
+                        elif distanceRR < dis_RR_rev_range or min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
                             return pilot_angle - angle_adj_1, 0 #右が近い場合は少し(angle_adj_1分)左に切って(惰性前進中)、スロットル0で待機
                         else:
                             return pilot_angle, 0 #中央が近い場合は、スロットル0で待機
@@ -639,7 +639,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             return pilot_angle, dis_back_throttle #左が近い場合は切り増しをやめて、短時間後退
                         else:
                             return 0, dis_back_throttle #中央が近い場合は、ステアリング中立で後退
-
 
                     elif time_dis_gap < (dis_timer_back + dis_timer_wait): #いったんバックする時間
                         #print("back" + str(time_dis_gap))
