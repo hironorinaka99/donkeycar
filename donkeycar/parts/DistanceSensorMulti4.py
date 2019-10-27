@@ -241,10 +241,10 @@ class DistanceSensorMulti4():
             stopTimeR = time.time()
             
         TimeElapsedR = stopTimeR - startTimeR
-        if (TimeElapsedR * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+        if (TimeElapsedR * 34300) / 2 < 140: #140未満は生値、それ以上は60として返す
             self.distanceR = (TimeElapsedR * 34300) / 2
         else: 
-            self.distanceR = 60
+            self.distanceR = 140
 
 
         time.sleep(sleepTime) 
