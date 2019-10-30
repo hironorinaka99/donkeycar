@@ -413,14 +413,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LL_range = 20 #左横センサーの反応範囲
             dis_LL_rev_range = 8 #左横センサーの後退反応範囲
             dis_L_range = 20 #左センサーの反応範囲 
-            dis_C_range = 40 #中央センサーの反応範囲 
+            dis_C_range = 30 #中央センサーの反応範囲 
             dis_R_range = 20 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
-            dis_timer_all = 0.6 #待ち時間全体 下記2つの時間より長いこと
-            dis_timer_back = 0.5 #後退時間
+            dis_timer_all = 0.5 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_back = 0.4 #後退時間
             dis_timer_wait = 0.05 #後退待ち時間
             dis_back_throttle = -0.35 #後退速度
 
@@ -482,9 +482,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             print("距離が縮まっているため準全開ブーストなし")              
 
                 #条件が悪いときに減速
-                if distanceLL < 10 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 10: #減速走行条件
-                    user_throttle *= 0.9 #減速条件整ったら
-                    print("Slow! 前方障害物近い        0.9")
+                if distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
+                    user_throttle *= 0.8 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.8")
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
 
