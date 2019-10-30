@@ -482,7 +482,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             print("距離が縮まっているため準全開ブーストなし")              
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                if distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
+                if distanceLL < 10 or distanceL < 40 or distanceC < 50 or distanceR < 40 or distanceRR < 10: #減速走行条件
+                    user_throttle *= 0.9 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.9")
+                elif distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
                     user_throttle *= 0.8 #減速条件整ったら
                     print("Slow! 前方障害物近い        0.8")
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときに減速
