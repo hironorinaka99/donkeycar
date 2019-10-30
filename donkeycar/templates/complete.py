@@ -433,7 +433,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
-            dis_gap_ignor_range_front = 3.0 #（前）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_front = 2.0 #（前）センサーばらつきで、前回差を０とする範囲
             dis_gap_ignor_range_fast = 10
 
             dis_gapLL = distanceLL - prev_distanceLL
@@ -483,14 +483,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                 if distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
-                    user_throttle *= 0.7 #減速条件整ったら
-                    print("Slow! 前方障害物近い        0.7")
+                    user_throttle *= 0.8 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.8")
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときに減速
                 elif (distanceL < 80 and distanceL > 60 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 120 and distanceC > 80 and dis_gapC < 0 and abs(user_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0 #テストで０
                     print("2前方障害物ありのため、スロットル0.5")
-                #距離センサーのギャップ（縮まり方）でぶつかりそうなときはハーフスロットル
+                #距離センサーのギャップ（縮まり方）でぶつかりそうなときは大減速
                 elif (distanceL < 60 and distanceL > 40 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 80 and distanceC > 60 and dis_gapC < 0 and abs(user_angle) < 0.5) or (distanceR < 60 and distanceR > 40 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0 #テストで０
