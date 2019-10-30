@@ -482,10 +482,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             print("距離が縮まっているため準全開ブーストなし")              
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                if distanceLL < 10 or distanceL < 40 or distanceC < 50 or distanceR < 40 or distanceRR < 10: #減速走行条件
-                    user_throttle *= 0.9 #減速条件整ったら
-                    print("Slow! 前方障害物近い        0.9")
-                elif distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
+                if distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
                     user_throttle *= 0.8 #減速条件整ったら
                     print("Slow! 前方障害物近い        0.8")
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときに減速
@@ -498,6 +495,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0 #テストで０
                     print("3前方障害物ありのため、スロットル0.3")
+                elif distanceLL < 10 or distanceL < 40 or distanceC < 60 or distanceR < 40 or distanceRR < 10: #減速走行条件成立するが、大原則条件にはならない場合
+                    user_throttle *= 0.9 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.9")
+
                                          
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
