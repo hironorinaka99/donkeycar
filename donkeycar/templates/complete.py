@@ -486,7 +486,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     user_throttle *= 0.7 #減速条件整ったら
                     print("Slow! 前方障害物近い        0.7")
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときに減速
-                elif (distanceL < 80 and distanceL > 60 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 100 and distanceC > 80 and dis_gapC < 0 and abs(user_angle) < 0.5) or (ditanceR < 80 and distanceR > 60 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 80 and distanceL > 60 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 100 and distanceC > 80 and dis_gapC < 0 and abs(user_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.8
                     print("2前方障害物ありのため、スロットル0.8")
