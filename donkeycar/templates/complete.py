@@ -422,7 +422,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_all = 0.5 #待ち時間全体 下記2つの時間より長いこと
             dis_timer_back = 0.4 #後退時間
             dis_timer_wait = 0.05 #後退待ち時間
-            dis_back_throttle = -0.35 #後退速度
+            #dis_back_throttle = -0.35 #後退速度
+            dis_back_throttle = -1.3 * user_throttle #おおよそ 0.3-0.35
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
@@ -483,8 +484,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                 if distanceLL < 9 or distanceL < 30 or distanceC < 40 or distanceR < 30 or distanceRR < 9: #減速走行条件
-                    user_throttle *= 0.8 #減速条件整ったら
-                    print("Slow! 前方障害物近い        0.8")
+                    user_throttle *= 0.85 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.85")
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときに減速
                 elif (distanceL < 80 and distanceL > 60 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 120 and distanceC > 80 and dis_gapC < 0 and abs(user_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
@@ -496,8 +497,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     user_throttle *= 0.0 #テストで０
                     print("3前方障害物ありのため、スロットル0.3")
                 elif distanceLL < 10 or distanceL < 40 or distanceC < 60 or distanceR < 40 or distanceRR < 10: #減速走行条件成立するが、大原則条件にはならない場合
-                    user_throttle *= 0.9 #減速条件整ったら
-                    print("Slow! 前方障害物近い        0.9")
+                    user_throttle *= 0.95 #減速条件整ったら
+                    print("Slow! 前方障害物近い        0.95")
 
                                          
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
