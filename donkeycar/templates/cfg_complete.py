@@ -221,7 +221,7 @@ PUB_CAMERA_IMAGES = False
 
 #When racing, to give the ai a boost, configure these values.
 AI_LAUNCH_DURATION = 1.0            # the ai will output throttle for this many seconds
-AI_LAUNCH_THROTTLE = 0.35            # the ai will output this throttle value
+AI_LAUNCH_THROTTLE = 0.30            # the ai will output this throttle value
 AI_LAUNCH_ENABLE_BUTTON = 'R2'      # this keypress will enable this boost. It must be enabled before each use to prevent accidental trigger.
 AI_LAUNCH_KEEP_ENABLED = True      # when False ( default) you will need to hit the AI_LAUNCH_ENABLE_BUTTON for each use. This is safest. When this True, is active on each trip into "local" ai mode.
 
