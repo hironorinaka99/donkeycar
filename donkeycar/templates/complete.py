@@ -551,7 +551,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     elif time_dis_gap < (dis_timer_back + dis_timer_wait): #いったんバックする時間
                         #print("back" + str(time_dis_gap))
                         print("back %3.1f" % time_dis_gap) 
-                        if max(distanceL, distanceC * 1.5, distanceR) == distanceC and distanceL < dis_L_range *1.5 and distanceC < dis_C_range *1.5 and distanceR < dis_R_range *1.5 and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左右前センサより中央が遠く、前のセンサー3つがどれも近く(係数倍）、横センサーが反応していない条件（角に向いてしまった場合）
+                        if max(distanceL, distanceC * 1.5, distanceR) == distanceC *1.5 and distanceL < dis_L_range *1.5 and distanceC < dis_C_range *1.5 and distanceR < dis_R_range *1.5 and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左右前センサより中央が遠く、前のセンサー3つがどれも近く(係数倍）、横センサーが反応していない条件（角に向いてしまった場合）
                             print("角向きのため、右向くために下がる")
                             return -1, dis_back_throttle #左にハンドル切って後退　（できるだけ右回りに戻りたいので）
                         elif min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
