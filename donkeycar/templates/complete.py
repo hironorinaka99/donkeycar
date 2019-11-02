@@ -479,7 +479,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             user_angle *= 1.1 #準全開条件整ったら
                             user_throttle *= 1.1
                             #print("boost 1.1")
-                        else:
+                        #else:
                             #print("距離が縮まっているため準全開ブーストなし")              
 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
