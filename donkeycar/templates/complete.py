@@ -459,6 +459,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     else:
                         user_angle -= 0.2
 
+                """
                 #条件が良い時には加速
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
@@ -562,7 +563,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     return user_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
 
 
-
+                """
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
