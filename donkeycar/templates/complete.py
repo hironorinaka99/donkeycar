@@ -598,17 +598,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #else:
                             #print("距離が縮まっているため準全開ブーストなし")              
 
+                #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
+                elif (distanceL < 60 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -2.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                    user_throttle *= 0.0
+                    print("急速接近中のため　スロットル０")
+
                 #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
                 elif (distanceL < 80 and distanceL > 60 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 120 and distanceC > 100 and dis_gapC < -2.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.2
                     print("急速接近中のため　スロットル０．２")
                 
-                #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
-                elif (distanceL < 60 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -2.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
-                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                    user_throttle *= 0.0
-                    print("急速接近中のため　スロットル０")
                 
 
                 #距離センサーのギャップ（縮まり方）がそこまで大きくないときは小減速
