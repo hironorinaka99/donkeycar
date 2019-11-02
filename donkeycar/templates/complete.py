@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_back = 0.4 #後退時間
             dis_timer_wait = 0.05 #後退待ち時間
             #dis_back_throttle = -0.35 #後退速度
-            dis_back_throttle = -1.2 * abs(user_throttle) #おおよそ 0.3-0.35
+            dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
@@ -584,17 +584,17 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
-                            pilot_angle *= 1.2 #全開条件整ったら
-                            user_throttle *= 1.2
-                            #print("boost 1.2")
+                            pilot_angle *= 1.1 #全開条件整ったら
+                            user_throttle *= 1.1
+                            #print("boost 1.1")
                         #else:
                             #print("距離が縮まっているため全開ブーストなし")              
 
                     else: #準全開条件
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            pilot_angle *= 1.1 #準全開条件整ったら
-                            user_throttle *= 1.1
-                            #print("boost 1.1")
+                            pilot_angle *= 1.05 #準全開条件整ったら
+                            user_throttle *= 1.05
+                            #print("boost 1.05")
                         #else:
                             #print("距離が縮まっているため準全開ブーストなし")              
 
