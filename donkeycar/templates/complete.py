@@ -423,7 +423,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_back = 0.4 #後退時間
             dis_timer_wait = 0.05 #後退待ち時間
             #dis_back_throttle = -0.35 #後退速度
-            dis_back_throttle = -1.3 * abs(user_throttle) #おおよそ 0.3-0.35
+            dis_back_throttle = -1.2 * abs(user_throttle) #おおよそ 0.3-0.35
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
