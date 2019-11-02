@@ -434,7 +434,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
-            dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_front = 3.0 #（前）センサーばらつきで、前回差を０とする範囲
             dis_gap_ignor_range_fast = 10
 
             dis_gapLL = distanceLL - prev_distanceLL
@@ -494,7 +494,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #距離センサーのギャップ（縮まり方）でぶつかりそうなときは大減速
                 elif (distanceL < 60 and distanceL > 40 and dis_gapL < 0 and user_angle < -0.3) or (distanceC < 80 and distanceC > 60 and dis_gapC < 0 and abs(user_angle) < 0.5) or (distanceR < 60 and distanceR > 40 and dis_gapR <0 and user_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                    user_throttle *= 0.3 #テストで０
+                    user_throttle *= 0.0 #テストで０
                     print("3前方障害物ありのため、スロットル0.3")
                 elif distanceLL < 10 or distanceL < 40 or distanceC < 60 or distanceR < 40 or distanceRR < 10: #減速走行条件成立するが、大原則条件にはならない場合
                     user_throttle *= 0.95 #減速条件整ったら
