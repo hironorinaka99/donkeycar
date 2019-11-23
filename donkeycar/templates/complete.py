@@ -420,8 +420,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
             dis_timer_all = 1.0 #待ち時間全体 下記2つの時間より長いこと
-            dis_timer_back = 0.4 #後退時間
-            dis_timer_wait = 0.3 #後退待ち時間
+            dis_timer_back = 0.5 #後退時間
+            dis_timer_wait = 0.2 #後退待ち時間
             dis_back_throttle = -0.35 #後退速度
             #dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
 
@@ -641,11 +641,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 
                 
                 #後退させる必要があるとき 停止
-                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
-                    #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
-                    return pilot_angle, 0
-
-                    """
+                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :               
                     time_dis_gap = time.time() - time_dis_short_start                    
                     if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
