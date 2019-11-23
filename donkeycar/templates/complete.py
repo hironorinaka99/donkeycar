@@ -686,7 +686,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
                 else:
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
-                """
+                
                 return pilot_angle, user_throttle
 
             else: #local
