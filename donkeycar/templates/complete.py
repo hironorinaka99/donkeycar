@@ -419,9 +419,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
-            dis_timer_all = 0.5 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_all = 1.0 #待ち時間全体 下記2つの時間より長いこと
             dis_timer_back = 0.4 #後退時間
-            dis_timer_wait = 0.05 #後退待ち時間
+            dis_timer_wait = 0.3 #後退待ち時間
             dis_back_throttle = -0.35 #後退速度
             #dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
 
@@ -588,7 +588,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
-                            pilot_angle *= 1.5 #全開条件整ったら
+                            pilot_angle *= 1.1 #全開条件整ったら
                             user_throttle *= 2.0
                             #print("boost 1.7")
                         #else:
@@ -596,7 +596,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                     else: #準全開条件
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            pilot_angle *= 1.3 #準全開条件整ったら
+                            pilot_angle *= 1.0 #準全開条件整ったら
                             user_throttle *= 1.5
                             #print("boost 1.3")
                         #else:
@@ -623,12 +623,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
                     if dis_gapLL < 0: #gapが減っているときのみ補正
-                        pilot_angle += 0.20 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
+                        pilot_angle += 0.30 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                     else:
                         print("離れ始めたので補正しない")
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
                     if dis_gapRR < 0: #gapが減っているときのみ補正
-                        pilot_angle -= 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
+                        pilot_angle -= 0.30 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
                     else:
                         print("離れ始めたので補正しない")
 
@@ -640,12 +640,16 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_angle -= 0.1 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                 
                 
-                #後退させる必要があるとき
+                #後退させる必要があるとき 停止
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
-                    time_dis_gap = time.time() - time_dis_short_start
+                    print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
+                    return pilot_angle, 0
+
+                    """
+                    time_dis_gap = time.time() - time_dis_short_start                    
                     if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
-                        #print("set new start time")
+                        print("set new start time")
                         return pilot_angle, 0 #ニュートラルに戻す
 
                     elif time_dis_gap < dis_timer_wait: #バックする為に一度0を入力
@@ -686,7 +690,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
                 else:
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
-                
+                """
                 return pilot_angle, user_throttle
 
             else: #local
