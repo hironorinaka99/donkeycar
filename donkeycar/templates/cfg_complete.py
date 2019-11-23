@@ -110,7 +110,7 @@ PI_DONKEY_ROOT = "/home/pi/mycar"   # the location of the mycar dir on the pi. t
 # Region of interst cropping
 # only supported in Categorical and Linear models.
 # If these crops values are too large, they will cause the stride values to become negative and the model with not be valid.
-ROI_CROP_TOP = 40                    #the number of rows of pixels to ignore on the top of the image
+ROI_CROP_TOP = 0                    #the number of rows of pixels to ignore on the top of the image
 ROI_CROP_BOTTOM = 0                 #the number of rows of pixels to ignore on the bottom of the image
 
 #Model transfer options
@@ -122,7 +122,7 @@ NUM_LAST_LAYERS_TO_TRAIN = 7        #when freezing layers, how many layers from 
 
 #JOYSTICK
 USE_JOYSTICK_AS_DEFAULT = False     #when starting the manage.py, when True, will not require a --js option to use the joystick
-JOYSTICK_MAX_THROTTLE = 0.25         #this scalar is multiplied with the -1 to 1 throttle value to limit the maximum throttle. This can help if you drop the controller or just don't need the full speed available.
+JOYSTICK_MAX_THROTTLE = 0.3         #this scalar is multiplied with the -1 to 1 throttle value to limit the maximum throttle. This can help if you drop the controller or just don't need the full speed available.
 JOYSTICK_STEERING_SCALE = 1.0       #some people want a steering that is less sensitve. This scalar is multiplied with the steering -1 to 1. It can be negative to reverse dir.
 AUTO_RECORD_ON_THROTTLE = True      #if true, we will record whenever throttle is not zero. if false, you must manually toggle recording with some other trigger. Usually circle button on joystick.
 CONTROLLER_TYPE='ps3'               #(ps3|ps4|xbox|nimbus|wiiu|F710)
@@ -220,8 +220,8 @@ PUB_CAMERA_IMAGES = False
 #AI_LAUNCH_KEEP_ENABLED = False      # when False ( default) you will need to hit the AI_LAUNCH_ENABLE_BUTTON for each use. This is safest. When this True, is active on each trip into "local" ai mode.
 
 #When racing, to give the ai a boost, configure these values.
-AI_LAUNCH_DURATION = 0.4            # the ai will output throttle for this many seconds
-AI_LAUNCH_THROTTLE = 0.28            # the ai will output this throttle value
+AI_LAUNCH_DURATION = 0.6            # the ai will output throttle for this many seconds
+AI_LAUNCH_THROTTLE = 0.35            # the ai will output this throttle value
 AI_LAUNCH_ENABLE_BUTTON = 'R2'      # this keypress will enable this boost. It must be enabled before each use to prevent accidental trigger.
 AI_LAUNCH_KEEP_ENABLED = False      # when False ( default) you will need to hit the AI_LAUNCH_ENABLE_BUTTON for each use. This is safest. When this True, is active on each trip into "local" ai mode.
 
