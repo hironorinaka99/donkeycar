@@ -583,7 +583,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                 if distanceLL > 12 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 12 and abs(pilot_angle) < 0.5: #順全開条件
                     #print("準全開条件成立")
-                    if distanceL > 60 and distanceC > 100 and distanceR > 60 and abs(pilto_angle) < 0.3: #全開条件
+                    if distanceL > 60 and distanceC > 100 and distanceR > 60 and abs(pilot_angle) < 0.3: #全開条件
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
