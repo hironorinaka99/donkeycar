@@ -433,9 +433,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LR_value = 0.01 #左右センサーLKA反応係数
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
-            dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
-            dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲 1未満は0とする
-            dis_gap_ignor_range_fast = 10
+            dis_gap_ignor_range_side = 2.0 #（横）センサーばらつきで、前回差を０とする範囲
+            dis_gap_ignor_range_front = 3.0 #（前）センサーばらつきで、前回差を０とする範囲 1未満は0とする
+            dis_gap_ignor_range_fast = 20
 
             dis_gapLL = distanceLL - prev_distanceLL
             if abs(dis_gapLL) < dis_gap_ignor_range_side or abs(dis_gapLL) > dis_gap_ignor_range_fast: dis_gapLL = 0 
@@ -602,22 +602,22 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             #print("距離が縮まっているため準全開ブーストなし")              
 
                 #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
-                elif (distanceL < 60 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -2.5 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
-                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                    user_throttle *= 0.0
-                    print("急速接近中のため　スロットル０")
-
-                #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
-                elif (distanceL < 80 and distanceL > 60 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 140 and distanceC > 100 and dis_gapC < -3.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 60 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -3.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.1
-                    print("急速接近中のため　スロットル０．２")
+                    print("急速接近中のため　スロットル０.1")
+
+                #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
+                elif (distanceL < 80 and distanceL > 60 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 140 and distanceC > 100 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -3.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                    user_throttle *= 0.3
+                    print("急速接近中のため　スロットル０．3")
 
                 #距離センサーのギャップ（縮まり方）がそこまで大きくないときは小減速
-                elif (distanceL < 80 and distanceL > 20 and dis_gapL < -1.0 and pilot_angle < -0.3) or (distanceC < 150 and distanceC > 25 and dis_gapC < -2.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 20 and dis_gapR < -1.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 80 and distanceL > 20 and dis_gapL < -2.1 and pilot_angle < -0.3) or (distanceC < 150 and distanceC > 25 and dis_gapC < -3.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 20 and dis_gapR < -2.1 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                    user_throttle *= 0.5 #テストで０
-                    print("微速接近中のため、　スロットル0.5")
+                    user_throttle *= 0.7 #テストで０
+                    print("微速接近中のため、　スロットル0.7")
                                        
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
