@@ -410,13 +410,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
-            dis_LL_range = 20 #左横センサーの反応範囲
-            dis_LL_rev_range = 8 #左横センサーの後退反応範囲
-            dis_L_range = 20 #左センサーの反応範囲 
-            dis_C_range = 25 #中央センサーの反応範囲 
-            dis_R_range = 20 #右センサーの反応範囲 
-            dis_RR_range = 20 #右横センサーの反応範囲 
-            dis_RR_rev_range = 8 #右横センサーの後退反応範囲
+            dis_LL_range = 30 #左横センサーの反応範囲
+            dis_LL_rev_range = 10 #左横センサーの後退反応範囲
+            dis_L_range = 25 #左センサーの反応範囲 
+            dis_C_range = 30 #中央センサーの反応範囲 
+            dis_R_range = 25 #右センサーの反応範囲 
+            dis_RR_range = 30 #右横センサーの反応範囲 
+            dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
             dis_timer_all = 0.5 #待ち時間全体 下記2つの時間より長いこと
@@ -428,8 +428,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
-            dis_L_LKA_range = 10.0 #左センサーLKA動作範囲
-            dis_R_LKA_range = 10.0 #右センサーLKA動作範囲
+            dis_L_LKA_range = 12.0 #左センサーLKA動作範囲
+            dis_R_LKA_range = 12.0 #右センサーLKA動作範囲
             dis_LR_value = 0.01 #左右センサーLKA反応係数
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
@@ -588,16 +588,16 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
-                            pilot_angle *= 2.0 #全開条件整ったら
-                            user_throttle *= 2.5
+                            pilot_angle *= 1.5 #全開条件整ったら
+                            user_throttle *= 2.0
                             #print("boost 1.7")
                         #else:
                             #print("距離が縮まっているため全開ブーストなし")              
 
                     else: #準全開条件
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            pilot_angle *= 1.5 #準全開条件整ったら
-                            user_throttle *= 1.8
+                            pilot_angle *= 1.3 #準全開条件整ったら
+                            user_throttle *= 1.5
                             #print("boost 1.3")
                         #else:
                             #print("距離が縮まっているため準全開ブーストなし")              
