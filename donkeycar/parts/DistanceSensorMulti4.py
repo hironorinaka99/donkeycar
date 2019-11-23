@@ -124,15 +124,15 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoLL) and temp_count < 1000:
+        while 1 == GPIO.input(pinEchoLL) and temp_count < 2000:
             temp_count +=1
             stopTimeLL = time.time()
 
-        TimeElapsedLL = stopTimeLL - startTimeLL
-        if (TimeElapsedLL * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+        TimeElapsedLL = stopTimeLL - startTimeLL #左回りコースのため、左側のみ広い範囲で取る
+        if (TimeElapsedLL * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
             self.distanceLL = (TimeElapsedLL * 34300) / 2
         else: 
-            self.distanceLL = 60
+            self.distanceLL = 140
         
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
