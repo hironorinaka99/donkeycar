@@ -137,7 +137,7 @@ class DistanceSensorMulti4():
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
-        time.sleep(0.00001)
+        time.sleep(0.00002)
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
 
@@ -146,7 +146,7 @@ class DistanceSensorMulti4():
 
         # save start time
         temp_count = 0
-        while 0 == GPIO.input(pinEchoC) and temp_count < 2000:
+        while 0 == GPIO.input(pinEchoC) and temp_count < 1000:
             temp_count +=1
             startTimeC = time.time()
 
