@@ -639,7 +639,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     pilot_angle -= 0.1 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                 
-                """
+                
                 #後退させる必要があるとき
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
                     time_dis_gap = time.time() - time_dis_short_start
@@ -686,7 +686,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
                 else:
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
-                """
+                
                 return pilot_angle, user_throttle
 
             else: #local
