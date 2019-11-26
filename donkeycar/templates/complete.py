@@ -453,7 +453,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
-                if abs(user_angle) < 0.2:
+                if abs(user_angle) < 0.2 and user_throttle != 0:
                     if t == 0:
                         user_angle += 0.2
                     else:
@@ -572,7 +572,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             elif mode == 'local_angle':
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
-                if abs(pilot_angle) < 0.2:
+                if abs(pilot_angle) < 0.2 and user_throttle != 0:
                     if t == 0:
                         pilot_angle += 0.2
                     else:
