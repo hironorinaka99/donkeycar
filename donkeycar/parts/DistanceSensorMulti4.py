@@ -163,7 +163,7 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoC) and temp_count < 2000:
+        while 1 == GPIO.input(pinEchoC) and temp_count < 3000:
             temp_count +=1
             stopTimeC = time.time()
 
