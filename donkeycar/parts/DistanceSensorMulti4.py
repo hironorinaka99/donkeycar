@@ -121,7 +121,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
-        time.sleep(0.000001) #Centerで必要だったので追加
+        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeLL = time.time()
         stopTimeLL = time.time()
@@ -179,7 +179,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
-        time.sleep(0.000001) #Centerで必要だったので追加
+        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeRR = time.time()
         stopTimeRR = time.time()
@@ -208,7 +208,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
-        time.sleep(0.000001) #Centerで必要だったので追加
+        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeL = time.time()
         stopTimeL = time.time()
@@ -237,7 +237,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
-        time.sleep(0.000001) #Centerで必要だったので追加
+        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeR = time.time()
         stopTimeR = time.time()
