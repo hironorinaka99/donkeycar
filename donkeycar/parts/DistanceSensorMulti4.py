@@ -144,14 +144,14 @@ class DistanceSensorMulti4():
         else: 
             self.distanceLL = 140
 
-        time.sleep(0.01) #仮でタイマー        
-        #time.sleep(0.001)
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
-        time.sleep(0.000001) #不要なはずー必要でした
+        #time.sleep(0.000001) #不要なはずー必要でした
+        time.sleep(0.0000001) #不要なはずー必要でした
 
         startTimeC = time.time()
         stopTimeC = time.time()
