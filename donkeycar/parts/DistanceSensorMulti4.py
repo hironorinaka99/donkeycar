@@ -116,6 +116,8 @@ class DistanceSensorMulti4():
         self.prev_distanceR = self.distanceR
         self.prev_distanceRR = self.distanceRR
 
+
+        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
