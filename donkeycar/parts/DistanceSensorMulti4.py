@@ -35,6 +35,8 @@ pinEchoRR = 21
 brakingDistanceRR = 10
 
 sleepTime = 0.0 # run sensor 10 times to second
+DMSread = 0
+DMSlisten = 0
 
 class DistanceSensorMulti4():
     def __init__(self):
@@ -76,7 +78,12 @@ class DistanceSensorMulti4():
         return
 
     def run_threaded(self): #呼び出されて距離を返す
+        global DMSread
+        global DMSlisten
+
         #print("runThreaded")
+        DMSread +=1
+        print("DMS read %8d" % DMSread + "DMS listen %8d" % DMSlisten)
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             print("DMS sensor error!!")
             print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
@@ -90,8 +97,10 @@ class DistanceSensorMulti4():
         return None, None, None, None, None, None, None, None
 
     def update(self): #距離測定を繰り返す
+        global DMSlisten
         print("In DistanceSensorMulti update")
         while self.running:
+            DMSlisten +=1
             self.listenToDistanceSensor()
             #self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
             #print ("Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
@@ -112,6 +121,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeLL = time.time()
         stopTimeLL = time.time()
@@ -169,6 +179,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeRR = time.time()
         stopTimeRR = time.time()
@@ -181,15 +192,15 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoRR) and temp_count < 1000:
+        while 1 == GPIO.input(pinEchoRR) and temp_count < 2000:
             temp_count +=1
             stopTimeRR = time.time()
             
         TimeElapsedRR = stopTimeRR - startTimeRR
-        if (TimeElapsedRR * 34300) / 2 < 60: #60未満は生値、それ以上は60として返す
+        if (TimeElapsedRR * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
             self.distanceRR = (TimeElapsedRR * 34300) / 2
         else: 
-            self.distanceRR = 60
+            self.distanceRR = 140
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorLeft
@@ -197,6 +208,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeL = time.time()
         stopTimeL = time.time()
@@ -225,6 +237,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeR = time.time()
         stopTimeR = time.time()
@@ -242,7 +255,7 @@ class DistanceSensorMulti4():
             stopTimeR = time.time()
             
         TimeElapsedR = stopTimeR - startTimeR
-        if (TimeElapsedR * 34300) / 2 < 140: #140未満は生値、それ以上は60として返す
+        if (TimeElapsedR * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
             self.distanceR = (TimeElapsedR * 34300) / 2
         else: 
             self.distanceR = 140
@@ -257,6 +270,7 @@ class DistanceSensorMulti4():
         self.distanceC = 0
         self.distanceR = 0
         self.distanceRR = 0
-
         self.running = False ;
+
+
         return
