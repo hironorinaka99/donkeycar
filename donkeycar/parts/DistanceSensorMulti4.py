@@ -143,8 +143,9 @@ class DistanceSensorMulti4():
             self.distanceLL = (TimeElapsedLL * 34300) / 2
         else: 
             self.distanceLL = 140
-        
-        time.sleep(0.001)
+
+        time.sleep(0.01) #仮でタイマー        
+        #time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
@@ -163,7 +164,7 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoC) and temp_count < 3000:
+        while 1 == GPIO.input(pinEchoC) and temp_count < 2000:
             temp_count +=1
             stopTimeC = time.time()
 
