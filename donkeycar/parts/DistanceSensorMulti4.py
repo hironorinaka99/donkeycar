@@ -123,7 +123,7 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
-        #time.sleep(0.000001) #Centerで必要だったので追加
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeLL = time.time()
         stopTimeLL = time.time()
