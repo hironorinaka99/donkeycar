@@ -410,12 +410,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
-            dis_LL_range = 30 #左横センサーの反応範囲
+            dis_LL_range = 40 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
             dis_L_range = 25 #左センサーの反応範囲 
             dis_C_range = 30 #中央センサーの反応範囲 
             dis_R_range = 25 #右センサーの反応範囲 
-            dis_RR_range = 30 #右横センサーの反応範囲 
+            dis_RR_range = 40 #右横センサーの反応範囲 
             dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
