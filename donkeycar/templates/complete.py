@@ -594,9 +594,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
-                            pilot_angle *= 1.1 #全開条件整ったら
-                            user_throttle *= 1.7
-                            print("boost 1.7")
+                            pilot_angle *= 1.2 #全開条件整ったら
+                            user_throttle *= 2.5
+                            print("boost 2.5")
                         #else:
                             #print("距離が縮まっているため全開ブーストなし")              
 
