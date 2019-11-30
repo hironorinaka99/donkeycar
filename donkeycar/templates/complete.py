@@ -693,7 +693,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 else:
                     return pilot_angle, user_throttle * cfg.AI_THROTTLE_MULT #使える？
                 
-                return pilot_angle, user_throttle
+                return pilot_angle, user_throttle - abs(pilot_angle) / 2
 
             else: #local
                 return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
