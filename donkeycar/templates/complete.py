@@ -585,12 +585,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #Sentan
                 #if distanceLL > 140 and distanceL > 100 and distanceC > 120 and distanceR > 50 and distanceRR > 12 and abs(pilot_angle) < 0.4: #順全開条件
-                if distanceLL > 140 and distanceL > 100 and distanceC > 120 and distanceR > 50 and distanceRR > 50 and abs(pilot_angle) < 0.4: #順全開条件
+                if distanceLL > 80 and distanceL > 100 and distanceC > 150 and distanceR > 50 and distanceRR > 50 and abs(pilot_angle) < 0.4: #順全開条件
 
                     #print("準全開条件成立")
                     #Sentan
                     #if distanceL > 120 and distanceC > 150 and distanceR > 60 and abs(pilot_angle) < 0.3: #全開条件
-                    if distanceL > 120 and distanceC > 150 and distanceR > 100 and abs(pilot_angle) < 0.3: #全開条件
+                    if distanceL > 100 and distanceC > 180 and distanceR > 100 and abs(pilot_angle) < 0.3: #全開条件
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
