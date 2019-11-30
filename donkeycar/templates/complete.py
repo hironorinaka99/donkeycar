@@ -410,17 +410,17 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
-            dis_LL_range = 40 #左横センサーの反応範囲
+            dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
             dis_L_range = 25 #左センサーの反応範囲 
             dis_C_range = 30 #中央センサーの反応範囲 
             dis_R_range = 25 #右センサーの反応範囲 
-            dis_RR_range = 40 #右横センサーの反応範囲 
+            dis_RR_range = 30 #右横センサーの反応範囲 
             dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.03 #横センサーの反応係数
 
             dis_timer_all = 1.0 #待ち時間全体 下記2つの時間より長いこと
-            dis_timer_back = 0.5 #後退時間
+            dis_timer_back = 0.6 #後退時間
             dis_timer_wait = 0.2 #後退待ち時間
             dis_back_throttle = -0.35 #後退速度
             #dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
@@ -596,7 +596,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             #print("ギャップ条件成立")
                             pilot_angle *= 1.1 #全開条件整ったら
                             user_throttle *= 2.0
-                            #print("boost 1.7")
+                            print("boost 2.0")
                         #else:
                             #print("距離が縮まっているため全開ブーストなし")              
 
@@ -604,7 +604,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             pilot_angle *= 1.0 #準全開条件整ったら
                             user_throttle *= 1.5
-                            #print("boost 1.3")
+                            print("boost 1.5")
                         #else:
                             #print("距離が縮まっているため準全開ブーストなし")              
 
