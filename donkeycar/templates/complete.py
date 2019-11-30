@@ -634,7 +634,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         print("離れ始めたので補正しない")
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
                     if dis_gapRR < 0: #gapが減っているときのみ補正
-                        pilot_angle -= 0.30 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
+                        pilot_angle -= 0.20 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
                     else:
                         print("離れ始めたので補正しない")
 
