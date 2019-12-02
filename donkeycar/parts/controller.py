@@ -924,21 +924,21 @@ class JoystickController(object):
         if self.chaos_monkey_status is not None: #Modified
             t = int(time.time()*10)%100 #　10秒間を0.1秒単位で100に分割
             if t > 0 and t < 5:  #0.5秒間
-                self.chaos_monkey_steering = -0.4
+                self.chaos_monkey_steering = -0.3
                 return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
             elif t >20 and t < 25: #2秒から2.5秒
-                self.chaos_monkey_steering = 0.4
+                self.chaos_monkey_steering = 0.3
                 return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
             elif t >50 and t < 55: #5秒から5.5秒
-                self.chaos_monkey_steering = -0.4
+                self.chaos_monkey_steering = -0.3
                 return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
             elif t >70 and t < 75: #7秒から7.5秒
-                self.chaos_monkey_steering = 0.4
+                self.chaos_monkey_steering = 0.3
                 return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
             else:
                 return self.angle, self.throttle, self.mode, self.recording
 
-
+        #ステアリング値をExponatial 中央付近で鈍感に（２乗）
         if self.angle > 0:
             return self.angle **2, self.throttle, self.mode, self.recording
         else:
