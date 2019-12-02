@@ -117,13 +117,11 @@ class DistanceSensorMulti4():
         self.prev_distanceRR = self.distanceRR
 
 
-        time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
-        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeLL = time.time()
         stopTimeLL = time.time()
@@ -152,7 +150,6 @@ class DistanceSensorMulti4():
         time.sleep(0.00001)
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
-        time.sleep(0.000001) #不要なはずー必要でした
 
         startTimeC = time.time()
         stopTimeC = time.time()
@@ -170,10 +167,10 @@ class DistanceSensorMulti4():
             stopTimeC = time.time()
 
         TimeElapsedC = stopTimeC - startTimeC
-        if (TimeElapsedC * 34300) / 2 < 300: #200未満は生値、それ以上は200として返す
+        if (TimeElapsedC * 34300) / 2 < 200: #200未満は生値、それ以上は200として返す
             self.distanceC = (TimeElapsedC * 34300) / 2
         else: 
-            self.distanceC = 300
+            self.distanceC = 200
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRightRight
@@ -181,7 +178,6 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
-        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeRR = time.time()
         stopTimeRR = time.time()
@@ -210,7 +206,6 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
-        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeL = time.time()
         stopTimeL = time.time()
@@ -239,7 +234,6 @@ class DistanceSensorMulti4():
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
-        #time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeR = time.time()
         stopTimeR = time.time()
