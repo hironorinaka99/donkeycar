@@ -34,7 +34,7 @@ pinTriggerRR = 26
 pinEchoRR = 21
 brakingDistanceRR = 10
 
-sleepTime = 0.01 # run sensor 10 times to second
+sleepTime = 0.0001 # run sensor 10 times to second
 DMSread = 0
 DMSlisten = 0
 
