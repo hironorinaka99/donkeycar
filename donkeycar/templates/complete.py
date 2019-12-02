@@ -629,12 +629,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                        
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
-                    if dis_gapLL < 0: #gapが減っているときのみ補正
+                    if dis_gapLL < -0.2: #gapが減っているときのみ補正
                         pilot_angle += 0.15 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
                     else:
                         print("離れ始めたので補正しない")
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
-                    if dis_gapRR < 0: #gapが減っているときのみ補正
+                    if dis_gapRR < -0.2: #gapが減っているときのみ補正
                         pilot_angle -= 0.15 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
                     else:
                         print("離れ始めたので補正しない")
