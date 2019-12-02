@@ -170,10 +170,10 @@ class DistanceSensorMulti4():
             stopTimeC = time.time()
 
         TimeElapsedC = stopTimeC - startTimeC
-        if (TimeElapsedC * 34300) / 2 < 200: #200未満は生値、それ以上は200として返す
+        if (TimeElapsedC * 34300) / 2 < 300: #200未満は生値、それ以上は200として返す
             self.distanceC = (TimeElapsedC * 34300) / 2
         else: 
-            self.distanceC = 200
+            self.distanceC = 300
 
         time.sleep(0.001)
         # set Trigger to HIGH  DistanceSensorRightRight
