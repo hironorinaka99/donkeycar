@@ -940,13 +940,11 @@ class JoystickController(object):
 
 
         if self.angle > 0:
-            self.angle **2, self.throttle, self.mode, self.recording
+            return self.angle **2, self.throttle, self.mode, self.recording
         else:
-            (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
+            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
 
-        
-
-        return self.angle, self.throttle, self.mode, self.recording #元設定
+        #return self.angle, self.throttle, self.mode, self.recording #元設定
 
         """
         steering_change_val = 0.2 #1ループあたりのステアリング変更値、
