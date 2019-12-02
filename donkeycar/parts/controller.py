@@ -939,7 +939,16 @@ class JoystickController(object):
                 return self.angle, self.throttle, self.mode, self.recording
 
 
-    
+        if self.angle > 0:
+            self.angle **2, self.throttle, self.mode, self.recording
+        else:
+            (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
+
+        
+
+        return self.angle, self.throttle, self.mode, self.recording #元設定
+
+        """
         steering_change_val = 0.2 #1ループあたりのステアリング変更値、
         if abs(self.angle -prev_angle) > steering_change_val: #ステアリングがsteering_change_val以上操作されたら
             if self.angle - prev_angle > 0:
@@ -954,6 +963,8 @@ class JoystickController(object):
 
         return angle_new, self.throttle, self.mode, self.recording
         #return self.angle, self.throttle, self.mode, self.recording #元設定
+        """
+
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
