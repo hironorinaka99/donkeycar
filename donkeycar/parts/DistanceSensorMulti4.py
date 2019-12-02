@@ -117,11 +117,13 @@ class DistanceSensorMulti4():
         self.prev_distanceRR = self.distanceRR
 
 
+        time.sleep(0.0001)
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerLL, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeLL = time.time()
         stopTimeLL = time.time()
@@ -144,12 +146,13 @@ class DistanceSensorMulti4():
         else: 
             self.distanceLL = 140
 
-        time.sleep(0.001)
+        time.sleep(0.0001)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
         # set Trigger after 0.01ms to LOW
         GPIO.output(pinTriggerC, False)
+        time.sleep(0.000001) #不要なはずー必要でした
 
         startTimeC = time.time()
         stopTimeC = time.time()
@@ -172,12 +175,13 @@ class DistanceSensorMulti4():
         else: 
             self.distanceC = 200
 
-        time.sleep(0.001)
+        time.sleep(0.0001)
         # set Trigger to HIGH  DistanceSensorRightRight
         GPIO.output(pinTriggerRR, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerRR, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeRR = time.time()
         stopTimeRR = time.time()
@@ -200,12 +204,13 @@ class DistanceSensorMulti4():
         else: 
             self.distanceRR = 140
 
-        time.sleep(0.001)
+        time.sleep(0.0001)
         # set Trigger to HIGH  DistanceSensorLeft
         GPIO.output(pinTriggerL, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerL, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeL = time.time()
         stopTimeL = time.time()
@@ -228,12 +233,13 @@ class DistanceSensorMulti4():
         else: 
             self.distanceL = 140
 
-        time.sleep(0.001)
+        time.sleep(0.0001)
         # set Trigger to HIGH  DistanceSensorRight
         GPIO.output(pinTriggerR, True)
         # set Trigger after 0.01ms to LOW
         time.sleep(0.00001)
         GPIO.output(pinTriggerR, False)
+        time.sleep(0.000001) #Centerで必要だったので追加
 
         startTimeR = time.time()
         stopTimeR = time.time()
