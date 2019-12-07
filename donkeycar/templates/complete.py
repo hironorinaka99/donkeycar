@@ -428,9 +428,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
-            dis_L_LKA_range = 60.0 #左センサーLKA動作範囲
-            dis_R_LKA_range = 60.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.005 #左右センサーLKA反応係数
+            dis_L_LKA_range = 80.0 #左センサーLKA動作範囲
+            dis_R_LKA_range = 80.0 #右センサーLKA動作範囲
+            dis_LR_value = 0.003 #左右センサーLKA反応係数
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
@@ -614,19 +614,19 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             #print("距離が縮まっているため準全開ブーストなし")              
 
                 #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
-                elif (distanceL < 60 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 150 and distanceC > 25 and dis_gapC < -8.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 80 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 150 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0
                     print("急速接近中のため　スロットル０")
 
                 #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
-                elif (distanceL < 80 and distanceL > 60 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 170 and distanceC > 100 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 100 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 170 and distanceC > 100 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.1
                     print("急速接近中のため　スロットル０．１")
 
                 #距離センサーのギャップ（縮まり方）がそこまで大きくないときは小減速
-                elif (distanceL < 80 and distanceL > 20 and dis_gapL < -1.1 and pilot_angle < -0.3) or (distanceC < 200 and distanceC > 25 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 20 and dis_gapR < -1.1 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 100 and distanceL > 20 and dis_gapL < -1.1 and pilot_angle < -0.3) or (distanceC < 200 and distanceC > 25 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 20 and dis_gapR < -1.1 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.1 #テストで０
                     print("微速接近中のため、　スロットル0.1")
