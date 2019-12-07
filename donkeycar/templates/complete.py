@@ -570,9 +570,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                if abs(pilot_angle) > 0.3:
+                if abs(pilot_angle) > 0.4:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
-                    user_throttle = user_throttle * 0.9 #スロットルに合わせた速度
+                    user_throttle = user_throttle * 0.93 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.1f" % user_throttle)
                     
                 #ステアリング狙い値出し（左右に振る）
