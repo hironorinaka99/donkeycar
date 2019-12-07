@@ -428,9 +428,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
-            dis_L_LKA_range = 80.0 #左センサーLKA動作範囲
-            dis_R_LKA_range = 80.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.003 #左右センサーLKA反応係数
+            dis_L_LKA_range = 60.0 #左センサーLKA動作範囲
+            dis_R_LKA_range = 60.0 #右センサーLKA動作範囲
+            dis_LR_value = 0.005 #左右センサーLKA反応係数
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
