@@ -596,7 +596,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceLL > 20 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.3: #順全開条件
                     time_boost_gap = time.time() - time_boost_start
                     print("boost_gap %5.2f" % time_boost_gap)
-                    if time_boost_gap < 0.8: #加速継続時間               
+                    if time_boost_gap < 0.7: #加速継続時間               
                         #print("準全開条件成立")
                         if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
                             #print("全開条件成立")
