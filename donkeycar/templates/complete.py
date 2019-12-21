@@ -575,7 +575,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
-                    user_throttle = user_throttle * 0.93 #スロットルに合わせた速度
+                    user_throttle = user_throttle * 0.98 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 if abs(pilot_angle) > 0.4:                    
@@ -608,7 +608,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                                 #print("ギャップ条件成立")
                                 pilot_angle *= 1.1 #全開条件整ったら
-                                user_throttle *= 1.5
+                                user_throttle *= 1.4
                                 print("boost 1.5")
                             #else:
                                 #print("距離が縮まっているため全開ブーストなし")              
