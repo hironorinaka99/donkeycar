@@ -32,6 +32,7 @@ from donkeycar.parts.launch import AiLaunch
 from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
+time_boost_start = 0 #ブースト時間のダミー初期時刻
 
 """
 global prev_distanceLL
@@ -410,6 +411,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
+            global time_boost_start
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
             dis_L_range = 25 #左センサーの反応範囲 
@@ -570,7 +572,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                if abs(pilot_angle) > 0.4:
+                if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
                     user_throttle = user_throttle * 0.9 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
@@ -591,33 +593,36 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #Sentan
                 #if distanceLL > 140 and distanceL > 100 and distanceC > 120 and distanceR > 50 and distanceRR > 12 and abs(pilot_angle) < 0.4: #順全開条件
                 if distanceLL > 20 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.3: #順全開条件
+                    time_boost_gap = time.time() - time_boost_start
+                    if time_boost_gap < 0.2 #加速継続時間                     
+                        #print("準全開条件成立")
+                        if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
+                            #print("全開条件成立")
+                            if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
+                                #print("ギャップ条件成立")
+                                pilot_angle *= 1.1 #全開条件整ったら
+                                user_throttle *= 1.5
+                                print("boost 1.5")
+                            #else:
+                                #print("距離が縮まっているため全開ブーストなし")              
 
-                    #print("準全開条件成立")
-                    #Sentan
-                    #if distanceL > 120 and distanceC > 150 and distanceR > 60 and abs(pilot_angle) < 0.3: #全開条件
-                    if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
-                        #print("全開条件成立")
-                        if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            #print("ギャップ条件成立")
-                            pilot_angle *= 1.1 #全開条件整ったら
-                            user_throttle *= 1.5
-                            print("boost 1.5")
-                        #else:
-                            #print("距離が縮まっているため全開ブーストなし")              
-
-                    else: #準全開条件
-                        if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
-                            pilot_angle *= 1.0 #準全開条件整ったら
-                            user_throttle *= 1.3
-                            print("boost 1.3")
-                        #else:
-                            #print("距離が縮まっているため準全開ブーストなし")              
-
+                        else: #準全開条件
+                            if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
+                                pilot_angle *= 1.0 #準全開条件整ったら
+                                user_throttle *= 1.3
+                                print("boost 1.3")
+                            #else:
+                                #print("距離が縮まっているため準全開ブーストなし") 
+                
                 #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
                 elif (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0
                     print("急速接近中のため　スロットル０")
+                else:
+                    time_boost_start = time.time()
+                    print("set new boost timer")
+
                 """
                 #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
                 elif (distanceL < 100 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 170 and distanceC > 100 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
