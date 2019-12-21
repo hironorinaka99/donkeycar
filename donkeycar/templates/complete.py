@@ -578,7 +578,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     user_throttle = user_throttle * 0.93 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
-                if abs(pilot_angle) > 0.5:                    
+                if abs(pilot_angle) > 0.7:                    
                     time_boost_start = time.time()
                     print("set new boost timer")
                     
