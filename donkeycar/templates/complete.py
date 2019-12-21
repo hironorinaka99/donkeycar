@@ -596,14 +596,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if distanceLL > 20 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.3: #順全開条件
                     time_boost_gap = time.time() - time_boost_start
                     print("boost_gap %5.2f" % time_boost_gap)
-                    if time_boost_gap < 0.7: #加速継続時間               
+                    if time_boost_gap < 0.5: #加速継続時間               
                         #print("準全開条件成立")
                         if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
                             #print("全開条件成立")
                             if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                                 #print("ギャップ条件成立")
                                 pilot_angle *= 1.1 #全開条件整ったら
-                                user_throttle *= 1.5
+                                user_throttle *= 1.7
                                 print("boost 1.5")
                             #else:
                                 #print("距離が縮まっているため全開ブーストなし")              
@@ -611,7 +611,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         else: #準全開条件
                             if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                                 pilot_angle *= 1.0 #準全開条件整ったら
-                                user_throttle *= 1.3
+                                user_throttle *= 1.5
                                 print("boost 1.3")
                             #else:
                                 #print("距離が縮まっているため準全開ブーストなし") 
