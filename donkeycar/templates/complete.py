@@ -592,11 +592,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #Sentan
                 #if distanceLL > 140 and distanceL > 100 and distanceC > 120 and distanceR > 50 and distanceRR > 12 and abs(pilot_angle) < 0.4: #順全開条件
-                print("boost_start %5.2f" % time_boost_start)
-                print("boost_gap %5.2f" % time_boost_gap)
 
                 if distanceLL > 20 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.3: #順全開条件
                     time_boost_gap = time.time() - time_boost_start
+                    print("boost_start %5.2f" % time_boost_start)
+                    print("boost_gap %5.2f" % time_boost_gap)
+
                     if time_boost_gap < 0.2: #加速継続時間               
                         #print("準全開条件成立")
                         if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
