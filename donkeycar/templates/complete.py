@@ -570,7 +570,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
-                if abs(pilot_angle) > 0.4:
+                if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
                     user_throttle = user_throttle * 0.93 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.1f" % user_throttle)
@@ -590,18 +590,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #Sentan
                 #if distanceLL > 140 and distanceL > 100 and distanceC > 120 and distanceR > 50 and distanceRR > 12 and abs(pilot_angle) < 0.4: #順全開条件
-                if distanceLL > 80 and distanceL > 100 and distanceC > 150 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.4: #順全開条件
+                if distanceLL > 20 and distanceL > 50 and distanceC > 80 and distanceR > 50 and distanceRR > 20 and abs(pilot_angle) < 0.3: #順全開条件
 
                     #print("準全開条件成立")
                     #Sentan
                     #if distanceL > 120 and distanceC > 150 and distanceR > 60 and abs(pilot_angle) < 0.3: #全開条件
-                    if distanceL > 100 and distanceC > 180 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
+                    if distanceL > 70 and distanceC > 100 and distanceR > 70 and abs(pilot_angle) < 0.3: #全開条件
                         #print("全開条件成立")
                         if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                             #print("ギャップ条件成立")
                             pilot_angle *= 1.1 #全開条件整ったら
-                            user_throttle *= 1.7
-                            print("boost 1.7")
+                            user_throttle *= 1.5
+                            print("boost 1.5")
                         #else:
                             #print("距離が縮まっているため全開ブーストなし")              
 
@@ -614,11 +614,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             #print("距離が縮まっているため準全開ブーストなし")              
 
                 #中距離で距離センサーのギャップ（縮まり方）が大きいときは大減速
-                elif (distanceL < 80 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 150 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.5) or (distanceR < 60 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                elif (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0
                     print("急速接近中のため　スロットル０")
-
+"""
                 #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
                 elif (distanceL < 100 and distanceL > 20 and dis_gapL < -2.0 and pilot_angle < -0.3) or (distanceC < 170 and distanceC > 100 and dis_gapC < -5.0 and abs(pilot_angle) < 0.5) or (distanceR < 80 and distanceR > 60 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
@@ -643,13 +643,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     else:
                         print("離れ始めたので補正しない")
 
-                
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
                     pilot_angle += 0.2 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     pilot_angle -= 0.2 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                 
+"""                
                 
                 #後退させる必要があるとき 停止
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :               
