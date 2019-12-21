@@ -572,10 +572,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return user_angle, user_throttle
                                 
             elif mode == 'local_angle':
+
                 if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
                     user_throttle = user_throttle * 0.93 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
+
+                if abs(pilot_angle) > 0.5:                    
+                    time_boost_start = time.time()
+                    print("set new boost timer")
                     
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
@@ -603,8 +608,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             if dis_gapL >= 0 and dis_gapC >= 0 and dis_gapR >=0: #前のセンサー距離がどれも縮まっていない
                                 #print("ギャップ条件成立")
                                 pilot_angle *= 1.1 #全開条件整ったら
-                                user_throttle *= 1.4
-                                print("boost 1.4")
+                                user_throttle *= 1.5
+                                print("boost 1.5")
                             #else:
                                 #print("距離が縮まっているため全開ブーストなし")              
 
@@ -621,9 +626,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
                     user_throttle *= 0.0
                     print("急速接近中のため　スロットル０")
-                else:
-                    time_boost_start = time.time()
-                    print("set new boost timer")
 
                 """
                 #遠くで距離センサーのギャップ（縮まり方）が大きいときは中減速
