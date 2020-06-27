@@ -491,7 +491,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
 
             if mode == 'user': 
-
+                """
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
                 if abs(user_angle) < 0.2 and user_throttle != 0:
@@ -499,6 +499,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         user_angle += 0.2
                     else:
                         user_angle -= 0.2
+                """
                 """
                 #条件が良い時には加速 ステアリングは、中立付近（0.5より小さい）
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
@@ -621,6 +622,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     time_boost_start = time.time()
                     print("set new boost timer")
                     
+                """
                 #ステアリング狙い値出し（左右に振る）
                 t = int(time.time()*10)%2 #0.05秒単位
                 if abs(pilot_angle) < 0.2 and user_throttle != 0:
@@ -628,6 +630,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                         pilot_angle += 0.1
                     else:
                         pilot_angle -= 0.1
+                """
 
                 #条件が良い時には加速 ステアリングは、中立付近（0.5より小さい）
                 #print ("LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " "C: %.1f cm" % distanceC + "  " "R: %.1f cm" % distanceR + "  " "RR: %.1f cm" % distanceRR) 
