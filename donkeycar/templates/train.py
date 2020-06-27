@@ -10,11 +10,12 @@ Basic usage should feel familiar: python train.py --model models/mypilot
 
 
 Usage:
-    train.py [--tub=<tub1,tub2,..tubn>] [--file=<file> ...] (--model=<model>) [--transfer=<model>] [--type=(linear|latent|categorical|rnn|imu|behavior|3d|look_ahead|tensorrt_linear|tflite_linear|coral_tflite_linear)] [--continuous] [--aug]
+    train.py [--tub=<tub1,tub2,..tubn>] [--file=<file> ...] (--model=<model>) [--transfer=<model>] [--type=(linear|latent|categorical|rnn|imu|behavior|3d|look_ahead|tensorrt_linear|tflite_linear|coral_tflite_linear)] [--figure_format=<figure_format>] [--continuous] [--aug]
 
 Options:
-    -h --help        Show this screen.
-    -f --file=<file> A text file containing paths to tub files, one per line. Option may be used more than once.
+    -h --help              Show this screen.
+    -f --file=<file>       A text file containing paths to tub files, one per line. Option may be used more than once.
+    --figure_format=png    The file format of the generated figure (see https://matplotlib.org/api/_as_gen/matplotlib.pyplot.savefig.html), e.g. 'png', 'pdf', 'svg', ...
 """
 import os
 import glob
@@ -38,6 +39,8 @@ from donkeycar.parts.keras import KerasLinear, KerasIMU,\
      KerasRNN_LSTM, KerasLatent, KerasLocalizer
 from donkeycar.parts.augment import augment_image
 from donkeycar.utils import *
+
+figure_format = 'png'
 
 
 '''
@@ -283,7 +286,7 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
     use the specified data in tub_names to train an artifical neural network
     saves the output trained model as model_name
     ''' 
-    verbose = cfg.VEBOSE_TRAIN
+    verbose = cfg.VERBOSE_TRAIN
 
     if model_type is None:
         model_type = cfg.DEFAULT_MODEL_TYPE
@@ -579,7 +582,7 @@ def go_train(kl, cfg, train_gen, val_gen, gen_records, model_name, steps_per_epo
                     train_gen, 
                     steps_per_epoch=steps_per_epoch, 
                     epochs=epochs, 
-                    verbose=cfg.VEBOSE_TRAIN, 
+                    verbose=cfg.VERBOSE_TRAIN,
                     validation_data=val_gen,
                     callbacks=callbacks_list, 
                     validation_steps=val_steps,
@@ -621,7 +624,7 @@ def go_train(kl, cfg, train_gen, val_gen, gen_records, model_name, steps_per_epo
                     plt.xlabel('epoch')
                     #plt.legend(['train', 'validate'], loc='upper left')
 
-                plt.savefig(model_path + '_loss_acc_%f.png' % save_best.best)
+                plt.savefig(model_path + '_loss_acc_%f.%s' % (save_best.best, figure_format))
                 plt.show()
             else:
                 print("not saving loss graph because matplotlib not set up.")
@@ -684,80 +687,7 @@ def go_train(kl, cfg, train_gen, val_gen, gen_records, model_name, steps_per_epo
         # convert to uff
         # print("Saved TensorRT model:", uff_filename)
 
-    if cfg.PRUNE_CNN:
-        base_model_path = splitext(model_name)[0]
-        cnn_channels = get_total_channels(kl.model)
-        print('original model with {} channels'.format(cnn_channels))
-        prune_gen = SequencePredictionGenerator(gen_records, cfg)
-        target_channels = int(cnn_channels * (1 - (float(cfg.PRUNE_PERCENT_TARGET) / 100.0)))
-
-        print('Target channels of {0} remaining with {1:.00%} percent removal per iteration'.format(target_channels, cfg.PRUNE_PERCENT_PER_ITERATION / 100))
-        
-        from keras.models import load_model
-        prune_loss = 0
-        while cnn_channels > target_channels:
-            save_best.reset_best()
-            model, channels_deleted = prune(kl.model, prune_gen, 1, cfg)
-            cnn_channels -= channels_deleted
-            kl.model = model
-            kl.compile()
-            kl.model.summary()
-
-            #stop training if the validation error stops improving.
-            early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', 
-                                                        min_delta=cfg.MIN_DELTA, 
-                                                        patience=cfg.EARLY_STOP_PATIENCE, 
-                                                        verbose=verbose, 
-                                                        mode='auto')
-
-            history = kl.model.fit_generator(
-                        train_gen,
-                        steps_per_epoch=steps_per_epoch, 
-                        epochs=epochs, 
-                        verbose=cfg.VEBOSE_TRAIN,
-                        validation_data=val_gen,
-                        validation_steps=val_steps,
-                        workers=workers_count,
-                        callbacks=[early_stop],
-                        use_multiprocessing=use_multiprocessing)
-
-            prune_loss = min(history.history['val_loss'])
-            print('prune val_loss this iteration: {}'.format(prune_loss))
-
-            # If loss breaks the threshhold 
-            if prune_loss < max_val_loss:
-                model.save('{}_prune_{}_filters.h5'.format(base_model_path, cnn_channels))
-            else:
-                break
-
-        print('pruning stopped at {} with a target of {}'.format(cnn_channels, target_channels))
-
-
-class SequencePredictionGenerator(keras.utils.Sequence):
-    """
-    Provides a thread safe data generator for the Keras predict_generator for use with kerasergeon. 
-    """
-    def __init__(self, data, cfg):
-        data = list(data.values())
-        self.n = int(len(data) * cfg.PRUNE_EVAL_PERCENT_OF_DATASET)
-        self.data = data[:self.n]
-        self.batch_size = cfg.BATCH_SIZE
-        self.cfg = cfg
-
-    def __len__(self):
-        return int(np.ceil(len(self.data) / float(self.batch_size)))
-
-    def __getitem__(self, idx):
-        batch_data = self.data[idx * self.batch_size:(idx + 1) * self.batch_size]
-
-        images = []
-        for data in batch_data:
-            path = data['image_path']
-            img_arr = load_scaled_image_arr(path, self.cfg)
-            images.append(img_arr)
-
-        return np.array(images), np.array([])
-
+    
 def sequence_train(cfg, tub_names, model_name, transfer_model, model_type, continuous, aug):
     '''
     use the specified data in tub_names to train an artifical neural network
@@ -770,9 +700,12 @@ def sequence_train(cfg, tub_names, model_name, transfer_model, model_type, conti
 
     kl = dk.utils.get_model_by_type(model_type=model_type, cfg=cfg)
     
+    if cfg.PRINT_MODEL_SUMMARY:
+        print(kl.model.summary())
+    
     tubs = gather_tubs(cfg, tub_names)
     
-    verbose = cfg.VEBOSE_TRAIN
+    verbose = cfg.VERBOSE_TRAIN
 
     records = []
 
@@ -1094,6 +1027,13 @@ if __name__ == "__main__":
     model = args['--model']
     transfer = args['--transfer']
     model_type = args['--type']
+
+    if model_type is None:
+        model_type = cfg.DEFAULT_MODEL_TYPE
+        print("using default model type of", model_type)
+
+    if args['--figure_format']:
+        figure_format = args['--figure_format']
     continuous = args['--continuous']
     aug = args['--aug']
     

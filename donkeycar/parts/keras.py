@@ -15,13 +15,7 @@ models to help direct the vehicles motion.
 import os
 import numpy as np
 
-
-try: #Colab用の例外処理
-    from tensorflow import ConfigProto
-    from tensorflow import Session
-except:
-    print("Colab")
-
+import tensorflow as tf
 from tensorflow.python import keras
 from tensorflow.python.keras.layers import Input, Dense
 from tensorflow.python.keras.models import Model, Sequential
@@ -34,16 +28,15 @@ from tensorflow.python.keras.layers import Conv3D, MaxPooling3D, Cropping3D, Con
 
 import donkeycar as dk
 
-# Override keras session to work around a bug in TF 1.13.1
-# Remove after we upgrade to TF 1.14 / TF 2.x.
+if tf.__version__ == '1.13.1':
+    from tensorflow import ConfigProto, Session
 
-try: #Colab用の例外処理
+    # Override keras session to work around a bug in TF 1.13.1
+    # Remove after we upgrade to TF 1.14 / TF 2.x.
     config = ConfigProto()
     config.gpu_options.allow_growth = True
     session = Session(config=config)
     keras.backend.set_session(session)
-except:
-    print("Colab")
 
 class KerasPilot(object):
     '''
@@ -54,7 +47,7 @@ class KerasPilot(object):
         self.optimizer = "adam"
  
     def load(self, model_path):
-        self.model = keras.models.load_model(model_path)
+        self.model = keras.models.load_model(model_path, compile=False)
 
     def load_weights(self, model_path, by_name=True):
         self.model.load_weights(model_path, by_name=by_name)
@@ -201,10 +194,10 @@ class KerasIMU(KerasPilot):
                                                     train_frac=cfg.TRAIN_TEST_SPLIT)
 
     '''
-    def __init__(self, model=None, num_outputs=2, num_imu_inputs=6, input_shape=(120, 160, 3), *args, **kwargs):
+    def __init__(self, model=None, num_outputs=2, num_imu_inputs=6, input_shape=(120, 160, 3), roi_crop=(0,0), *args, **kwargs):
         super(KerasIMU, self).__init__(*args, **kwargs)
         self.num_imu_inputs = num_imu_inputs
-        self.model = default_imu(num_outputs = num_outputs, num_imu_inputs = num_imu_inputs, input_shape=input_shape)
+        self.model = default_imu(num_outputs = num_outputs, num_imu_inputs = num_imu_inputs, input_shape=input_shape, roi_crop=roi_crop)
         self.compile()
 
     def compile(self):
@@ -359,10 +352,10 @@ def default_n_linear(num_outputs, input_shape=(120, 160, 3), roi_crop=(0, 0)):
 
 
 
-def default_imu(num_outputs, num_imu_inputs, input_shape):
+def default_imu(num_outputs, num_imu_inputs, input_shape, roi_crop=(0, 0)):
 
     #we now expect that cropping done elsewhere. we will adjust our expeected image size here:
-    #input_shape = adjust_input_shape(input_shape, roi_crop)
+    input_shape = adjust_input_shape(input_shape, roi_crop)
 
     img_in = Input(shape=input_shape, name='img_in')
     imu_in = Input(shape=(num_imu_inputs,), name="imu_in")
@@ -478,12 +471,13 @@ def default_loc(num_locations, input_shape):
 
 
 class KerasRNN_LSTM(KerasPilot):
-    def __init__(self, image_w =160, image_h=120, image_d=3, seq_length=3, num_outputs=2, *args, **kwargs):
+    def __init__(self, image_w =160, image_h=120, image_d=3, seq_length=3, roi_crop=(0,0), num_outputs=2, *args, **kwargs):
         super(KerasRNN_LSTM, self).__init__(*args, **kwargs)
-        image_shape = (image_h, image_w, image_d)
+        input_shape = (image_h, image_w, image_d)
         self.model = rnn_lstm(seq_length=seq_length,
             num_outputs=num_outputs,
-            image_shape=image_shape)
+            input_shape=input_shape,
+            roi_crop=roi_crop)
         self.seq_length = seq_length
         self.image_d = image_d
         self.image_w = image_w
@@ -513,12 +507,12 @@ class KerasRNN_LSTM(KerasPilot):
         return steering, throttle
   
 
-def rnn_lstm(seq_length=3, num_outputs=2, image_shape=(120,160,3)):
+def rnn_lstm(seq_length=3, num_outputs=2, input_shape=(120,160,3), roi_crop=(0, 0)):
 
     #we now expect that cropping done elsewhere. we will adjust our expeected image size here:
-    #input_shape = adjust_input_shape(input_shape, roi_crop)
+    input_shape = adjust_input_shape(input_shape, roi_crop)
 
-    img_seq_shape = (seq_length,) + image_shape   
+    img_seq_shape = (seq_length,) + input_shape   
     img_in = Input(batch_shape = img_seq_shape, name='img_in')
     drop_out = 0.3
 
@@ -550,8 +544,16 @@ def rnn_lstm(seq_length=3, num_outputs=2, image_shape=(120,160,3)):
 
 
 class Keras3D_CNN(KerasPilot):
-    def __init__(self, image_w =160, image_h=120, image_d=3, seq_length=20, num_outputs=2, *args, **kwargs):
+    def __init__(self, image_w =160, image_h=120, image_d=3, seq_length=20, num_outputs=2, roi_crop=(0, 0), *args, **kwargs):
         super(Keras3D_CNN, self).__init__(*args, **kwargs)
+
+        #we now expect that cropping done elsewhere. we will adjust our expeected image size here:
+        input_shape = adjust_input_shape((image_h, image_w, image_d), roi_crop)
+        image_h = input_shape[0]
+        image_w = input_shape[1]
+        image_d = input_shape[2]
+
+
         self.model = build_3d_cnn(w=image_w, h=image_h, d=image_d, s=seq_length, num_outputs=num_outputs)
         self.seq_length = seq_length
         self.image_d = image_d
@@ -676,7 +678,6 @@ def default_latent(num_outputs, input_shape):
     
     img_in = Input(shape=input_shape, name='img_in')
     x = img_in
-    x = Lambda(lambda x: x/255.)(x) # normalize
     x = Convolution2D(24, (5,5), strides=(2,2), activation='relu', name="conv2d_1")(x)
     x = Dropout(drop)(x)
     x = Convolution2D(32, (5,5), strides=(2,2), activation='relu', name="conv2d_2")(x)
@@ -691,7 +692,7 @@ def default_latent(num_outputs, input_shape):
     x = Dropout(drop)(x)
     x = Convolution2D(64, (3,3), strides=(2,2), activation='relu', name="conv2d_7")(x)
     x = Dropout(drop)(x)
-    x = Convolution2D(10, (1,1), strides=(2,2), activation='relu', name="latent")(x)
+    x = Convolution2D(64, (1,1), strides=(2,2), activation='relu', name="latent")(x)
     
     y = Conv2DTranspose(filters=64, kernel_size=(3,3), strides=2, name="deconv2d_1")(x)
     y = Conv2DTranspose(filters=64, kernel_size=(3,3), strides=2, name="deconv2d_2")(y)
