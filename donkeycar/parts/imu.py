@@ -48,7 +48,8 @@ class IMU:
                 gfs=GFS_1000,
                 afs=AFS_4G,
                 mfs=AK8963_BIT_16,
-                mode=AK8963_MODE_C100HZ)
+                mode=AK8963_MODE_C8HZ)
+                #mode=AK8963_MODE_C100HZ)
             
             if(dlp_setting > 0):
                 self.sensor.writeSlave(CONFIG_REGISTER, dlp_setting)
@@ -85,7 +86,7 @@ class IMU:
             print('failed to read imu!!')
             
     def run_threaded(self):
-        print("IMU return threded Mag %.3f  %.3f" % (self.mag['x'],self.mag['y']))
+        print("IMU Mag X %.3f  Y %.3f Z %.3f" % (self.mag['x'],self.mag['y'],,self.mag['z']))
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
