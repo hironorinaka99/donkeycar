@@ -48,8 +48,7 @@ class IMU:
                 gfs=GFS_1000,
                 afs=AFS_4G,
                 mfs=AK8963_BIT_16,
-                mode=AK8963_MODE_C8HZ)
-                #mode=AK8963_MODE_C100HZ)
+                mode=AK8963_MODE_C100HZ)
             
             if(dlp_setting > 0):
                 self.sensor.writeSlave(CONFIG_REGISTER, dlp_setting)
