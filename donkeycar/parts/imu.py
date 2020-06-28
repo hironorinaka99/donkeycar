@@ -85,7 +85,7 @@ class IMU:
             print('failed to read imu!!')
             
     def run_threaded(self):
-        print("IMU return threded %5.3f  Mag  %5.3f",self.accel['x'],self.mag['x'] )
+        print("IMU return threded Mag %.3f  %.3f" % (self.mag['x'],self.mag['y']))
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
