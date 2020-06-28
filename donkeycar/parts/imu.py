@@ -108,7 +108,7 @@ if __name__ == "__main__":
         dlp_setting = int(sys.argv[2])
 
     p = IMU(sensor=sensor_type)
-    while iter < 100:
+    while iter < 1000:
         data = p.run()
         print(data)
         time.sleep(0.1)
