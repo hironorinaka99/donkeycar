@@ -803,7 +803,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
                                 return angle_adj_2 * 1.0, dis_back_throttle
 
-                return pilot_angle * cfg.AI_THROTTLE_MULT, pilot_throttle * cfg.AI_THROTTLE_MULT
+                return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
