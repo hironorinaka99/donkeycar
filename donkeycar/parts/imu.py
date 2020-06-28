@@ -39,10 +39,10 @@ class IMU:
         else:
             from mpu9250_jmdev.registers import AK8963_ADDRESS, GFS_1000, AFS_4G, AK8963_BIT_16, AK8963_MODE_C100HZ
             from mpu9250_jmdev.mpu_9250 import MPU9250
-
+            
             self.sensor = MPU9250(
                 address_ak=AK8963_ADDRESS,
-                address_mpu_master=addr,  # In 0x68 Address Nakagawa 上でadd変更
+                address_mpu_master=addr,  # In 0x68 Address
                 address_mpu_slave=None,
                 bus=1,
                 gfs=GFS_1000,
@@ -53,7 +53,7 @@ class IMU:
             if(dlp_setting > 0):
                 self.sensor.writeSlave(CONFIG_REGISTER, dlp_setting)
             self.sensor.calibrateMPU6500()
-            self.sensor.calibrateAK8963() #Nakagawaつけたし
+            #self.sensor.calibrateAK8963() #Nakagawaつけたし
 
             self.sensor.configure()
 
@@ -90,6 +90,7 @@ class IMU:
 
     def run(self):
         self.poll()
+        print("IMU return")
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def shutdown(self):
@@ -99,7 +100,7 @@ class IMU:
 if __name__ == "__main__":
     iter = 0
     import sys
-    sensor_type = SENSOR_MPU6050 
+    sensor_type = SENSOR_MPU9250 
     dlp_setting = DLP_SETTING_DISABLED
     if len(sys.argv) > 1:
         sensor_type = sys.argv[1]
