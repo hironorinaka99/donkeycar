@@ -65,6 +65,7 @@ class IMU:
     def update(self):
         while self.on:
             self.poll()
+            print("IMU!")
             time.sleep(self.poll_delay)
                 
     def poll(self):
