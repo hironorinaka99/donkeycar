@@ -463,7 +463,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_timer_all = 1.0 #待ち時間全体 下記2つの時間より長いこと
             dis_timer_back = 0.6 #後退時間
             dis_timer_wait = 0.2 #後退待ち時間
-            dis_back_throttle = -0.35 #後退速度
+            dis_back_throttle = -0.30 #後退速度
             #dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
@@ -752,6 +752,57 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return pilot_angle, user_throttle
 
             else: #local
+                #急接近の時
+                if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                    pilot_throttle *= 0.5
+                    print("急速接近中のため　スロットル半分")
+
+                #後退させる必要があるとき 停止
+                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :               
+                    time_dis_gap = time.time() - time_dis_short_start                    
+                    if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
+                        time_dis_short_start = time.time()
+                        print("set new start time")
+                        return pilot_angle, 0 #ニュートラルに戻す
+
+                    elif time_dis_gap < dis_timer_wait: #バックする為に一度0を入力
+                        #print("back wait" + str(time_dis_gap))
+                        print("back wait %3.1f" % time_dis_gap)
+                        if distanceLL < dis_LL_rev_range or min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
+                            return pilot_angle + angle_adj_1, 0 #左が近い場合は少し(angle_adj_1分)右に切って(惰性前進中)、スロットル0で待機
+                        elif distanceRR < dis_RR_rev_range or min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
+                            return pilot_angle - angle_adj_1, 0 #右が近い場合は少し(angle_adj_1分)左に切って(惰性前進中)、スロットル0で待機
+                        else:
+                            return pilot_angle, 0 #中央が近い場合は、スロットル0で待機
+
+                    elif time_dis_gap < dis_timer_wait + 0.1: #バック開始の短い時間は、userAngleで後退
+                        print("back keep angle")
+                        if min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件:
+                            return pilot_angle, dis_back_throttle #左が近い場合は切り増しをやめて、短時間後退
+                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件:
+                            return pilot_angle, dis_back_throttle #左が近い場合は切り増しをやめて、短時間後退
+                        else:
+                            return 0, dis_back_throttle #中央が近い場合は、ステアリング中立で後退
+
+                    elif time_dis_gap < (dis_timer_back + dis_timer_wait): #いったんバックする時間
+                        #print("back" + str(time_dis_gap))
+                        print("back %3.1f" % time_dis_gap) 
+                        if max(distanceL, distanceC * 1.5, distanceR) == distanceC *1.5 and distanceL < dis_L_range *1.5 and distanceC < dis_C_range *1.5 and distanceR < dis_R_range *1.5 and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左右前センサより中央が遠く、前のセンサー3つがどれも近く(係数倍）、横センサーが反応していない条件（角に向いてしまった場合）
+                            print("角向きのため、右向くために下がる")
+                            return -1, dis_back_throttle #左にハンドル切って後退　（できるだけ右回りに戻りたいので）
+                        elif min(distanceL, distanceC, distanceR) == distanceL and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #左前が近く、横センサーが反応していない条件
+                            return -1, dis_back_throttle #左が近い場合は、左にハンドル切って後退
+                        elif min(distanceL, distanceC, distanceR) == distanceR and distanceLL > dis_LL_rev_range and distanceRR > dis_RR_rev_range: #右前が近く、横センサーが反応していない条件
+                            return 1, dis_back_throttle #右が近い場合は、右にハンドル切って後退
+                        else:                           #中央が近い場合
+                            if distanceL > distanceR:   #中央が近く、左側が大きく開いている場合、ハンドルを少し右(angle_adj_2 * -1.0)に切って後退
+                                print("中央センサ停止、左センサ方向空きの為、右に切って下がる")
+                                return angle_adj_2 * -1.0 , dis_back_throttle 
+                            else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右(angle_adj_2 * 1.0)に切って後退
+                                print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
+                                return angle_adj_2 * 1.0, dis_back_throttle
+
                 return pilot_angle, pilot_throttle * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
