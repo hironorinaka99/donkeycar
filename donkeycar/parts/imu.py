@@ -52,8 +52,8 @@ class IMU:
             
             if(dlp_setting > 0):
                 self.sensor.writeSlave(CONFIG_REGISTER, dlp_setting)
-            #self.sensor.calibrateMPU6500()
-            self.sensor.calibrateAK8963() #Nakagawaつけたし
+            self.sensor.calibrateMPU6500()
+            #self.sensor.calibrateAK8963() #Nakagawaつけたし
 
             self.sensor.configure()
 
