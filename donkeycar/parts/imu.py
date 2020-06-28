@@ -85,12 +85,11 @@ class IMU:
             print('failed to read imu!!')
             
     def run_threaded(self):
-        print("IMU return threded")
+        print("IMU return threded %5.3f  Mag  %5.3f",self.accel['x'],self.mag['x'] )
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
         self.poll()
-        print("IMU return")
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def shutdown(self):
