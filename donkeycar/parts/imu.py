@@ -68,7 +68,6 @@ class IMU:
     def update(self):
         while self.on:
             self.poll()
-            print("IMU!")
             time.sleep(self.poll_delay)
                 
     def poll(self):
@@ -108,7 +107,7 @@ if __name__ == "__main__":
         dlp_setting = int(sys.argv[2])
 
     p = IMU(sensor=sensor_type)
-    while iter < 1000:
+    while iter < 100:
         data = p.run()
         print(data)
         time.sleep(0.1)
