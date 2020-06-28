@@ -27,7 +27,7 @@ class IMU:
     '''
 
     #def __init__(self, addr=0x68, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
-    def __init__(self, addr=0x73, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
+    def __init__(self, addr=0x68, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
         self.sensortype = sensor
         if self.sensortype == SENSOR_MPU6050:
             from mpu6050 import mpu6050 as MPU6050
