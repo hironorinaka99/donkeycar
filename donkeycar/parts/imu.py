@@ -26,7 +26,8 @@ class IMU:
     
     '''
 
-    def __init__(self, addr=0x68, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
+    #def __init__(self, addr=0x68, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
+    def __init__(self, addr=0x73, poll_delay=0.0166, sensor=SENSOR_MPU6050, dlp_setting=DLP_SETTING_DISABLED):
         self.sensortype = sensor
         if self.sensortype == SENSOR_MPU6050:
             from mpu6050 import mpu6050 as MPU6050
@@ -41,7 +42,7 @@ class IMU:
 
             self.sensor = MPU9250(
                 address_ak=AK8963_ADDRESS,
-                address_mpu_master=addr,  # In 0x68 Address
+                address_mpu_master=addr,  # In 0x68 Address Nakagawa 上でadd変更
                 address_mpu_slave=None,
                 bus=1,
                 gfs=GFS_1000,
@@ -52,6 +53,8 @@ class IMU:
             if(dlp_setting > 0):
                 self.sensor.writeSlave(CONFIG_REGISTER, dlp_setting)
             self.sensor.calibrateMPU6500()
+            self.sensor.calibrateAK8963() #Nakagawaつけたし
+
             self.sensor.configure()
 
         
