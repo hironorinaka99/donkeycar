@@ -107,6 +107,7 @@ class IMU:
         x = self.mag['x'] - 43 #ズレ分を引く
         y = self.mag['y'] - 15
 
+        #北 -1, 南 +1   西 -1 東 +1 
         xd = (x ** 2 / (x**2 + y**2)) ** 0.5 #方向成分を計算
         if x < 0:
             xd *= -1 #負の値を計算
@@ -115,9 +116,10 @@ class IMU:
             yd *= -1 #負の値を計算
 
         #print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
-        print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
-
-        return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
+        #print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
+        
+        return xd, yd, self.temp
+        #return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
         self.poll()

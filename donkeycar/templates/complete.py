@@ -315,8 +315,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if cfg.HAVE_IMU:
         from donkeycar.parts.imu import IMU
         imu = IMU(sensor=cfg.IMU_SENSOR, dlp_setting=cfg.IMU_DLP_CONFIG)
-        V.add(imu, outputs=['imu/acl_x', 'imu/acl_y', 'imu/acl_z',
-            'imu/gyr_x', 'imu/gyr_y', 'imu/gyr_z'], threaded=True)
+        V.add(imu, outputs=['imu/mag_x', 'imu/mag_y'], threaded=True)
 
     class ImgPreProcess():
         '''
@@ -331,6 +330,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     if "coral" in model_type:
         inf_input = 'cam/image_array'
+
+        assert(cfg.HAVE_IMU) #Nakagawa
+        #Run the pilot if the mode is not user.
+        inputs=[inf_input, 'imu/mag_x', 'imu/mag_y']
+
     else:
         inf_input = 'cam/normalized/cropped'
         V.add(ImgPreProcess(cfg),
@@ -953,13 +957,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if cfg.CAMERA_TYPE == "D435" and cfg.REALSENSE_D435_DEPTH:
         inputs += ['cam/depth_array']
         types += ['gray16_array']
-
+    """
     if cfg.HAVE_IMU or (cfg.CAMERA_TYPE == "D435" and cfg.REALSENSE_D435_IMU):
         inputs += ['imu/acl_x', 'imu/acl_y', 'imu/acl_z',
             'imu/gyr_x', 'imu/gyr_y', 'imu/gyr_z']
 
         types +=['float', 'float', 'float',
            'float', 'float', 'float']
+    """
+    if cfg.HAVE_IMU:
+        inputs += ['imu/mag_x', 'imu/mag_y']
+
+        types +=['float', 'float']
 
     if cfg.RECORD_DURING_AI:
         inputs += ['pilot/angle', 'pilot/throttle']
