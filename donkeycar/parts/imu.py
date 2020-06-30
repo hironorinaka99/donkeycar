@@ -108,7 +108,11 @@ class IMU:
         y = self.mag['y'] - 15
 
         xd = (x ** 2 / (x**2 + y**2)) ** 0.5 #方向成分を計算
+        if x < 0:
+            xd *= -1 #負の値を計算
         yd = (y ** 2 / (x**2 + y**2)) ** 0.5
+        if y < 0:
+            yd *= -1 #負の値を計算
 
         #print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
         print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
