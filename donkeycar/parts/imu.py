@@ -95,7 +95,6 @@ class IMU:
         global magxmin
         global magymax
         global magymin
-
         if self.mag['x'] > magxmax:
             magxmax = self.mag['x']
         if self.mag['x'] < magxmin:
@@ -105,7 +104,15 @@ class IMU:
         if self.mag['y'] < magymin:
             magymin = self.mag['y']
         
-        print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
+        x = self.mag['x'] - 43 #ズレ分を引く
+        y = self.mag['y'] - 15
+
+        xd = (x ** 2 / (x**2 + y**2)) ** 0.5 #方向成分を計算
+        yd = (y ** 2 / (x**2 + y**2)) ** 0.5
+
+        #print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
+        print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
+
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
