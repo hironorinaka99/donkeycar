@@ -204,7 +204,7 @@ class KerasIMU(KerasPilot):
         self.model.compile(optimizer=self.optimizer,
                   loss='mse')
         
-    def run(self, img_arr, accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z):
+    def run(self, img_arr, mag_x, mag_y):
         #TODO: would be nice to take a vector input array.
         img_arr = img_arr.reshape((1,) + img_arr.shape)
         #imu_arr = np.array([accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z]).reshape(1,self.num_imu_inputs)
