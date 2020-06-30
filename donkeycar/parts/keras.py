@@ -195,6 +195,7 @@ class KerasIMU(KerasPilot):
 
     '''
     def __init__(self, model=None, num_outputs=2, num_imu_inputs=2, input_shape=(120, 160, 3), roi_crop=(0,0), *args, **kwargs):
+        num_imu_inputs = 2 #Nakagawa エラー取れないので
         super(KerasIMU, self).__init__(*args, **kwargs)
         self.num_imu_inputs = num_imu_inputs
         self.model = default_imu(num_outputs = num_outputs, num_imu_inputs = num_imu_inputs, input_shape=input_shape, roi_crop=roi_crop)
@@ -205,6 +206,7 @@ class KerasIMU(KerasPilot):
                   loss='mse')
         
     def run(self, img_arr, mag_x, mag_y):
+        num_imu_inputs = 2 #Nakagawa エラー取れないので
         #TODO: would be nice to take a vector input array.
         img_arr = img_arr.reshape((1,) + img_arr.shape)
         #imu_arr = np.array([accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z]).reshape(1,self.num_imu_inputs)

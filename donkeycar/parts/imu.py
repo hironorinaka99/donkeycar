@@ -123,7 +123,32 @@ class IMU:
 
     def run(self):
         self.poll()
-        return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
+
+        global magxmax
+        global magxmin
+        global magymax
+        global magymin
+        if self.mag['x'] > magxmax:
+            magxmax = self.mag['x']
+        if self.mag['x'] < magxmin:
+            magxmin = self.mag['x']
+        if self.mag['y'] > magymax:
+            magymax = self.mag['y']
+        if self.mag['y'] < magymin:
+            magymin = self.mag['y']
+        
+        x = self.mag['x'] - 43 #ズレ分を引く
+        y = self.mag['y'] - 15
+
+        #北 -1, 南 +1   西 -1 東 +1 
+        xd = (x ** 2 / (x**2 + y**2)) ** 0.5 #方向成分を計算
+        if x < 0:
+            xd *= -1 #負の値を計算
+        yd = (y ** 2 / (x**2 + y**2)) ** 0.5
+        if y < 0:
+            yd *= -1 #負の値を計算  
+        
+        return xd, yd, self.temp
 
     def shutdown(self):
         global magxmax
