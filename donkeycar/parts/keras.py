@@ -207,7 +207,8 @@ class KerasIMU(KerasPilot):
     def run(self, img_arr, accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z):
         #TODO: would be nice to take a vector input array.
         img_arr = img_arr.reshape((1,) + img_arr.shape)
-        imu_arr = np.array([accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z]).reshape(1,self.num_imu_inputs)
+        #imu_arr = np.array([accel_x, accel_y, accel_z, gyr_x, gyr_y, gyr_z]).reshape(1,self.num_imu_inputs)
+        imu_arr = np.array([mag_x, mag_y]).reshape(1,self.num_imu_inputs)
         outputs = self.model.predict([img_arr, imu_arr])
         steering = outputs[0]
         throttle = outputs[1]
@@ -338,6 +339,8 @@ def default_n_linear(num_outputs, input_shape=(120, 160, 3), roi_crop=(0, 0)):
     x = Flatten(name='flattened')(x)
     x = Dense(100, activation='relu')(x)
     x = Dropout(drop)(x)
+
+    
     x = Dense(50, activation='relu')(x)
     x = Dropout(drop)(x)
 
@@ -352,34 +355,41 @@ def default_n_linear(num_outputs, input_shape=(120, 160, 3), roi_crop=(0, 0)):
 
 
 
-def default_imu(num_outputs, num_imu_inputs, input_shape, roi_crop=(0, 0)):
+def default_imu(num_outputs, num_imu_inputs, input_shape, roi_crop=(0, 0)): #大変更につきオリジナル参照
+
+    drop = 0.1
 
     #we now expect that cropping done elsewhere. we will adjust our expeected image size here:
     input_shape = adjust_input_shape(input_shape, roi_crop)
 
     img_in = Input(shape=input_shape, name='img_in')
     imu_in = Input(shape=(num_imu_inputs,), name="imu_in")
-    
+
     x = img_in
-    x = Convolution2D(24, (5,5), strides=(2,2), activation='relu')(x)
-    x = Convolution2D(32, (5,5), strides=(2,2), activation='relu')(x)
-    x = Convolution2D(64, (3,3), strides=(2,2), activation='relu')(x)
-    x = Convolution2D(64, (3,3), strides=(1,1), activation='relu')(x)
-    x = Convolution2D(64, (3,3), strides=(1,1), activation='relu')(x)
+    x = Convolution2D(24, (5,5), strides=(2,2), activation='relu', name="conv2d_1")(x)
+    x = Dropout(drop)(x)
+    x = Convolution2D(32, (5,5), strides=(2,2), activation='relu', name="conv2d_2")(x)
+    x = Dropout(drop)(x)
+    x = Convolution2D(64, (5,5), strides=(2,2), activation='relu', name="conv2d_3")(x)
+    x = Dropout(drop)(x)
+    x = Convolution2D(64, (3,3), strides=(1,1), activation='relu', name="conv2d_4")(x)
+    x = Dropout(drop)(x)
+    x = Convolution2D(64, (3,3), strides=(1,1), activation='relu', name="conv2d_5")(x)
+    x = Dropout(drop)(x)  
     x = Flatten(name='flattened')(x)
     x = Dense(100, activation='relu')(x)
-    x = Dropout(.1)(x)
-    
+    x = Dropout(drop)(x)
+
     y = imu_in
     y = Dense(14, activation='relu')(y)
     y = Dense(14, activation='relu')(y)
-    y = Dense(14, activation='relu')(y)
+    #y = Dense(14, activation='relu')(y) #単純化
     
     z = concatenate([x, y])
     z = Dense(50, activation='relu')(z)
-    z = Dropout(.1)(z)
+    z = Dropout(drop)(z)
     z = Dense(50, activation='relu')(z)
-    z = Dropout(.1)(z)
+    z = Dropout(drop)(z)
 
     outputs = [] 
     
