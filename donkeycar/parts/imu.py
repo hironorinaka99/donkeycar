@@ -7,16 +7,11 @@ DLP_SETTING_DISABLED = 0
 CONFIG_REGISTER = 0x1A
 
 class IMU:
-    """
+
     global magxmax = 0
     global magxmin = 0
     global magymax = 0
     global magymin = 0
-    """
-    magxmax = 0
-    magxmin = 0
-    magymax = 0
-    magymin = 0
 
     '''
     Installation:
