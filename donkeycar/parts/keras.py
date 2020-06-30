@@ -194,7 +194,7 @@ class KerasIMU(KerasPilot):
                                                     train_frac=cfg.TRAIN_TEST_SPLIT)
 
     '''
-    def __init__(self, model=None, num_outputs=2, num_imu_inputs=6, input_shape=(120, 160, 3), roi_crop=(0,0), *args, **kwargs):
+    def __init__(self, model=None, num_outputs=2, num_imu_inputs=2, input_shape=(120, 160, 3), roi_crop=(0,0), *args, **kwargs):
         super(KerasIMU, self).__init__(*args, **kwargs)
         self.num_imu_inputs = num_imu_inputs
         self.model = default_imu(num_outputs = num_outputs, num_imu_inputs = num_imu_inputs, input_shape=input_shape, roi_crop=roi_crop)
@@ -383,7 +383,7 @@ def default_imu(num_outputs, num_imu_inputs, input_shape, roi_crop=(0, 0)): #大
     y = imu_in
     y = Dense(14, activation='relu')(y)
     y = Dense(14, activation='relu')(y)
-    y = Dense(14, activation='relu')(y) #単純化したほうがよいのでは？
+    y = #Dense(14, activation='relu')(y) #単純化したほうがよいのでは？
     
     z = concatenate([x, y])
     z = Dense(50, activation='relu')(z)
