@@ -22,9 +22,15 @@ MODELS_PATH = os.path.join(CAR_PATH, 'models')
 
 DEFAULT_MODEL_TYPE = 'coral_tflite_linear'   #(linear|tflite_linear|coral_tflite_linear|categorical|rnn|imu|behavior|3d|localizer|latent)
 
+#IMU
+HAVE_IMU = True                #when true, this add a Mpu6050 part and records the data. Can be used with a
+IMU_SENSOR = 'mpu9250'          # (mpu6050|mpu9250)
+IMU_DLP_CONFIG = 0              # Digital Lowpass Filter setting (0:250Hz, 1:184Hz, 2:92Hz, 3:41Hz, 4:20Hz, 5:10Hz, 6:5Hz)
+
 #VEHICLE
-DRIVE_LOOP_HZ = 20      # the vehicle loop will pause if faster than this speed.
+DRIVE_LOOP_HZ = 50      # the vehicle loop will pause if faster than this speed.
 MAX_LOOPS = None        # the vehicle loop can abort after this many iterations, when given a positive integer.
+
 
 #CAMERA
 CAMERA_TYPE = "PICAM"   # (PICAM|WEBCAM|CVCAM|CSIC|V4L|D435|MOCK|IMAGE_LIST)
@@ -164,10 +170,6 @@ MODEL_CATEGORICAL_MAX_THROTTLE_RANGE = 0.5
 #RNN or 3D
 SEQUENCE_LENGTH = 3             #some models use a number of images over time. This controls how many.
 
-#IMU
-HAVE_IMU = False                #when true, this add a Mpu6050 part and records the data. Can be used with a
-IMU_SENSOR = 'mpu6050'          # (mpu6050|mpu9250)
-IMU_DLP_CONFIG = 0              # Digital Lowpass Filter setting (0:250Hz, 1:184Hz, 2:92Hz, 3:41Hz, 4:20Hz, 5:10Hz, 6:5Hz)
 
 #SOMBRERO
 HAVE_SOMBRERO = False           #set to true when using the sombrero hat from the Donkeycar store. This will enable pwm on the hat.

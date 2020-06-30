@@ -383,7 +383,7 @@ def default_imu(num_outputs, num_imu_inputs, input_shape, roi_crop=(0, 0)): #大
     y = imu_in
     y = Dense(14, activation='relu')(y)
     y = Dense(14, activation='relu')(y)
-    #y = Dense(14, activation='relu')(y) #単純化
+    y = Dense(14, activation='relu')(y) #単純化したほうがよいのでは？
     
     z = concatenate([x, y])
     z = Dense(50, activation='relu')(z)
