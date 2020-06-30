@@ -6,6 +6,12 @@ SENSOR_MPU9250 = 'mpu9250'
 DLP_SETTING_DISABLED = 0
 CONFIG_REGISTER = 0x1A
 
+global magxmax = 0
+global magxmin = 0
+global magymax = 0
+global magymin = 0
+
+
 class IMU:
     '''
     Installation:
@@ -85,7 +91,16 @@ class IMU:
             print('failed to read imu!!')
             
     def run_threaded(self):
-        print("IMU Mag X %.3f  Y %.3f Z %.3f" % (self.mag['x'],self.mag['y'],self.mag['z']))
+        if self.mag['x'] > magxmax:
+            magxmax = self.mag['x']
+        if self.mag['x'] < magxmin:
+            magxmin = self.mag['x']
+        if self.mag['y'] > magymax:
+            magymax = self.mag['y']
+        if self.mag['y'] < magymin:
+            magymin = self.mag['y']
+        
+        print("IMU Mag X %3.1f  Y %3.1f Z %3.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
@@ -93,6 +108,7 @@ class IMU:
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def shutdown(self):
+        print("IMU Mag X MAX %3.1f MIN %3.1f  Y MAX %3.1f MIN %3.1f" % (magxmax,magxmin,magymax,magymin))
         self.on = False
 
 
