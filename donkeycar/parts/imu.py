@@ -6,11 +6,11 @@ SENSOR_MPU9250 = 'mpu9250'
 DLP_SETTING_DISABLED = 0
 CONFIG_REGISTER = 0x1A
 
-
-magxmax = 0
-magxmin = 0
-magymax = 0
-magymin = 0
+#初期値はダミー
+magxmax = -100
+magxmin = 100
+magymax = -100
+magymin = 100
 
 class IMU:
     '''
@@ -105,7 +105,7 @@ class IMU:
         if self.mag['y'] < magymin:
             magymin = self.mag['y']
         
-        print("IMU Mag X %3.1f  Y %3.1f Z %3.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
+        print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
         return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
 
     def run(self):
@@ -118,7 +118,7 @@ class IMU:
         global magymax
         global magymin
 
-        print("IMU Mag X MAX %3.1f MIN %3.1f  Y MAX %3.1f MIN %3.1f" % (magxmax,magxmin,magymax,magymin))
+        print("IMU Mag X MAX %5.1f MIN %5.1f  Y MAX %5.1f MIN %5.1f" % (magxmax,magxmin,magymax,magymin))
         self.on = False
 
 
