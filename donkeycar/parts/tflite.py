@@ -4,6 +4,7 @@ def keras_model_to_tflite(in_filename, out_filename, data_gen=None):
     verStr = tf.__version__
     if verStr.find('1.1')  == 0: # found MAJOR.MINOR match for version 1.1x.x
         converter = tf.lite.TFLiteConverter.from_keras_model_file(in_filename)
+        #converter = tf.lite.TFLiteConverter.from_saved_model_file(in_filename) #どっち？
     if verStr.find('2.')  == 0: # found MAJOR.MINOR match for version 2.x.x
         new_model= tf.keras.models.load_model(in_filename) #filepath="keras_model.h5")
         converter = tf.lite.TFLiteConverter.from_keras_model(new_model)
