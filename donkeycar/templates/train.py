@@ -113,18 +113,6 @@ def collate_records(records, gen_records, opts):
         sample['angle'] = angle
         sample['throttle'] = throttle
 
-        """
-        try:
-            accl_x = float(json_data['imu/acl_x'])
-            accl_y = float(json_data['imu/acl_y'])
-            accl_z = float(json_data['imu/acl_z'])
-
-            gyro_x = float(json_data['imu/gyr_x'])
-            gyro_y = float(json_data['imu/gyr_y'])
-            gyro_z = float(json_data['imu/gyr_z'])
-
-            sample['imu_array'] = np.array([accl_x, accl_y, accl_z, gyro_x, gyro_y, gyro_z])
-        """
         try:
             mag_x = float(json_data['imu/mag_x'])
             mag_y = float(json_data['imu/mag_y'])
