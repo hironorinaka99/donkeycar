@@ -675,7 +675,7 @@ class JoystickController(object):
     framework.
     '''
     global speedadjust
-    
+
     ES_IDLE = -1
     ES_START = 0
     ES_THROTTLE_NEG_ONE = 1
@@ -1016,9 +1016,9 @@ class JoystickController(object):
         '''
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
         if self.angle > 0:
-            return self.angle **2, self.throttle * (self.speedadjust + 1), self.mode, self.recording
+            return self.angle **2, self.throttle * (speedadjust + 1), self.mode, self.recording
         else:
-            return (self.angle **2) * -1.0, self.throttle * (self.speedadjust +1), self.mode, self.recording
+            return (self.angle **2) * -1.0, self.throttle * (speedadjust +1), self.mode, self.recording
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
 
