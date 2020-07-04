@@ -116,7 +116,7 @@ class IMU:
             yd *= -1 #負の値を計算
 
         #print("IMU Mag X %5.1f  Y %5.1f Z %5.1f" % (self.mag['x'],self.mag['y'],self.mag['z']))
-        print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
+        #print("IMU Mag direction X %5.1f  Y %5.1f" % (xd,yd))
         
         return xd, yd, self.temp
         #return self.accel['x'], self.accel['y'], self.accel['z'], self.gyro['x'], self.gyro['y'], self.gyro['z'], self.temp
