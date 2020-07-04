@@ -44,7 +44,7 @@ global prev_distanceC
 global prev_distanceR
 global prev_distanceRR
 """
-global speedadjust 
+global speedadjust
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -448,13 +448,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #Choose what inputs should change the car.
     class DriveMode:
+        global speedadjust
         def run(self, mode,
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
-            global speedadjust
+
 
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
