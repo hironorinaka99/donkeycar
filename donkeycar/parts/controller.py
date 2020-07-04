@@ -704,9 +704,10 @@ class JoystickController(object):
         self.js = None
         self.tub = None
         self.num_records_to_erase = 100
-        self.estop_state = self.ES_IDLE
-        self.chaos_monkey_status = None  #Modified
-        self.chaos_monkey_steering = None
+        self.estop_state = self.ES_IDLE        
+        #self.chaos_monkey_status = None  #Modified
+        #self.chaos_monkey_steering = None
+        self.speedadjust = 1.0
         self.dead_zone = 0.0
 
         self.button_down_trigger_map = {}
@@ -908,6 +909,20 @@ class JoystickController(object):
 
         print('throttle_scale:', self.throttle_scale)
 
+    def increase_speedadjust(self): #Nakagawa
+        '''
+        increase speed
+        '''
+        self.speedadjust = round(min(1.0, self.speedadjust + 0.1), 2)
+        print('increase speed adjust: ', self.speedadjust)
+
+
+    def decrease_speedadjust(self):
+        '''
+        decrease speed
+        '''
+        self.speedadjust = round(min(0.0, self.speedadjust - 0.1), 2)
+        print('decrease speed adjust: ', self.speedadjust)
 
     def toggle_constant_throttle(self):
         '''
@@ -922,6 +937,7 @@ class JoystickController(object):
             self.throttle = self.throttle_scale
             self.on_throttle_changes()
         print('constant_throttle:', self.constant_throttle)
+
 
 
     def toggle_mode(self):
@@ -940,23 +956,13 @@ class JoystickController(object):
         print('new mode:', self.mode)
 
     '''
-    def chaos_monkey_on_left(self):
-        self.chaos_monkey_steering = -0.2
-
-
-    def chaos_monkey_on_right(self):
-        self.chaos_monkey_steering = 0.2
-
-    def chaos_monkey_off(self):
-        self.chaos_monkey_steering = None
-    '''
-    
     def chaos_monkey_start(self):
         self.chaos_monkey_status = True
 
     def chaos_monkey_stop(self):
         self.chaos_monkey_status = None
-    
+    '''
+
     def run_threaded(self, img_arr=None):
         self.img_arr = img_arr
         global prev_angle
@@ -982,6 +988,8 @@ class JoystickController(object):
                     self.estop_state = self.ES_IDLE
                 return 0.0, self.throttle, self.mode, False
 
+
+        '''
         if self.chaos_monkey_status is not None: #Modified
             t = int(time.time()*10)%100 #　10秒間を0.1秒単位で100に分割
             if t > 0 and t < 5:  #0.5秒間
@@ -998,32 +1006,14 @@ class JoystickController(object):
                 return self.angle + self.chaos_monkey_steering, self.throttle, self.mode, False
             else:
                 return self.angle, self.throttle, self.mode, self.recording
-
+        '''
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
         if self.angle > 0:
-            return self.angle **2, self.throttle, self.mode, self.recording
+            return self.angle **2, self.throttle * self.speedadjust, self.mode, self.recording
         else:
-            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
+            return (self.angle **2) * -1.0, self.throttle * self.speedadjust, self.mode, self.recording
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
-
-        """
-        steering_change_val = 0.2 #1ループあたりのステアリング変更値、
-        if abs(self.angle -prev_angle) > steering_change_val: #ステアリングがsteering_change_val以上操作されたら
-            if self.angle - prev_angle > 0:
-                angle_new = prev_angle + steering_change_val  #steering_change_val変化
-            else:
-                angle_new = prev_angle - steering_change_val #steering_change_val変化
-        else:
-            angle_new = self.angle
-        prev_angle = angle_new
-                
-        #print("self.angle %.2f" % self.angle +  "    angle_new %.2f" % angle_new  + "   prev_angle  %.2f" % prev_angle)
-
-        return angle_new, self.throttle, self.mode, self.recording
-        #return self.angle, self.throttle, self.mode, self.recording #元設定
-        """
-
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
@@ -1119,11 +1109,15 @@ class PS3JoystickController(JoystickController):
             'dpad_up' : self.increase_max_throttle,
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
-            "R1" : self.chaos_monkey_start, #Modified
+            #"R1" : self.chaos_monkey_start, #Modified
+            "R1" : self.increase_speedadjust, #Modified
+
         }
 
         self.button_up_trigger_map = {
-            "L1" : self.chaos_monkey_stop, #Modified
+            #"L1" : self.chaos_monkey_stop, #Modified
+            "L1" : self.decrease_speedadjust, #Modified
+            
         }
 
 
