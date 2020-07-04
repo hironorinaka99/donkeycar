@@ -9,6 +9,7 @@ import logging
 from prettytable import PrettyTable
 global prev_angle #Nakagawa
 prev_angle = 0.0
+global speedadjust
 
 #import for syntactical ease
 from donkeycar.parts.web_controller.web import LocalWebController
