@@ -1066,6 +1066,7 @@ class PS3JoystickController(JoystickController):
     '''
     A Controller object that maps inputs to actions
     '''
+    global speedadjust
     def __init__(self, *args, **kwargs):
         super(PS3JoystickController, self).__init__(*args, **kwargs)
 
