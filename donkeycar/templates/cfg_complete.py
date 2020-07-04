@@ -20,12 +20,15 @@ CAR_PATH = PACKAGE_PATH = os.path.dirname(os.path.realpath(__file__))
 DATA_PATH = os.path.join(CAR_PATH, 'data')
 MODELS_PATH = os.path.join(CAR_PATH, 'models')
 
-DEFAULT_MODEL_TYPE = 'coral_tflite_linear'   #(linear|tflite_linear|coral_tflite_linear|categorical|rnn|imu|behavior|3d|localizer|latent)
+#Scale the output of the throttle of the ai pilot for all model types.
+AI_THROTTLE_MULT = 1.0              # this multiplier will scale every throttle value for all output from NN models
 
 #IMU
 HAVE_IMU = True                #when true, this add a Mpu6050 part and records the data. Can be used with a
 IMU_SENSOR = 'mpu9250'          # (mpu6050|mpu9250)
 IMU_DLP_CONFIG = 0              # Digital Lowpass Filter setting (0:250Hz, 1:184Hz, 2:92Hz, 3:41Hz, 4:20Hz, 5:10Hz, 6:5Hz)
+
+DEFAULT_MODEL_TYPE = 'coral_tflite_linear'   #(linear|tflite_linear|coral_tflite_linear|categorical|rnn|imu|behavior|3d|localizer|latent)
 
 #VEHICLE
 DRIVE_LOOP_HZ = 50      # the vehicle loop will pause if faster than this speed.
@@ -269,12 +272,10 @@ PUB_CAMERA_IMAGES = False
 
 #When racing, to give the ai a boost, configure these values.
 AI_LAUNCH_DURATION = 0.6            # the ai will output throttle for this many seconds
-AI_LAUNCH_THROTTLE = 0.35            # the ai will output this throttle value
+AI_LAUNCH_THROTTLE = 0.30            # the ai will output this throttle value
 AI_LAUNCH_ENABLE_BUTTON = 'R2'      # this keypress will enable this boost. It must be enabled before each use to prevent accidental trigger.
 AI_LAUNCH_KEEP_ENABLED = False      # when False ( default) you will need to hit the AI_LAUNCH_ENABLE_BUTTON for each use. This is safest. When this True, is active on each trip into "local" ai mode.
 
-#Scale the output of the throttle of the ai pilot for all model types.
-AI_THROTTLE_MULT = 1.0              # this multiplier will scale every throttle value for all output from NN models
 
 #Path following
 PATH_FILENAME = "donkey_path.pkl"   # the path will be saved to this filename
