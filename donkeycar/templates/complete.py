@@ -45,7 +45,7 @@ global prev_distanceR
 global prev_distanceRR
 """
 
-speedadjust = 1.0
+#speedadjust = 1.0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -455,7 +455,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
-            global speedadjust
 
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
