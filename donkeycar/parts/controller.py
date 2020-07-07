@@ -113,6 +113,9 @@ class Joystick(object):
         # Main event loop
         evbuf = self.jsdev.read(8)
 
+        print("CONTROLLER2")
+
+
         if evbuf:
             tval, value, typev, number = struct.unpack('IhBB', evbuf)
 
