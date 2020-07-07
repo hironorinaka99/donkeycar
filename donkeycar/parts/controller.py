@@ -106,9 +106,8 @@ class Joystick(object):
         axis = None
         axis_val = None
 
-        print("CONTROLLER1")
-
         if self.jsdev is None:
+            print("CONTROLLER1")
             return button, button_state, axis, axis_val
 
         # Main event loop
@@ -137,6 +136,7 @@ class Joystick(object):
                     axis_val = fvalue
                     logging.debug("axis: %s val: %f" % (axis, fvalue))
 
+        print("CONTROLLER3")
         return button, button_state, axis, axis_val
 
 
