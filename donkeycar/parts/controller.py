@@ -673,7 +673,7 @@ class JoystickController(object):
     presses into actions and takes action. Interacts with the Donkey part
     framework.
     '''
-    global speedadjust
+    #global speedadjust
 
     ES_IDLE = -1
     ES_START = 0
@@ -709,8 +709,9 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
+        self.speedadjust = 1.0
 
-        global speedadjust
+        #global speedadjust
 
 
         self.button_down_trigger_map = {}
@@ -916,19 +917,16 @@ class JoystickController(object):
         '''
         increase speed
         '''
-        global speedadjust
-        speedadjust = round(min(1.0, speedadjust + 0.1), 2)
-        print('increase speed adjust: ', speedadjust)
+        self.speedadjust = round(min(1.0, self.speedadjust + 0.1), 2)
+        print('increase speed adjust: ', self.speedadjust)
 
 
     def decrease_speedadjust(self):
         '''
         decrease speed
         '''
-        
-        global speedadjust
-        speedadjust = round(min(0.0, speedadjust - 0.1), 2)
-        print('decrease speed adjust: ', speedadjust)
+        self.speedadjust = round(min(0.0, self.speedadjust - 0.1), 2)
+        print('decrease speed adjust: ', self.speedadjust)
 
     def toggle_constant_throttle(self):
         '''
@@ -1066,7 +1064,6 @@ class PS3JoystickController(JoystickController):
     '''
     A Controller object that maps inputs to actions
     '''
-    global speedadjust
     def __init__(self, *args, **kwargs):
         super(PS3JoystickController, self).__init__(*args, **kwargs)
 
