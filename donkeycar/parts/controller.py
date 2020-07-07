@@ -713,9 +713,9 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
-        self.speedadjust = 1.0
+        #self.speedadjust = 1.0
 
-        #global speedadjust
+        global speedadjust
 
 
         self.button_down_trigger_map = {}
@@ -921,16 +921,18 @@ class JoystickController(object):
         '''
         increase speed
         '''
-        self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
-        print('increase speed adjust: ', self.speedadjust)
+        global speedadjust
+        speedadjust = round(min(2.0, speedadjust + 0.1), 2)
+        print('increase speed adjust: ', speedadjust)
 
 
     def decrease_speedadjust(self):
         '''
         decrease speed
         '''
-        self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
-        print('decrease speed adjust: ', self.speedadjust)
+        global speedadjust
+        speedadjust = round(max(0.5, speedadjust - 0.1), 2)
+        print('decrease speed adjust: ', speedadjust)
 
     def toggle_constant_throttle(self):
         '''
@@ -1015,14 +1017,14 @@ class JoystickController(object):
             else:
                 return self.angle, self.throttle, self.mode, self.recording
         '''
-        print("speedadjust:%5.2f",self.speedadjust)
+        #print("speedadjust:%5.2f",speedadjust)
         
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
 
         if self.angle > 0:
-            return self.angle **2, self.throttle, self.mode, self.recording, self.speedadjust
+            return self.angle **2, self.throttle, self.mode, self.recording
         else:
-            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording, self.speedadjust
+            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
 
