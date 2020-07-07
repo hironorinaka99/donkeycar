@@ -9,7 +9,6 @@ import logging
 from prettytable import PrettyTable
 global prev_angle #Nakagawa
 prev_angle = 0.0
-global speedadjust
 
 #import for syntactical ease
 from donkeycar.parts.web_controller.web import LocalWebController
@@ -712,7 +711,6 @@ class JoystickController(object):
         self.dead_zone = 0.0
 
         global speedadjust
-        speedadjust = 1
 
 
         self.button_down_trigger_map = {}
@@ -918,7 +916,7 @@ class JoystickController(object):
         '''
         increase speed
         '''
-        global speedadjust
+        #global speedadjust
         speedadjust = round(min(1.0, speedadjust + 0.1), 2)
         print('increase speed adjust: ', speedadjust)
 
@@ -927,7 +925,7 @@ class JoystickController(object):
         '''
         decrease speed
         '''
-        global speedadjust
+        #global speedadjust
         speedadjust = round(min(0.0, speedadjust - 0.1), 2)
         print('decrease speed adjust: ', speedadjust)
 
@@ -1016,9 +1014,9 @@ class JoystickController(object):
         '''
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
         if self.angle > 0:
-            return self.angle **2, self.throttle * (speedadjust + 1), self.mode, self.recording
+            return self.angle **2, self.throttle, self.mode, self.recording
         else:
-            return (self.angle **2) * -1.0, self.throttle * (speedadjust +1), self.mode, self.recording
+            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
 
