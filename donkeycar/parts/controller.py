@@ -1011,13 +1011,13 @@ class JoystickController(object):
             else:
                 return self.angle, self.throttle, self.mode, self.recording
         '''
-        print("speedadjust:%5.2f",self.throttle *self.speedadjust)
+        #print("speedadjust:%5.2f",self.speedadjust)
         
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
         if self.angle > 0:
-            return self.angle **2, self.throttle * self.speedadjust, self.mode, self.recording
+            return self.angle **2, self.throttle, self.mode, self.recording, self.speedadjust
         else:
-            return (self.angle **2) * -1.0, self.throttle * self.speedadjust, self.mode, self.recording
+            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording, self.speedadjust
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
 
@@ -1599,10 +1599,11 @@ if __name__ == "__main__":
     v = donkeycar.vehicle.Vehicle()
     p = PyGamePS4JoystickController()
     v.add(p, inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
+          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording', 'speedadjust'],
           threaded=True)
     v.start(max_loop_count = 100)
     
+    print("!!he")
     '''
     j = PyGamePS4Joystick(which_js=0)
     i = 0
