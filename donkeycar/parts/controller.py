@@ -113,7 +113,7 @@ class Joystick(object):
         # Main event loop
         evbuf = self.jsdev.read(8)
 
-        print("CONTROLLER2")
+        #print("CONTROLLER2")
 
 
         if evbuf:
