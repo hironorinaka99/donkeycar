@@ -106,6 +106,8 @@ class Joystick(object):
         axis = None
         axis_val = None
 
+        print("CONTROLLER1")
+
         if self.jsdev is None:
             return button, button_state, axis, axis_val
 
@@ -1599,11 +1601,10 @@ if __name__ == "__main__":
     v = donkeycar.vehicle.Vehicle()
     p = PyGamePS4JoystickController()
     v.add(p, inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording', 'speedadjust'],
+          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
           threaded=True)
     v.start(max_loop_count = 100)
     
-    print("!!he")
     '''
     j = PyGamePS4Joystick(which_js=0)
     i = 0
