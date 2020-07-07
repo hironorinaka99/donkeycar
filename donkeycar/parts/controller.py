@@ -107,7 +107,6 @@ class Joystick(object):
         axis_val = None
 
         if self.jsdev is None:
-            print("CONTROLLER1")
             return button, button_state, axis, axis_val
 
         # Main event loop
@@ -1016,9 +1015,10 @@ class JoystickController(object):
             else:
                 return self.angle, self.throttle, self.mode, self.recording
         '''
-        #print("speedadjust:%5.2f",self.speedadjust)
+        print("speedadjust:%5.2f",self.speedadjust)
         
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
+
         if self.angle > 0:
             return self.angle **2, self.throttle, self.mode, self.recording, self.speedadjust
         else:
