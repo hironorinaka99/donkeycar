@@ -838,7 +838,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         outputs= speedadjust)
     print("speed adjust 5",speedadjust)
 
-    )
+    
 
     class AiRunCondition:
         '''
