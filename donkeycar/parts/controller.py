@@ -27,8 +27,6 @@ class Joystick(object):
         self.button_map = []
         self.jsdev = None
         self.dev_fn = dev_fn
-        self.speedadjust =1.0
-
 
 
     def init(self):
@@ -140,8 +138,7 @@ class Joystick(object):
                     axis_val = fvalue
                     logging.debug("axis: %s val: %f" % (axis, fvalue))
 
-        print("CONTROLLER3")
-        return button, button_state, axis, axis_val, speedadjust
+        return button, button_state, axis, axis_val
 
 
 class PyGameJoystick(object):
@@ -230,7 +227,7 @@ class PyGameJoystick(object):
 
                 iBtn += 1
 
-        return button, button_state, axis, axis_val, speedadjust
+        return button, button_state, axis, axis_val
         
     def set_deadzone(self, val):
         self.dead_zone = val
