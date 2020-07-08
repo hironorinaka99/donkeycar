@@ -677,7 +677,7 @@ class JoystickController(object):
     presses into actions and takes action. Interacts with the Donkey part
     framework.
     '''
-    global speedadjust
+    #global speedadjust
 
     ES_IDLE = -1
     ES_START = 0
