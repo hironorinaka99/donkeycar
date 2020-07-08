@@ -8,7 +8,7 @@ class speedadjustclass():
         print("In speedincrease",self.speedadjust)
 
     def speeddecrease(self):
-        self speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
+        self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
         print("In speeddecrease",self.speedadjust)
 
     def run(self):
