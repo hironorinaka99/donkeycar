@@ -245,7 +245,7 @@ class JoystickCreator(Joystick):
 
     def poll(self):
 
-        button, button_state, axis, axis_val ,speedadjust= super(JoystickCreator, self).poll()
+        button, button_state, axis, axis_val = super(JoystickCreator, self).poll()
 
         return button, button_state, axis, axis_val
 
@@ -711,7 +711,7 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
-        self.speedadjust = 1.0
+        #self.speedadjust = 1.0
 
         self.button_down_trigger_map = {}
         self.button_up_trigger_map = {}
@@ -916,16 +916,24 @@ class JoystickController(object):
         '''
         increase speed
         '''
+        global speedadjust
+
         self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
         print('increase speed adjust: ', self.speedadjust)
+
+        speedadjust = self.speedadjust
 
 
     def decrease_speedadjust(self):
         '''
         decrease speed
         '''
+        global speedadjust
+
         self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
         print('decrease speed adjust: ', self.speedadjust)
+
+        speedadjust = self.speedadjust
 
     def toggle_constant_throttle(self):
         '''
