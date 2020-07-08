@@ -44,7 +44,6 @@ global prev_distanceC
 global prev_distanceR
 global prev_distanceRR
 """
-tempcount = 0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -449,6 +448,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #Choose what inputs should change the car.
     class DriveMode:
+        tempcount = 0
+
         def run(self, mode,
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust): 
