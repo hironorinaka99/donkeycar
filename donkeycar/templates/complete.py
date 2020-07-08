@@ -36,7 +36,7 @@ from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 time_boost_start = 0 #ブースト時間のダミー初期時刻
-global speedadjust
+#global speedadjust
 speedadjust = 1.0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
@@ -49,7 +49,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     Parts may have named outputs and inputs. The framework handles passing named outputs
     to parts requesting the same named input.
     '''
-
+    global speedadjust
     if cfg.DONKEY_GYM:
         #the simulator will use cuda and then we usually run out of resources
         #if we also try to use cuda. so disable for donkey_gym.
