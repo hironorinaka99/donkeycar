@@ -1,6 +1,6 @@
 class speedadjust():
     
-    def __init__(sefl):
+    def __init__(self):
         self.speedadjust = 1.0
 
     def speedincrease(self):
