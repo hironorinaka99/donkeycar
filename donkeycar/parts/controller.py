@@ -9,7 +9,6 @@ import logging
 from prettytable import PrettyTable
 global prev_angle #Nakagawa
 prev_angle = 0.0
-global speedadjust
 
 #import for syntactical ease
 from donkeycar.parts.web_controller.web import LocalWebController
@@ -669,7 +668,6 @@ class RC3ChanJoystick(Joystick):
 
 
 class JoystickController(object):
-    global speedadjust
     '''
     JoystickController is a base class. You will not use this class directly,
     but instantiate a flavor based on your joystick type. See classes following this.
@@ -918,26 +916,14 @@ class JoystickController(object):
         '''
         increase speed
         '''
-        global speedadjust
-
-        #speedadjust = round(min(2.0, speedadjust + 0.1), 2)
-        #self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
         print('increase speed adjust: ', speedadjust)
-
-        #speedadjust = self.speedadjust
 
 
     def decrease_speedadjust(self):
         '''
         decrease speed
         '''
-        global speedadjust
-
-        #speedadjust = round(max(0.5, speedadjust - 0.1), 2)
-        #self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
         print('decrease speed adjust: ', speedadjust)
-
-        #speedadjust = self.speedadjust
 
     def toggle_constant_throttle(self):
         '''
