@@ -448,7 +448,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #Choose what inputs should change the car.
     class DriveMode:
-        tempcount = 0
 
         def run(self, mode,
                     user_angle, user_throttle,
@@ -456,7 +455,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
-            global tempcount
             
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
@@ -496,9 +494,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_gapRR = distanceRR - prev_distanceRR
             if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
-            tempcount +=1
-            if tempcount % 100 == 0:
-                print("SSSpeedadjust %5.2f" % speedadjust)
+            print("SSSpeedadjust %5.2f" % speedadjust)
 
             if mode == 'user': 
                 """
