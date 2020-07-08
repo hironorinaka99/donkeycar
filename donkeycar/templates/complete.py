@@ -55,7 +55,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     Parts may have named outputs and inputs. The framework handles passing named outputs
     to parts requesting the same named input.
     '''
-    global tempcount
 
     if cfg.DONKEY_GYM:
         #the simulator will use cuda and then we usually run out of resources
@@ -177,7 +176,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
         V.add(ctr, 
           inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
+          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording','speedadjust'],
           threaded=True)
 
     else:
