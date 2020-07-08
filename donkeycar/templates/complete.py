@@ -36,14 +36,7 @@ from donkeycar.utils import *
 
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 time_boost_start = 0 #ブースト時間のダミー初期時刻
-
-"""
-global prev_distanceLL
-global prev_distanceL
-global prev_distanceC
-global prev_distanceR
-global prev_distanceRR
-"""
+speedadjust = 0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -454,6 +447,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
+            global speedadjust
             
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
