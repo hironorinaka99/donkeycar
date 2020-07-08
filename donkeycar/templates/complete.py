@@ -812,7 +812,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust'], 
           outputs=['angle', 'throttle']) 
 
 
