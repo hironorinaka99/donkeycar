@@ -829,7 +829,7 @@ class JoystickController(object):
             time.sleep(3)
 
         while self.running:
-            button, button_state, axis, axis_val, speedadjust = self.js.poll()
+            button, button_state, axis, axis_val = self.js.poll()
 
             if axis is not None and axis in self.axis_trigger_map:
                 '''
