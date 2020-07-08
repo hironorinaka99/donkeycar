@@ -496,7 +496,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             tempcount +=1
             if tempcount % 100 == 0:
-                print("Speedadjust %5.2f" % speedadjust)
+                print("SSSpeedadjust %5.2f" % speedadjust)
 
             if mode == 'user': 
                 """
