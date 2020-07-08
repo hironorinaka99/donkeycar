@@ -44,6 +44,7 @@ global prev_distanceC
 global prev_distanceR
 global prev_distanceRR
 """
+tempcount = 0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -55,6 +56,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     Parts may have named outputs and inputs. The framework handles passing named outputs
     to parts requesting the same named input.
     '''
+    global tempcount
 
     if cfg.DONKEY_GYM:
         #the simulator will use cuda and then we usually run out of resources
@@ -492,7 +494,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_gapRR = distanceRR - prev_distanceRR
             if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
-            print("Speedadjust %5.2f",speedadjust)
+            tempcount +=1
+            if tempcount % 100 == 0:
+                print("Speedadjust %5.2f" % speedadjust)
 
             if mode == 'user': 
                 """
