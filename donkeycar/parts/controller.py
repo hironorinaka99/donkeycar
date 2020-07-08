@@ -922,8 +922,9 @@ class JoystickController(object):
         increase speed
         '''
         global speedadjust
-        speedadjust = round(min(2.0, speedadjust + 0.1), 2)
         speedadjust = 2.0
+        #temp = speedadjust
+        #temp = round(min(2.0, temp + 0.1), 2)
         print('increase speed adjust: ', speedadjust)
 
 
@@ -932,7 +933,8 @@ class JoystickController(object):
         decrease speed
         '''
         global speedadjust
-        speedadjust = round(max(0.5, speedadjust - 0.1), 2)
+        speedadjust = 2.0
+        #speedadjust = round(max(0.5, speedadjust - 0.1), 2)
         print('decrease speed adjust: ', speedadjust)
 
     def toggle_constant_throttle(self):
