@@ -45,8 +45,6 @@ global prev_distanceR
 global prev_distanceRR
 """
 
-speedadjust = 1.0
-
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
     Construct a working robotic vehicle from many parts.
@@ -451,11 +449,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode,
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR): 
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
-            global speedadjust
             
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
@@ -814,7 +811,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust'], 
           outputs=['angle', 'throttle']) 
 
 
