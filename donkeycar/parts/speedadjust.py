@@ -4,16 +4,13 @@ class speedadjustclass():
         return
 
     def speedincrease(self):
-        self.speedadjust = 2.0
+        self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
         print("In speedincrease",self.speedadjust)
-        return self.speedadjust
-    """
+
     def speeddecrease(self):
-        global speedadjust
-        speedadjust = 0.5
-        print("In speeddecrease",speedadjust)
-        return speedadjust
-    """    
+        self speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
+        print("In speeddecrease",self.speedadjust)
+
     def run(self):
         return self.speedadjust
 
