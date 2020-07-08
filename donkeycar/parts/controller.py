@@ -139,7 +139,7 @@ class Joystick(object):
                     logging.debug("axis: %s val: %f" % (axis, fvalue))
 
         print("CONTROLLER3")
-        return button, button_state, axis, axis_val
+        return button, button_state, axis, axis_val, speedadjust
 
 
 class PyGameJoystick(object):
@@ -228,7 +228,7 @@ class PyGameJoystick(object):
 
                 iBtn += 1
 
-        return button, button_state, axis, axis_val
+        return button, button_state, axis, axis_val, speedadjust
         
     def set_deadzone(self, val):
         self.dead_zone = val
@@ -246,7 +246,7 @@ class JoystickCreator(Joystick):
 
     def poll(self):
 
-        button, button_state, axis, axis_val = super(JoystickCreator, self).poll()
+        button, button_state, axis, axis_val ,speedadjust= super(JoystickCreator, self).poll()
 
         return button, button_state, axis, axis_val
 
