@@ -669,6 +669,7 @@ class RC3ChanJoystick(Joystick):
 
 
 class JoystickController(object):
+    global speedadjust
     '''
     JoystickController is a base class. You will not use this class directly,
     but instantiate a flavor based on your joystick type. See classes following this.

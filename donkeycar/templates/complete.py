@@ -821,10 +821,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         inputs=['user/mode', 'throttle'],
         outputs=['throttle'])
 
-
-
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
+
+    #Test for speedadjust!!
+    #"R1" : self.increase_speedadjust, #Modified
+    #"L1" : self.decrease_speedadjust, #Modified
+    if isinstance(ctr, JoystickController):
+        ctr.set_button_down_trigger("R1", increase_speedadjust)
+    increase_speedadjust = Speedincrease()
 
 
     class AiRunCondition:
