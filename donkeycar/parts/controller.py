@@ -1024,7 +1024,7 @@ class JoystickController(object):
 
     def run(self, img_arr=None):
         raise Exception("We expect for this part to be run with the threaded=True argument.")
-        return None, None, None, None
+        return None, None, None, None, None
 
 
     def shutdown(self):
@@ -1600,7 +1600,7 @@ if __name__ == "__main__":
     v = donkeycar.vehicle.Vehicle()
     p = PyGamePS4JoystickController()
     v.add(p, inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
+          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording','speedadjust'],
           threaded=True)
     v.start(max_loop_count = 100)
     
