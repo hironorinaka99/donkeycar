@@ -827,7 +827,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     from donkeycar.parts.speedadjust import speedadjust
     #"R1" : self.increase_speedadjust, #Modified
     #"L1" : self.decrease_speedadjust, #Modified
-    increase_speedadjust = speedincrease()
+    increase_speedadjust = speedadjust()
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("R1", increase_speedadjust.speedincrease)
         print("In speedincrease global",speedadjust)
