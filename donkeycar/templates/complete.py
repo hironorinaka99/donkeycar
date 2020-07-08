@@ -831,10 +831,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     speedadjustclass = speedadjustclass()
     if isinstance(ctr, JoystickController):
         #print("In speedincrease global1",speedadjust)
-        speedadjust = ctr.set_button_down_trigger("R1", speedadjustclass.speedincrease)
+        #speedadjust = ctr.set_button_down_trigger("R1", speedadjustclass.speedincrease)
+        ctr.set_button_down_trigger("R1", speedadjustclass.speedincrease)
         #print("In speedincrease global2",speedadjust)
     if isinstance(ctr, JoystickController):
-        speedadjust = ctr.set_button_down_trigger("L1", speedadjustclass.speeddecrease)
+        #speedadjust = ctr.set_button_down_trigger("L1", speedadjustclass.speeddecrease)
+        ctr.set_button_down_trigger("L1", speedadjustclass.speeddecrease)
         #print("In speeddecrease global",speedadjust)
     
     print("In speedadjust global",speedadjust)
