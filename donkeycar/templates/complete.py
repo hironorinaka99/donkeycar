@@ -872,6 +872,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
         V.add(steering, inputs=['angle'], threaded=True)
         V.add(throttle, inputs=['throttle'], threaded=True)
+        V.add(speedadjust, inputs=['speedadjust'],threaded=True)
 
 
     elif cfg.DRIVE_TRAIN_TYPE == "DC_STEER_THROTTLE":
