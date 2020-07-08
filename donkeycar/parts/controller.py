@@ -918,7 +918,7 @@ class JoystickController(object):
         '''
         global speedadjust
 
-        speedadjust = round(min(2.0, speedadjust + 0.1), 2)
+        #speedadjust = round(min(2.0, speedadjust + 0.1), 2)
         #self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
         print('increase speed adjust: ', speedadjust)
 
@@ -931,7 +931,7 @@ class JoystickController(object):
         '''
         global speedadjust
 
-        speedadjust = round(max(0.5, speedadjust - 0.1), 2)
+        #speedadjust = round(max(0.5, speedadjust - 0.1), 2)
         #self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
         print('decrease speed adjust: ', speedadjust)
 
