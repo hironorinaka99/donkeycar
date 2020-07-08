@@ -451,7 +451,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
         def run(self, mode,
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust): 
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust = 1.1): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
