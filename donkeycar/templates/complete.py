@@ -493,7 +493,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_gapRR = distanceRR - prev_distanceRR
             if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
-            print("SSSpeedadjust %5.2f" % speedadjust)
+            try:
+                print("SSSpeedadjust %5.2f" % speedadjust)               
 
             if mode == 'user': 
                 """
