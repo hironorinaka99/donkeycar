@@ -824,12 +824,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    from donkeycar.parts.speedadjust import speedincrease
+    from donkeycar.parts.speedadjust import speedadjust
     #"R1" : self.increase_speedadjust, #Modified
     #"L1" : self.decrease_speedadjust, #Modified
     increase_speedadjust = speedincrease()
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("R1", increase_speedadjust.speedincrease)
+        print("In speedincrease global",speedadjust)
 
 
 
