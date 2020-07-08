@@ -6,7 +6,7 @@ class speedadjustclass():
     def speedincrease(self):
         self.speedadjust = 2.0
         print("In speedincrease",self.speedadjust)
-        return speedadjust
+        return self.speedadjust
     """
     def speeddecrease(self):
         global speedadjust
