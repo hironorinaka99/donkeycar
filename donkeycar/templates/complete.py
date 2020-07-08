@@ -37,7 +37,7 @@ from donkeycar.utils import *
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 time_boost_start = 0 #ブースト時間のダミー初期時刻
 global speedadjust
-speedadjust = 1.5
+speedadjust = 1.0
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
@@ -824,12 +824,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    #Test for speedadjust!!
+    from donkeycar.parts.speedadjust import speedincrease
     #"R1" : self.increase_speedadjust, #Modified
     #"L1" : self.decrease_speedadjust, #Modified
-    increase_speedadjust = Speedincrease()
+    increase_speedadjust = speedincrease()
     if isinstance(ctr, JoystickController):
-        ctr.set_button_down_trigger("R1", increase_speedadjust)
+        ctr.set_button_down_trigger("R1", increase_speedadjust.speedincrease)
+
 
 
     class AiRunCondition:
