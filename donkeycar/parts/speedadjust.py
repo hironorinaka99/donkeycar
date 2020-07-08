@@ -1,12 +1,11 @@
 class speedadjustclass():
-    global speedadjust
     def __init__(self):
+        self.speedadjust = 1.0
         return
 
     def speedincrease(self):
-        global speedadjust
-        speedadjust = 2.0
-        print("In speedincrease",speedadjust)
+        self.speedadjust = 2.0
+        print("In speedincrease",self.speedadjust)
         return speedadjust
     """
     def speeddecrease(self):
@@ -16,7 +15,7 @@ class speedadjustclass():
         return speedadjust
     """    
     def run(self):
-        return speedadjust
+        return self.speedadjust
 
 
 
