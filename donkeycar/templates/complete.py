@@ -37,7 +37,7 @@ from donkeycar.utils import *
 time_dis_short_start = 0 ##バック入力の為のダミー初期時刻
 time_boost_start = 0 #ブースト時間のダミー初期時刻
 global speedadjust
-speedadjust = 1.0
+speedadjust = 1.5
 
 def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type='single', meta=[] ):
     '''
