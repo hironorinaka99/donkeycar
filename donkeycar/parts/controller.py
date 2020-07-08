@@ -1118,12 +1118,13 @@ class PS3JoystickController(JoystickController):
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
             "R1" : self.increase_speedadjust, #Modified
+            "L1" : self.decrease_speedadjust, #Modified
 
         }
 
         self.button_up_trigger_map = {
             #"L1" : self.chaos_monkey_stop, #Modified
-            "L1" : self.decrease_speedadjust, #Modified
+            #"L1" : self.decrease_speedadjust, #Modified
             
         }
 
@@ -1492,6 +1493,7 @@ class JoyStickPub(object):
     def run(self):
         while True:
             button, button_state, axis, axis_val = self.js.poll()
+            print("JoystickPub")
             if axis is not None or button is not None:
                 if button is None:
                     button  = "0"
@@ -1600,7 +1602,7 @@ if __name__ == "__main__":
     v = donkeycar.vehicle.Vehicle()
     p = PyGamePS4JoystickController()
     v.add(p, inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording','speedadjust'],
+          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
           threaded=True)
     v.start(max_loop_count = 100)
     
