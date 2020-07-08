@@ -27,6 +27,8 @@ class Joystick(object):
         self.button_map = []
         self.jsdev = None
         self.dev_fn = dev_fn
+        self.speedadjust =1.0
+
 
 
     def init(self):
