@@ -713,9 +713,9 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
-        #self.speedadjust = 1.0
 
-        global speedadjust
+
+
 
 
         self.button_down_trigger_map = {}
