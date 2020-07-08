@@ -14,5 +14,9 @@ class speedadjustclass():
         speedadjust = 0.5
         print("In speeddecrease",speedadjust)
         return speedadjust
+    
+    def run(self):
+        return speedadjust
+
 
 
