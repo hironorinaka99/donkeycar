@@ -923,6 +923,7 @@ class JoystickController(object):
         '''
         global speedadjust
         speedadjust = round(min(2.0, speedadjust + 0.1), 2)
+        speedadjust = 2.0
         print('increase speed adjust: ', speedadjust)
 
 
