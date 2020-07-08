@@ -57,6 +57,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     Parts may have named outputs and inputs. The framework handles passing named outputs
     to parts requesting the same named input.
     '''
+    global speedadjust
 
     if cfg.DONKEY_GYM:
         #the simulator will use cuda and then we usually run out of resources
@@ -449,6 +450,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     #Choose what inputs should change the car.
     class DriveMode:
+        global speedadjust
         def run(self, mode,
                     user_angle, user_throttle,
                     pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust): 
@@ -494,7 +496,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_gapRR = distanceRR - prev_distanceRR
             if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
-            print("Speedadjust %5.2f",speedadjust)
+
+            print("Speedadjust %5.2f" % speedadjust)
 
             if mode == 'user': 
                 """

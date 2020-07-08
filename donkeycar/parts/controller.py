@@ -712,7 +712,14 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
+<<<<<<< HEAD
         self.speedadjust = 1.0
+=======
+
+
+
+
+>>>>>>> 8ab829f0002d31c21a4f3314d4fd12260c24b51a
 
         self.button_down_trigger_map = {}
         self.button_up_trigger_map = {}
@@ -917,16 +924,31 @@ class JoystickController(object):
         '''
         increase speed
         '''
+<<<<<<< HEAD
         self.speedadjust = round(min(2.0, self.speedadjust + 0.1), 2)
         print('increase speed adjust: ', self.speedadjust)
+=======
+        global speedadjust
+        speedadjust = 2.0
+        #temp = speedadjust
+        #temp = round(min(2.0, temp + 0.1), 2)
+        print('increase speed adjust: ', speedadjust)
+>>>>>>> 8ab829f0002d31c21a4f3314d4fd12260c24b51a
 
 
     def decrease_speedadjust(self):
         '''
         decrease speed
         '''
+<<<<<<< HEAD
         self.speedadjust = round(max(0.5, self.speedadjust - 0.1), 2)
         print('decrease speed adjust: ', self.speedadjust)
+=======
+        global speedadjust
+        speedadjust = 2.0
+        #speedadjust = round(max(0.5, speedadjust - 0.1), 2)
+        print('decrease speed adjust: ', speedadjust)
+>>>>>>> 8ab829f0002d31c21a4f3314d4fd12260c24b51a
 
     def toggle_constant_throttle(self):
         '''
