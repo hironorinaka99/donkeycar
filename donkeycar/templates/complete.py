@@ -455,6 +455,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
+            global tempcount
             
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
