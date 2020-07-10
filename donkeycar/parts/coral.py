@@ -94,7 +94,7 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
-      cfg = dk.load_config(myconfig)
+      cfg = dk.load_config()
       print(cfg.ROI_CROP_TOP)
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       #image = image[40:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
