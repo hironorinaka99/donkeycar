@@ -711,7 +711,6 @@ class JoystickController(object):
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None
         self.dead_zone = 0.0
-        #self.speedadjust =1.0
 
         self.button_down_trigger_map = {}
         self.button_up_trigger_map = {}
@@ -911,7 +910,7 @@ class JoystickController(object):
             self.throttle = (self.throttle_dir * self.last_throttle_axis_val * self.throttle_scale)
 
         print('throttle_scale:', self.throttle_scale)
-
+    """
     def increase_speedadjust(self): #Nakagawa
         '''
         increase speed
@@ -924,7 +923,8 @@ class JoystickController(object):
         decrease speed
         '''
         print('decrease speed adjust: ', speedadjust)
-
+    """
+    
     def toggle_constant_throttle(self):
         '''
         toggle constant throttle
