@@ -806,7 +806,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
-                return pilot_angle , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
+                return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1) *((speedadjust - 1.0) /2 +1) , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
