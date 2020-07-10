@@ -322,6 +322,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if "coral" in model_type:
         inf_input = 'cam/image_array'
 
+        V.add(ImgPreProcess(cfg), #いける？中川
+            inputs=['cam/image_array'],
+            outputs=[inf_input],
+            run_condition='run_pilot')
+
         assert(cfg.HAVE_IMU) #Nakagawa
         #Run the pilot if the mode is not user.
         inputs=[inf_input, 'imu/mag_x', 'imu/mag_y']
