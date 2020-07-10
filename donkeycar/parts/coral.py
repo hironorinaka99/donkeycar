@@ -95,7 +95,6 @@ class CoralLinearPilot(object):
 
   def run(self, image):
       global cfg
-      print("cfg.ROI_CROP_TOP: %d" % cfg.ROI_CROP_TOP)
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       image = image[0:120-cfg.ROI_CROP_TOP, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
 
