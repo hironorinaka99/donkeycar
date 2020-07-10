@@ -85,6 +85,8 @@ class CoralLinearPilot(object):
   '''
   Base class for TFlite models that will provide steering and throttle to guide a car.
   '''
+  cfg = dk.load_config()
+
   def __init__(self):
       self.model = None
       self.engine = None
@@ -94,8 +96,6 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
-      cfg = dk.load_config()
-      print(cfg.ROI_CROP_TOP)
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       image = image[0:120-cfg.ROI_CROP_TOP, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
 
