@@ -96,6 +96,7 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
+      global cfg
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       image = image[0:120-cfg.ROI_CROP_TOP, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
 
