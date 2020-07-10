@@ -3,6 +3,8 @@
 from edgetpu.basic.basic_engine import BasicEngine
 import numpy
 from PIL import Image
+
+from docopt import docopt
 import donkeycar as dk
 
 class InferenceEngine(BasicEngine):
@@ -83,6 +85,7 @@ class CoralLinearPilot(object):
   '''
   Base class for TFlite models that will provide steering and throttle to guide a car.
   '''
+  args = docopt(__doc__)
   cfg = dk.load_config(myconfig=args['--myconfig'])
 
   def __init__(self):
