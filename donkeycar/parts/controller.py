@@ -1115,7 +1115,7 @@ class PS3JoystickController(JoystickController):
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
-            #"R1" : self.increase_speedadjust, #Modified
+            #"R1" : self.increase_speedadjust, #Modified speedadjust.pyにて記述
             #"L1" : self.decrease_speedadjust, #Modified
 
         }
