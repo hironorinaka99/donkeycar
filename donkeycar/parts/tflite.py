@@ -58,6 +58,8 @@ class TFLitePilot(object):
 
     
     def run(self, image):
+
+        print("tflite.py: %d" % image.shape[0])
         input_data = image.reshape(self.input_shape).astype('float32') 
 
         self.interpreter.set_tensor(self.input_details[0]['index'], input_data)
