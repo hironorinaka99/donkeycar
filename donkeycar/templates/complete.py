@@ -321,12 +321,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
     if "coral" in model_type:
         inf_input = 'cam/image_array'
-
+        
+        """
         inf_input = 'cam/normalized/cropped'#いける？中川
         V.add(ImgPreProcess(cfg), 
             inputs=['cam/image_array'],
             outputs=[inf_input],
             run_condition='run_pilot')
+        """
 
         assert(cfg.HAVE_IMU) #Nakagawa
         #Run the pilot if the mode is not user.

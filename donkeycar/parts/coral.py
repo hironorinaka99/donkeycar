@@ -91,8 +91,8 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
-      #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
-      image = image[40:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
+      image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
+      #image = image[40:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       #image = image[0:80, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
 
       steering, throttle = self.engine.Inference(image)[0]
