@@ -910,6 +910,7 @@ class JoystickController(object):
             self.throttle = (self.throttle_dir * self.last_throttle_axis_val * self.throttle_scale)
 
         print('throttle_scale:', self.throttle_scale)
+        
     """
     def increase_speedadjust(self): #Nakagawa
         '''
@@ -1114,8 +1115,8 @@ class PS3JoystickController(JoystickController):
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
-            "R1" : self.increase_speedadjust, #Modified
-            "L1" : self.decrease_speedadjust, #Modified
+            #"R1" : self.increase_speedadjust, #Modified
+            #"L1" : self.decrease_speedadjust, #Modified
 
         }
 
