@@ -4,6 +4,11 @@ from edgetpu.basic.basic_engine import BasicEngine
 import numpy
 from PIL import Image
 
+import donkeycar as dk
+from docopt import docopt
+from donkeycar.parts.tflite import keras_model_to_tflite
+args = docopt(__doc__)
+
 class InferenceEngine(BasicEngine):
   """Engine used for inference task."""
 
@@ -91,6 +96,7 @@ class CoralLinearPilot(object):
       self.engine = InferenceEngine(model_path)
 
   def run(self, image):
+      print(cfg.ROI_CROP_TOP)
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       #image = image[40:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
       #image = image[0:80, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
