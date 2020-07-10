@@ -23,6 +23,12 @@ MODELS_PATH = os.path.join(CAR_PATH, 'models')
 #Scale the output of the throttle of the ai pilot for all model types.
 AI_THROTTLE_MULT = 1.0              # this multiplier will scale every throttle value for all output from NN models
 
+# Region of interst cropping
+# only supported in Categorical and Linear models.
+# If these crops values are too large, they will cause the stride values to become negative and the model with not be valid.
+ROI_CROP_TOP = 0                    #the number of rows of pixels to ignore on the top of the image
+ROI_CROP_BOTTOM = 0                 #the number of rows of pixels to ignore on the bottom of the image
+
 #IMU
 HAVE_IMU = True                #when true, this add a Mpu6050 part and records the data. Can be used with a
 IMU_SENSOR = 'mpu9250'          # (mpu6050|mpu9250)
@@ -136,11 +142,6 @@ PI_PASSWD = "raspberry"             # password is optional. Only used from Windo
 PI_HOSTNAME = "raspberrypi.local"   # the network hostname or ip address
 PI_DONKEY_ROOT = "/home/pi/mycar"   # the location of the mycar dir on the pi. this will be used to help locate the final model destination.
 
-# Region of interst cropping
-# only supported in Categorical and Linear models.
-# If these crops values are too large, they will cause the stride values to become negative and the model with not be valid.
-ROI_CROP_TOP = 0                    #the number of rows of pixels to ignore on the top of the image
-ROI_CROP_BOTTOM = 0                 #the number of rows of pixels to ignore on the bottom of the image
 
 #Model transfer options
 #When copying weights during a model transfer operation, should we freeze a certain number of layers
