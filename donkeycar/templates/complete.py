@@ -757,7 +757,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #旋回時減速の場合
                 if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
-                    pilot_throttle = pilot_throttle * 0.8 #スロットルに合わせた速度
+                    pilot_throttle = pilot_throttle * 0.9 #スロットルに合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 #急接近の時
