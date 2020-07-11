@@ -911,21 +911,7 @@ class JoystickController(object):
 
         print('throttle_scale:', self.throttle_scale)
         
-    """
-    def increase_speedadjust(self): #Nakagawa
-        '''
-        increase speed
-        '''
-        print('increase speed adjust: ', speedadjust)
-
-
-    def decrease_speedadjust(self):
-        '''
-        decrease speed
-        '''
-        print('decrease speed adjust: ', speedadjust)
-    """
-    
+ 
     def toggle_constant_throttle(self):
         '''
         toggle constant throttle
@@ -1009,14 +995,12 @@ class JoystickController(object):
             else:
                 return self.angle, self.throttle, self.mode, self.recording
         '''
-        #print("speedadjust:%5.2f",self.speedadjust)
         
         #ステアリング値をExponatial 中央付近で鈍感に（２乗）
-
         if self.angle > 0:
-            return self.angle **2, self.throttle, self.mode, self.recording #self.speedadjust
+            return self.angle **2, self.throttle, self.mode, self.recording
         else:
-            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording #self.speedadjust
+            return (self.angle **2) * -1.0, self.throttle, self.mode, self.recording
 
         #return self.angle, self.throttle, self.mode, self.recording #元設定
 
@@ -1115,14 +1099,11 @@ class PS3JoystickController(JoystickController):
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
-            #"R1" : self.increase_speedadjust, #Modified speedadjust.pyにて記述
-            #"L1" : self.decrease_speedadjust, #Modified
 
         }
 
         self.button_up_trigger_map = {
             #"L1" : self.chaos_monkey_stop, #Modified
-            #"L1" : self.decrease_speedadjust, #Modified
             
         }
 

@@ -448,7 +448,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode,
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust): 
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust,angleadjust): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
@@ -812,7 +812,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
-                return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1) *((speedadjust - 1.0) /1.0 +1) , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
+                return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
                 #angle側の係数は、((speedadjust - 1.0) /1.0 <--  1.0倍, 2.0だと速度2倍の時に、1.5倍になる
         
     V.add(DriveMode(), 
@@ -831,16 +831,26 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    from donkeycar.parts.speedadjust import speedadjustclass
+    from donkeycar.parts.speedadjust import speedadjustclass, angleadjustclass
     speedadjustclass = speedadjustclass()
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("R1", speedadjustclass.speedincrease)
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("L1", speedadjustclass.speeddecrease)
+
     V.add(speedadjustclass,
         inputs = [],
         outputs= ['speedadjust'])
 
+    angleadjustclass = angleadjustclass()
+    if isinstance(ctr, JoystickController):
+        ctr.set_button_down_trigger("dpad_right", angleadjustclass.angleincrease)
+    if isinstance(ctr, JoystickController):
+        ctr.set_button_down_trigger("dpad_left", angleadjustclass.angledecrease)
+
+    V.add(speedadjustclass,
+        inputs = [],
+        outputs= ['speedadjust'])
     
 
     class AiRunCondition:
