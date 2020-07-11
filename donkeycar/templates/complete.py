@@ -480,15 +480,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_gap_ignor_range_front = 1.0 #（前）センサーばらつきで、前回差を０とする範囲 1未満は0とする
             dis_gap_ignor_range_fast = 10
 
-            dis_gapLL = distanceLL - prev_distanceLL
+            dis_gapLL = (distanceLL - prev_distanceLL)/(50 / cfg.DRIVE_LOOP_HZ) #周波数ばらつき低減のため。50を基本として比率計算
             if abs(dis_gapLL) < dis_gap_ignor_range_side or abs(dis_gapLL) > dis_gap_ignor_range_fast: dis_gapLL = 0 
-            dis_gapL = distanceL - prev_distanceL
+            dis_gapL = (distanceL - prev_distanceL) /(50 / cfg.DRIVE_LOOP_HZ)
             if abs(dis_gapL) < dis_gap_ignor_range_front or abs(dis_gapL) > dis_gap_ignor_range_fast: dis_gapL = 0 
-            dis_gapC = distanceC - prev_distanceC
+            dis_gapC = (distanceC - prev_distanceC) /(50 / cfg.DRIVE_LOOP_HZ)
             if abs(dis_gapC) < dis_gap_ignor_range_front or abs(dis_gapC) > dis_gap_ignor_range_fast: dis_gapC = 0 
-            dis_gapR = distanceR - prev_distanceR
+            dis_gapR = (distanceR - prev_distanceR)  /(50 / cfg.DRIVE_LOOP_HZ)
             if abs(dis_gapR) < dis_gap_ignor_range_front or abs(dis_gapR) > dis_gap_ignor_range_fast: dis_gapR = 0 
-            dis_gapRR = distanceRR - prev_distanceRR
+            dis_gapRR = (distanceRR - prev_distanceRR)  /(50 / cfg.DRIVE_LOOP_HZ)
             if abs(dis_gapRR) < dis_gap_ignor_range_side or abs(dis_gapRR) > dis_gap_ignor_range_fast: dis_gapRR = 0 
 
 
