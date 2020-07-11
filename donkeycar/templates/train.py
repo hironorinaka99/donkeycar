@@ -318,6 +318,11 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
     else:
         train_type = model_type
 
+    if "imu" in model_type: #Nakagawa
+        train_type = "imu"
+    else:
+        train_type = model_type
+
     kl = get_model_by_type(train_type, cfg=cfg)
 
     opts['categorical'] = type(kl) in [KerasCategorical, KerasBehavioral]
