@@ -473,7 +473,7 @@ def get_model_by_type(model_type, cfg):
     elif model_type == "behavior" or cfg.TRAIN_BEHAVIORS:
         kl = KerasBehavioral(num_outputs=2, num_behavior_inputs=len(cfg.BEHAVIOR_LIST), input_shape=input_shape)
     elif model_type == "imu":
-        kl = KerasIMU(num_outputs=2, num_imu_inputs=6, input_shape=input_shape, roi_crop=roi_crop)
+        kl = KerasIMU(num_outputs=2, num_imu_inputs=2, input_shape=input_shape, roi_crop=roi_crop)
     elif model_type == "linear":
         kl = KerasLinear(input_shape=input_shape, roi_crop=roi_crop)
     elif model_type == "tensorrt_linear":
