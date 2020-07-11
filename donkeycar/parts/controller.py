@@ -1099,8 +1099,11 @@ class PS3JoystickController(JoystickController):
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
-            #'dpad_left' : self.angleadjustdecrease, #ここ聞いてない？
-            #'dpad_right' : self.angleadjustincrease,
+            'dpad_left' : self.angleadjustdecrease, #ここ聞いてない？
+            'dpad_right' : self.angleadjustincrease,
+            'L1' : self.increase_max_throttle,
+            'R1' : self.decrease_max_throttle,
+
         }
 
         self.button_up_trigger_map = {
