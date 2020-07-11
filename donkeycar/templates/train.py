@@ -292,7 +292,8 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
         #output and then convert to final .tflite at the end.
         assert(".tflite" in model_name)
         #we only support the linear model type right now for tflite
-        assert("linear" in model_type)
+        #assert("linear" in model_type)
+        assert("linear" in model_type or "imu" in model_type) #Nakagawa
         model_name = model_name.replace(".tflite", ".h5")
     elif "tensorrt" in model_type:
         #even though we are passed the .uff output file, we train with an intermediate .h5
