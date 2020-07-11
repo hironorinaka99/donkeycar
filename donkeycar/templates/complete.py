@@ -831,7 +831,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    from donkeycar.parts.speedadjust import speedadjustclass, angleadjustclass
+    from donkeycar.parts.speedadjust import speedadjustclass
     speedadjustclass = speedadjustclass()
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("R1", speedadjustclass.speedincrease)
@@ -842,6 +842,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         inputs = [],
         outputs= ['speedadjust'])
 
+    from donkeycar.parts.angleadjust import angleadjustclass
     angleadjustclass = angleadjustclass()
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("dpad_right", angleadjustclass.angleincrease)
