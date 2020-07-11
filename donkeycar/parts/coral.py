@@ -101,4 +101,25 @@ class CoralLinearPilot(object):
       steering, throttle = self.engine.Inference(image)[0]
       return steering, throttle
 
+class CoralImuPilot(object): #Nakagawa
+      '''
+  Base class for TFlite models that will provide steering and throttle to guide a car.
+  '''
+  def __init__(self):
+      self.model = None
+      self.engine = None
+
+  def load(self, model_path):
+      # Load Coral edgetpu TFLite model and allocate tensors.
+      self.engine = InferenceEngine(model_path)
+
+  def run(self, image): #IMUを跡で足す
+      global cfg
+      #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
+      image = image[0:120-cfg.ROI_CROP_TOP, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
+
+      steering, throttle = self.engine.Inference(image)[0]
+      return steering, throttle
+
+
 

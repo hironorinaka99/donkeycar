@@ -484,6 +484,9 @@ def get_model_by_type(model_type, cfg):
     elif model_type == "coral_tflite_linear":
         from donkeycar.parts.coral import CoralLinearPilot
         kl = CoralLinearPilot()
+    elif model_type == "coral_tflite_imu": #Nakagawa
+        from donkeycar.parts.coral import CoralImuPilot
+        kl = CoralImuPilot()
     elif model_type == "3d":
         kl = Keras3D_CNN(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH, seq_length=cfg.SEQUENCE_LENGTH, roi_crop=roi_crop)
     elif model_type == "rnn":
