@@ -1099,8 +1099,8 @@ class PS3JoystickController(JoystickController):
             'dpad_down' : self.decrease_max_throttle,
             'start' : self.toggle_constant_throttle,
             #"R1" : self.chaos_monkey_start, #Modified
-            'dpad_left' : self.angleadjustdecrease, #ここ聞いてない？
-            'dpad_right' : self.angleadjustincrease,
+            #'dpad_left' : self.angleadjustdecrease, #ここ聞いてない？
+            #'dpad_right' : self.angleadjustincrease,
         }
 
         self.button_up_trigger_map = {
@@ -1149,8 +1149,8 @@ class PS4JoystickController(JoystickController):
             'circle' : self.toggle_manual_recording,
             'triangle' : self.erase_last_N_records,
             'cross' : self.emergency_stop,
-            'L1' : self.increase_max_throttle,
-            'R1' : self.decrease_max_throttle,
+            #'L1' : self.increase_max_throttle,
+            #'R1' : self.decrease_max_throttle,
             'options' : self.toggle_constant_throttle,
         }
 
