@@ -24,6 +24,7 @@ def keras_model_to_tflite(in_filename, out_filename, data_gen=None):
         converter.inference_input_type = tf.uint8
         converter.inference_output_type = tf.uint8
         print("----- using data generator to create int optimized weights for Coral TPU -----")
+    print("CONVERTER:",converter)#Nakagawa
     tflite_model = converter.convert()
     open(out_filename, "wb").write(tflite_model)
 
