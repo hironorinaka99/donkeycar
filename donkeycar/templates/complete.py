@@ -848,9 +848,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger("dpad_left", angleadjustclass.angledecrease)
 
-    V.add(speedadjustclass,
+    V.add(angleadjustclass,
         inputs = [],
-        outputs= ['speedadjust'])
+        outputs= ['angleadjust'])
     
 
     class AiRunCondition:
