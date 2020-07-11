@@ -313,12 +313,15 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
     gen_records = {}
     opts = { 'cfg' : cfg}
 
+    """
     if "linear" in model_type:
         train_type = "linear"
     else:
         train_type = model_type
-
-    if "imu" in model_type: #Nakagawa
+    """
+    if "linear" in model_type:
+        train_type = "linear"
+    elif "imu" in model_type: #Nakagawa
         train_type = "imu"
     else:
         train_type = model_type
