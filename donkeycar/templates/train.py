@@ -39,7 +39,7 @@ from donkeycar.parts.keras import KerasLinear, KerasIMU,\
      KerasRNN_LSTM, KerasLatent, KerasLocalizer
 from donkeycar.parts.augment import augment_image
 from donkeycar.utils import *
-from donkeycar.parts.coral import CoralImuPilot
+#from donkeycar.parts.coral import CoralImuPilot
 
 figure_format = 'png'
 
@@ -396,7 +396,7 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
                 model_in_shape = kl.model.input.shape
 
             has_imu = type(kl) is KerasIMU
-            has_imu_coral = type(kl) is CoralImuPilot
+            #has_imu_coral = type(kl) is CoralImuPilot
             has_bvh = type(kl) is KerasBehavioral
             img_out = type(kl) is KerasLatent
             loc_out = type(kl) is KerasLocalizer
@@ -458,7 +458,7 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
                         if loc_out:
                             out_loc.append(record['location'])
                             
-                        if has_imu or has_imu_coral:
+                        if has_imu:
                             inputs_imu.append(record['imu_array'])
                         
                         if has_bvh:
@@ -475,7 +475,7 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
                     img_arr = np.array(inputs_img).reshape(batch_size,\
                         cfg.TARGET_H, cfg.TARGET_W, cfg.TARGET_D)
 
-                    if has_imu or has_imu_coral:
+                    if has_imu:
                         X = [img_arr, np.array(inputs_imu)]
                     elif has_bvh:
                         X = [img_arr, np.array(inputs_bvh)]
