@@ -313,16 +313,11 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
     gen_records = {}
     opts = { 'cfg' : cfg}
 
-    """
+
     if "linear" in model_type:
         train_type = "linear"
-    else:
-        train_type = model_type
-    """
-    if "linear" in model_type:
-        train_type = "linear"
-    #elif "imu" in model_type: #Nakagawa
-    #    train_type = "imu"
+    elif "imu" in model_type: #Nakagawa
+        train_type = "imu"
     else:
         train_type = model_type
 
@@ -395,11 +390,13 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
 
             if type(kl.model.output) is list:
                 model_out_shape = (2, 1)
+                print("train: model out shape!")#Nakagawa
             else:
                 model_out_shape = kl.model.output.shape
 
             if type(kl.model.input) is list:
                 model_in_shape = (2, 1)
+                print("train: model in shape!")#Nakagawa
             else:    
                 model_in_shape = kl.model.input.shape
 
