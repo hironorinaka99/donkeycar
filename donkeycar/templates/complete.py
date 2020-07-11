@@ -455,9 +455,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             
             dis_LL_range = 30 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
-            dis_L_range = 25 #左センサーの反応範囲 
-            dis_C_range = 30 #中央センサーの反応範囲 
-            dis_R_range = 25 #右センサーの反応範囲 
+            dis_L_range = 35 #左センサーの反応範囲 
+            dis_C_range = 40 #中央センサーの反応範囲 
+            dis_R_range = 35 #右センサーの反応範囲 
             dis_RR_range = 30 #右横センサーの反応範囲 
             dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.02 #横センサーの反応係数
