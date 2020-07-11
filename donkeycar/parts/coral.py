@@ -102,7 +102,7 @@ class CoralLinearPilot(object):
       return steering, throttle
 
 class CoralImuPilot(object): #Nakagawa
-      '''
+  '''
   Base class for TFlite models that will provide steering and throttle to guide a car.
   '''
   def __init__(self):
