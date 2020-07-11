@@ -817,7 +817,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust','angleadjust'], 
           outputs=['angle', 'throttle']) 
 
 
@@ -831,7 +831,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    """
     from donkeycar.parts.angleadjust import angleadjustclass
     angleadjustclass = angleadjustclass()
     if isinstance(ctr, JoystickController):
@@ -842,8 +841,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     V.add(angleadjustclass,
         inputs = [],
         outputs= ['angleadjust'])
-    """
-    
+
     from donkeycar.parts.speedadjust import speedadjustclass
     speedadjustclass = speedadjustclass()
     if isinstance(ctr, JoystickController):
