@@ -39,6 +39,7 @@ from donkeycar.parts.keras import KerasLinear, KerasIMU,\
      KerasRNN_LSTM, KerasLatent, KerasLocalizer
 from donkeycar.parts.augment import augment_image
 from donkeycar.utils import *
+from donkeycar.parts.coral import CoralImuPilot
 
 figure_format = 'png'
 
