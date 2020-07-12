@@ -705,8 +705,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 """                
                 
                 #後退させる必要があるとき 停止
-                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :               
+                if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :
                     time_dis_gap = time.time() - time_dis_short_start                    
+                    print ("後退させる必要あり　LL: %.1f cm" % distanceLL +"L: %.1f cm" % distanceL +"  " + "C: %.1f cm" % distanceC + "  " + "R: %.1f cm" % distanceR + "  " +"RR: %.1f cm" % distanceRR + "  " + "time_dis_gap: %4.2f" % time_dis_gap") 
+
                     if time_dis_gap > dis_timer_all: #初期タイマー無反応（下記数値より大きいこと）
                         time_dis_short_start = time.time()
                         print("set new start time")
