@@ -760,6 +760,16 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     #pilot_throttle = pilot_throttle * 1.0 #スロットルに合わせた速度
                     #print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
+                #LKA的な動作　左右前センサー分
+                if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
+                    LKAadd = 0.2 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
+                    pilot_angle += LKAadd 
+                    prin("左LKA: %3.1f" % LKAadd)
+                if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
+                    LKAadd = 0.2 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
+                    pilot_angle -= LKAadd
+                    prin("右LKA: %3.1f" % LKAadd)
+
                 #急接近の時
                 if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
                     print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
