@@ -758,7 +758,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if abs(pilot_angle) > 0.3:
                     #user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
                     #pilot_throttle = pilot_throttle * 1.0 #スロットルに合わせた速度
-                    print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
+                    #print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 #急接近の時
                 if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
