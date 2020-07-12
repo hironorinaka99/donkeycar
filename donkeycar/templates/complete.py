@@ -765,12 +765,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     #print("LKA: dis L %3.1f" %distanceL + "DisLRan %3.1f" % dis_L_range + "DisLLKARan %3.1f" % dis_L_LKA_range + "DisLRan %3.1f" % dis_L_range)
                     LKAadd = 0.2 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
                     pilot_angle += LKAadd 
-                    #print("左LKA: %3.1f" % LKAadd)
+                    print("左LKA: %3.1f" % LKAadd)
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     #print("LKA: dis R %3.1f" %distanceR + "DisRRan %3.1f" % dis_R_range + "DisRLKARan %3.1f" % dis_R_LKA_range + "DisRRan %3.1f" % dis_R_range)
                     LKAadd = 0.2 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                     pilot_angle -= LKAadd
-                    #print("右LKA: %3.1f" % LKAadd)
+                    print("右LKA: %3.1f" % LKAadd)
 
                 #急接近の時
                 if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
