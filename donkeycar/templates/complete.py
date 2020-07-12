@@ -473,7 +473,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 50.0 #左センサーLKA動作範囲
             dis_R_LKA_range = 50.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.002 #左右センサーLKA反応係数
+            dis_LR_value = 0.001 #左右センサーLKA反応係数 元は60cm,0.005(広い場所用)
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
