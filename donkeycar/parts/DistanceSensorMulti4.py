@@ -34,7 +34,7 @@ pinTriggerRR = 26
 pinEchoRR = 21
 brakingDistanceRR = 10
 
-sleepTime = 0.00003 # 元は、すべて0.0001 一度3分の1に変更
+sleepTime = 0.00002 # 元は、すべて0.0001 一度3分の1に変更
 DMSread = 0
 DMSlisten = 0
 
@@ -117,7 +117,7 @@ class DistanceSensorMulti4():
         self.prev_distanceRR = self.distanceRR
 
 
-        time.sleep(0.00003)
+        time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorLeftLeft
         GPIO.output(pinTriggerLL, True)
         # set Trigger after 0.01ms to LOW
@@ -146,7 +146,7 @@ class DistanceSensorMulti4():
         else: 
             self.distanceLL = 140
 
-        time.sleep(0.00003)
+        time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorCenter
         GPIO.output(pinTriggerC, True)
         time.sleep(0.00001)
@@ -175,7 +175,7 @@ class DistanceSensorMulti4():
         else: 
             self.distanceC = 200
 
-        time.sleep(0.00003)
+        time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorRightRight
         GPIO.output(pinTriggerRR, True)
         # set Trigger after 0.01ms to LOW
@@ -204,7 +204,7 @@ class DistanceSensorMulti4():
         else: 
             self.distanceRR = 140
 
-        time.sleep(0.00003)
+        time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorLeft
         GPIO.output(pinTriggerL, True)
         # set Trigger after 0.01ms to LOW
@@ -233,7 +233,7 @@ class DistanceSensorMulti4():
         else: 
             self.distanceL = 140
 
-        time.sleep(0.00003)
+        time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorRight
         GPIO.output(pinTriggerR, True)
         # set Trigger after 0.01ms to LOW
