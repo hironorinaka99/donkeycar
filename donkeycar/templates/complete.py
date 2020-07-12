@@ -322,14 +322,6 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if "coral" in model_type:
         inf_input = 'cam/image_array'
 
-        """
-        inf_input = 'cam/normalized/cropped'#いける？中川
-        V.add(ImgPreProcess(cfg), 
-            inputs=['cam/image_array'],
-            outputs=[inf_input],
-            run_condition='run_pilot')
-        """
-
         assert(cfg.HAVE_IMU) #Nakagawa
         #Run the pilot if the mode is not user.
         inputs=[inf_input, 'imu/mag_x', 'imu/mag_y']
@@ -757,10 +749,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             else: #local
                 #旋回時減速の場合
-                #if abs(pilot_angle) > 0.3:
+                if abs(pilot_angle) > 0.3:
                     # 使わない#user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #スロットルに合わせた速度
-                    #pilot_throttle = pilot_throttle * 1.0 #スロットルに合わせた速度
-                    #print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
+                    pilot_throttle = pilot_throttle * 0.9 #スロットルに合わせた速度
+                    print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
