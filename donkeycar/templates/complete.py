@@ -453,12 +453,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             global time_dis_short_start
             global time_boost_start
             
-            dis_LL_range = 25 #左横センサーの反応範囲
+            dis_LL_range = 20 #左横センサーの反応範囲
             dis_LL_rev_range = 10 #左横センサーの後退反応範囲
             dis_L_range = 30 #左センサーの反応範囲 
             dis_C_range = 40 #中央センサーの反応範囲 
             dis_R_range = 30 #右センサーの反応範囲 
-            dis_RR_range = 25 #右横センサーの反応範囲 
+            dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 10 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.02 #横センサーの反応係数
 
@@ -471,8 +471,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
 
-            dis_L_LKA_range = 50.0 #左センサーLKA動作範囲
-            dis_R_LKA_range = 50.0 #右センサーLKA動作範囲
+            dis_L_LKA_range = 20.0 #左センサーLKA動作範囲 (停止すべき範囲からのその先)
+            dis_R_LKA_range = 20.0 #右センサーLKA動作範囲
             dis_LR_value = 0.001 #左右センサーLKA反応係数 元は60cm,0.005(広い場所用)
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
