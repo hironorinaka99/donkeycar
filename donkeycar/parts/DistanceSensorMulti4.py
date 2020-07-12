@@ -149,15 +149,15 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoLL) and temp_count < 2000:
+        while 1 == GPIO.input(pinEchoLL) and temp_count < 2000: #真横は70cmまで
             temp_count +=1
             stopTimeLL = time.time()
 
         TimeElapsedLL = stopTimeLL - startTimeLL #左回りコースのため、左側のみ広い範囲で取る
-        if (TimeElapsedLL * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
+        if (TimeElapsedLL * 34300) / 2 < 70: #70未満は生値、それ以上は70として返す
             self.distanceLL = (TimeElapsedLL * 34300) / 2
         else: 
-            self.distanceLL = 140
+            self.distanceLL = 70
 
         time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorCenter
@@ -178,7 +178,7 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoC) and temp_count < 3000:
+        while 1 == GPIO.input(pinEchoC) and temp_count < 6000: #rp4だと、200cm 6000ループ　rp3だと3000
             temp_count +=1
             stopTimeC = time.time()
 
@@ -212,10 +212,10 @@ class DistanceSensorMulti4():
             stopTimeRR = time.time()
             
         TimeElapsedRR = stopTimeRR - startTimeRR
-        if (TimeElapsedRR * 34300) / 2 < 140: #140未満は生値、それ以上は140として返す
+        if (TimeElapsedRR * 34300) / 2 < 70: #70未満は生値、それ以上は70として返す
             self.distanceRR = (TimeElapsedRR * 34300) / 2
         else: 
-            self.distanceRR = 140
+            self.distanceRR = 70
 
         time.sleep(0.00002)
         # set Trigger to HIGH  DistanceSensorLeft
@@ -236,7 +236,7 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoL) and temp_count < 2000:
+        while 1 == GPIO.input(pinEchoL) and temp_count < 4000: #140cmの時間まで待つ
             temp_count +=1
             stopTimeL = time.time()
 
@@ -265,7 +265,7 @@ class DistanceSensorMulti4():
 
         # save time of arrival
         temp_count =0 
-        while 1 == GPIO.input(pinEchoR) and temp_count < 2000:
+        while 1 == GPIO.input(pinEchoR) and temp_count < 4000:
             temp_count +=1
             stopTimeR = time.time()
             
