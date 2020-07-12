@@ -762,12 +762,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
-                    #print("LKA: dis L %3.1f" %distanceL + "DisLRan %3.1f" % dis_L_range + "DisLLKARan %3.1f" % dis_L_LKA_range + "DisLRan %3.1f" % dis_L_range)
+                    print("LKA: dis L %3.1f" %distanceL + "DisLRan %3.1f" % dis_L_range + "DisLLKARan %3.1f" % dis_L_LKA_range + "DisLRan %3.1f" % dis_L_range)
                     LKAadd = 0.2 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
                     pilot_angle += LKAadd 
                     print("左LKA: %3.1f" % LKAadd)
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
-                    #print("LKA: dis R %3.1f" %distanceR + "DisRRan %3.1f" % dis_R_range + "DisRLKARan %3.1f" % dis_R_LKA_range + "DisRRan %3.1f" % dis_R_range)
+                    print("LKA: dis R %3.1f" %distanceR + "DisRRan %3.1f" % dis_R_range + "DisRLKARan %3.1f" % dis_R_LKA_range + "DisRRan %3.1f" % dis_R_range)
                     LKAadd = 0.2 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
                     pilot_angle -= LKAadd
                     print("右LKA: %3.1f" % LKAadd)
