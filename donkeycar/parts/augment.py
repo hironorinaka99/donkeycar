@@ -81,10 +81,12 @@ def augment_pil_image(img, shadow_images=None, do_warp_persp=False):
     img = ImageEnhance.Contrast(img).enhance(factor)
     factor = random.uniform(0.5, 1.5)
     img = ImageEnhance.Sharpness(img).enhance(factor)
-    factor = random.uniform(0.0, 2.0)
+    #factor = random.uniform(0.0, 2.0)
+    factor = random.uniform(0.5, 1.5)
     img = ImageEnhance.Color(img).enhance(factor)
     # optionally composite a shadow, prepared from load_shadow_images
     if shadow_images is not None:
+        print("shadow")
         iShad = random.randrange(0, len(shadow_images))
         top, mask = shadow_images[iShad]
         theta = random.randrange(-35, 35)
