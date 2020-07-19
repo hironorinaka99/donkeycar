@@ -116,7 +116,7 @@ class CoralImuPilot(object): #Nakagawa
   def run(self, image): #IMUを跡で足す
       global cfg
       #image = image[0:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
-      image = image[0:120-cfg.ROI_CROP_TOP, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
+      image = image[cfg.ROI_CROP_TOP:120, 0:160] #Nakagawa Copr40のみに対応 Top, Bottom, Left, Right
 
       steering, throttle = self.engine.Inference(image)[0]
       return steering, throttle

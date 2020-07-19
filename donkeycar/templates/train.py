@@ -390,13 +390,11 @@ def train(cfg, tub_names, model_name, transfer_model, model_type, continuous, au
 
             if type(kl.model.output) is list:
                 model_out_shape = (2, 1)
-                print("train: model out shape!")#Nakagawa
             else:
                 model_out_shape = kl.model.output.shape
 
             if type(kl.model.input) is list:
                 model_in_shape = (2, 1)
-                print("train: model in shape!")#Nakagawa
             else:    
                 model_in_shape = kl.model.input.shape
 
