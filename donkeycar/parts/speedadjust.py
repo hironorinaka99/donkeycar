@@ -4,7 +4,7 @@ class speedadjustclass():
         return
 
     def speedincrease(self):
-        self.speedadjust = round(min(2.5, self.speedadjust + 0.1), 2)
+        self.speedadjust = round(min(3.0, self.speedadjust + 0.1), 2)
         print("In speedincrease",self.speedadjust)
 
     def speeddecrease(self):
