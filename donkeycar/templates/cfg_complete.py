@@ -76,7 +76,7 @@ DRIVE_TRAIN_TYPE = "SERVO_ESC" # SERVO_ESC|DC_STEER_THROTTLE|DC_TWO_WHEEL|SERVO_
 #STEERING
 STEERING_CHANNEL = 0            #channel on the 9685 pwm board 0-15
 STEERING_LEFT_PWM = 390         #pwm value for full left steering
-STEERING_RIGHT_PWM = 205        #pwm value for full right steering
+STEERING_RIGHT_PWM = 190        #pwm value for full right steering
 
 #STEERING FOR PIGPIO_PWM
 STEERING_PWM_PIN = 13           #Pin numbering according to Broadcom numbers
