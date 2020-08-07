@@ -494,7 +494,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #旋回時減速の場合
                 if abs(pilot_angle) > 0.3:
                     # 使わない#user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #切れ角に合わせた速度
-                    pilot_throttle = pilot_throttle * 1.0 #切れ角に合わせた速度
+                    pilot_throttle = pilot_throttle * angleadjust #切れ角に合わせた速度
                     print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
@@ -578,8 +578,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
-                return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
-                #angle側の係数は、((speedadjust - 1.0) /1.0 <--  1.0倍, 2.0だと速度2倍の時に、1.5倍になる
+                #return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
+                return pilot_angle, pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
