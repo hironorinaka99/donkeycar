@@ -173,7 +173,7 @@ if __name__ == "__main__":
     p = IMU(sensor=sensor_type)
     while iter < 100:
         data = p.run()
-        print(data)
+        #print(data)
         time.sleep(0.1)
         iter += 1
      
