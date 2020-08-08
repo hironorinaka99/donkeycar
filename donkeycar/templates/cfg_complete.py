@@ -40,6 +40,10 @@ DEFAULT_MODEL_TYPE = 'coral_tflite_linear'   #(linear|tflite_linear|coral_tflite
 DRIVE_LOOP_HZ = 50      # the vehicle loop will pause if faster than this speed.
 MAX_LOOPS = None        # the vehicle loop can abort after this many iterations, when given a positive integer.
 
+# Stop Sign Detector
+STOP_SIGN_DETECTOR = False
+STOP_SIGN_MIN_SCORE = 0.2
+STOP_SIGN_SHOW_BOUNDING_BOX = True 
 
 #CAMERA
 CAMERA_TYPE = "PICAM"   # (PICAM|WEBCAM|CVCAM|CSIC|V4L|D435|MOCK|IMAGE_LIST)
