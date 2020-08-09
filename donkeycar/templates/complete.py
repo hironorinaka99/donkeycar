@@ -491,6 +491,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 return pilot_angle, user_throttle
 
             else: #local
+
+                #前に車両がいるときは減速
+                if (distanceL < 100 and distanceL > 40 and pilot_angle < -0.3) or (distanceC < 170 and distanceC > 60 and abs(pilot_angle) < 0.5) or (distanceR < 100 and distanceR > 40 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                    pilot_throttle *= 0.5
+                    print("急速接近中のため　スロットル０．５")
+
                 #旋回時減速の場合
                 if abs(pilot_angle) > 0.3:
                     # 使わない#user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #切れ角に合わせた速度
