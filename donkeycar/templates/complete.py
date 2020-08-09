@@ -533,10 +533,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     #print("右LKA: %3.2f" % LKAadd)
 
                 #急接近の時
-                if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
-                    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
-                    pilot_throttle *= 0.8
-                    print("急速接近中のため　スロットル半分")
+                #if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
+                #    print("front left gap %3.1f cm" % dis_gapL + "front cencer gap %3.1f cm" % dis_gapC + "front right gap %3.1f cm" % dis_gapR)
+                #    pilot_throttle *= 0.8
+                #    print("急速接近中のため　スロットル半分")
 
                 #後退させる必要があるとき 停止
                 if distanceLL < dis_LL_rev_range or distanceL < dis_L_range or distanceC < dis_C_range or distanceR < dis_R_range or distanceRR < dis_RR_rev_range :               
