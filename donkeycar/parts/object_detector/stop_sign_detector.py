@@ -56,7 +56,7 @@ class StopSignDetector(object):
                                           threshold=self.min_score,
                                           keep_aspect_ratio=True,
                                           relative_coord=False,
-                                          top_k=10)
+                                          top_k=10) #Nakagawa
         max_score = 0
         traffic_light_obj = None
         if ans:
