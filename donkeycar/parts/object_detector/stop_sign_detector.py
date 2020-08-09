@@ -57,7 +57,7 @@ class StopSignDetector(object):
                                           #keep_aspect_ratio=True,
                                           keep_aspect_ratio=False,
                                           relative_coord=False,
-                                          top_k=10) #Nakagawa
+                                          top_k=100) #Nakagawa
         max_score = 0
         traffic_light_obj = None
         if ans:
