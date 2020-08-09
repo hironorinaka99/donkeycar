@@ -36,7 +36,7 @@ class StopSignDetector(object):
         self.engine = DetectionEngine(MODEL_FILE_NAME)
         self.labels = dataset_utils.read_label_file(LABEL_FILE_NAME)
 
-        self.STOP_SIGN_CLASS_ID = 13 #Original stopsign 13, person 1
+        self.STOP_SIGN_CLASS_ID = 13 #Original stopsign 12,coco stopsign 13  person 1
         self.min_score = min_score
         self.show_bounding_box = show_bounding_box
         self.debug = debug
@@ -54,9 +54,10 @@ class StopSignDetector(object):
 
         ans = self.engine.detect_with_image(img,
                                           threshold=self.min_score,
-                                          keep_aspect_ratio=True,
+                                          #keep_aspect_ratio=True,
+                                          keep_aspect_ratio=False,
                                           relative_coord=False,
-                                          top_k=10) #Nakagawa
+                                          top_k=3) #Nakagawa
         max_score = 0
         traffic_light_obj = None
         if ans:
