@@ -62,6 +62,8 @@ class StopSignDetector(object):
         if ans:
             for obj in ans:
                 if (obj.label_id == self.STOP_SIGN_CLASS_ID):
+                    print("stop sign detected, score = {}".format(obj.score))
+
                     if self.debug:
                         print("stop sign detected, score = {}".format(obj.score))
                     if (obj.score > max_score):
