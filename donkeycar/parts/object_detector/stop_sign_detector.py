@@ -62,6 +62,7 @@ class StopSignDetector(object):
         if ans:
             for obj in ans:
                 if (obj.label_id == self.STOP_SIGN_CLASS_ID):
+                    #Nakagawa
                     print("stop sign detected, score = {}".format(obj.score))
 
                     if self.debug:
