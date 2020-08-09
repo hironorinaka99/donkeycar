@@ -36,7 +36,7 @@ class StopSignDetector(object):
         self.engine = DetectionEngine(MODEL_FILE_NAME)
         self.labels = dataset_utils.read_label_file(LABEL_FILE_NAME)
 
-        self.STOP_SIGN_CLASS_ID = 12
+        self.STOP_SIGN_CLASS_ID = 1
         self.min_score = min_score
         self.show_bounding_box = show_bounding_box
         self.debug = debug
