@@ -40,7 +40,7 @@ class StopSignDetector(object):
 
         self.last_5_scores = collections.deque(np.zeros(5), maxlen=5)
         #self.engine = DetectionEngine(MODEL_FILE_NAME) #Nakagawa
-        self.engine = DetectionEngine(MODEL_FILE_NAME,'/dev/bus/usb/001/003') #Nakagawa
+        self.engine = DetectionEngine(MODEL_FILE_NAME,'/sys/bus/usb/devices/1-1.1') #Nakagawa
 
         self.labels = dataset_utils.read_label_file(LABEL_FILE_NAME)
 
