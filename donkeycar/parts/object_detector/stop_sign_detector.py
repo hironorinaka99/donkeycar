@@ -121,7 +121,7 @@ class StopSignDetector(object):
             return throttle, img_arr
 
         img_arr = img_arr[40:0, 120:60] #Nakagawa真ん中上だけ注目
-
+        img_arr = cv2.resize(img_arr,160,120) #Nakagawa
         # Detect traffic light object
         traffic_light_obj = self.detect_stop_sign(img_arr)
 
