@@ -120,6 +120,8 @@ class StopSignDetector(object):
         if img_arr is None:
             return throttle, img_arr
 
+        img_arr = img_arr[40:0, 120:60] #Nakagawa真ん中上だけ注目
+
         # Detect traffic light object
         traffic_light_obj = self.detect_stop_sign(img_arr)
 
