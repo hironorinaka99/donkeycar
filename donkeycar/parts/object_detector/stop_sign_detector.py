@@ -33,7 +33,9 @@ class StopSignDetector(object):
         self.download_file(LABEL_URL, LABEL_FILE_NAME)
 
         self.last_5_scores = collections.deque(np.zeros(5), maxlen=5)
-        self.engine = DetectionEngine(MODEL_FILE_NAME)
+        #self.engine = DetectionEngine(MODEL_FILE_NAME) #Nakagawa
+        self.engine = DetectionEngine(MODEL_FILE_NAME,'/dev/bus/usb/001/003') #Nakagawa
+
         self.labels = dataset_utils.read_label_file(LABEL_FILE_NAME)
 
         self.STOP_SIGN_CLASS_ID = 12
