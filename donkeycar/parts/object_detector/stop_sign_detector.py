@@ -121,7 +121,7 @@ class StopSignDetector(object):
         img_arr2 = img_arr[0:60, 40:120] #Nakagawa真ん中上だけ注目 H上:H下, W左:W右
         #img_arr = img_arr[10:40, 60:100] #Nakagawa真ん中上だけ注目 H上:H下, W左:W右
         #img_arr3 = cv2.resize(img_arr2,(160,120)) #Nakagawa W,H
-        img_arr3 = cv2.resize(img_arr2,(320,240)) #Nakagawa W,H
+        img_arr3 = cv2.resize(img_arr2,(640,480)) #Nakagawa W,H
 
         # Detect traffic light object
         traffic_light_obj = self.detect_stop_sign(img_arr3)
