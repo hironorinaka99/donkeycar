@@ -4,6 +4,7 @@ import time
 import random
 import collections
 from edgetpu.detection.engine import DetectionEngine
+from edgetpu.basic import edgetpu_utils #Nakagawa
 from edgetpu.utils import dataset_utils
 from PIL import Image
 from matplotlib import cm
@@ -23,6 +24,11 @@ class StopSignDetector(object):
             urllib.request.urlretrieve(url, filename)
 
     def __init__(self, min_score, show_bounding_box, debug=False):
+        #Nakagawa Test
+        edge_tpus = edgetpu_utils.ListEdgeTpuPaths(
+        edgetpu_utils.EDGE_TPU_STATE_UNASSIGNED)
+        print(edge_tpus)
+
         MODEL_FILE_NAME = "ssd_mobilenet_v2_coco_quant_postprocess_edgetpu.tflite"
         LABEL_FILE_NAME = "coco_labels.txt"
 
