@@ -82,8 +82,6 @@ class StopSignDetector(object):
                         print(obj.bounding_box)
                         traffic_light_obj = obj
                         max_score = obj.score
-                        print("ans: ",end="")
-                        print(ans)
 
 
         # if traffic_light_obj:
