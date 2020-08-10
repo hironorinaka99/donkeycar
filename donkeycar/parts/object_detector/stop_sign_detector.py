@@ -39,12 +39,12 @@ class StopSignDetector(object):
         self.download_file(LABEL_URL, LABEL_FILE_NAME)
 
         self.last_5_scores = collections.deque(np.zeros(5), maxlen=5)
-        #self.engine = DetectionEngine(MODEL_FILE_NAME) #Nakagawa
-        self.engine = DetectionEngine(MODEL_FILE_NAME,'/sys/bus/usb/devices/1-1.1') #Nakagawa
+        self.engine = DetectionEngine(MODEL_FILE_NAME) #Nakagawa
+        #self.engine = DetectionEngine(MODEL_FILE_NAME,'/sys/bus/usb/devices/1-1.1') #Nakagawa
 
         self.labels = dataset_utils.read_label_file(LABEL_FILE_NAME)
 
-        self.STOP_SIGN_CLASS_ID = 0 #12 stop sign 0 person
+        self.STOP_SIGN_CLASS_ID = 12 #12 stop sign 0 person
 
         self.min_score = min_score
         self.show_bounding_box = show_bounding_box
@@ -81,6 +81,9 @@ class StopSignDetector(object):
                         print(obj.bounding_box)
                         traffic_light_obj = obj
                         max_score = obj.score
+                        print("ans: ",end="")
+                        print(ans)
+
 
         # if traffic_light_obj:
         #     self.last_5_scores.append(traffic_light_obj.score)
