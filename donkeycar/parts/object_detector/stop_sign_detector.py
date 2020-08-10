@@ -66,12 +66,12 @@ class StopSignDetector(object):
                                           #keep_aspect_ratio=True,
                                           keep_aspect_ratio=False,
                                           relative_coord=False,
-                                          top_k=10) #Nakagawa
+                                          top_k=1000) #Nakagawa
         max_score = 0
         traffic_light_obj = None
         if ans:
             for obj in ans:
-                print("Ans object ID %d %5.3f" % (obj.label_id, obj.score))
+                #print("Ans object ID %d %5.3f" % (obj.label_id, obj.score))
                 if (obj.label_id == self.STOP_SIGN_CLASS_ID):
                     #Nakagawa
                     print("stop sign detected, score = {}".format(obj.score))
