@@ -502,6 +502,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                     pilot_throttle = pilot_throttle * angleadjust #切れ角に合わせた速度
                     #print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
+                """
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
                     if dis_gapLL <= 0: #gapが減っているときのみ補正
@@ -581,6 +582,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                             else:                       #中央が近く、左側が大きく開いている場合、ハンドルを少し右(angle_adj_2 * 1.0)に切って後退
                                 print("中央センサ停止、右センサ方向空きの為、左に切って下がる")
                                 return angle_adj_2 * 1.0, dis_back_throttle
+                """
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
                 #return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
