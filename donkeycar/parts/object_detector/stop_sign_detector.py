@@ -27,7 +27,7 @@ class StopSignDetector(object):
         #Nakagawa Test
         edge_tpus = edgetpu_utils.ListEdgeTpuPaths(
         edgetpu_utils.EDGE_TPU_STATE_UNASSIGNED)
-        print("stop sign coral" + edge_tpus)
+        print("stop sign coral" + str(edge_tpus))
 
         MODEL_FILE_NAME = "ssd_mobilenet_v2_coco_quant_postprocess_edgetpu.tflite"
         LABEL_FILE_NAME = "coco_labels.txt"
