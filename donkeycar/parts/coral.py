@@ -25,7 +25,7 @@ class InferenceEngine(BasicEngine):
     #Nakagawa Test
     edge_tpus = edgetpu_utils.ListEdgeTpuPaths(
     edgetpu_utils.EDGE_TPU_STATE_UNASSIGNED)
-    print(edge_tpus)
+    print("coral for run" + edge_tpus)
 
     if device_path:
       super().__init__(model_path, device_path)
