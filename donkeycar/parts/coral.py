@@ -28,7 +28,8 @@ class InferenceEngine(BasicEngine):
     print("coral for run" + str(edge_tpus))
 
     if device_path:
-      super().__init__(model_path, device_path)
+      #super().__init__(model_path, device_path) 
+      super().__init__(model_path, '/sys/bus/usb/devices/1-1.3') #Nakagawa
     else:
       super().__init__(model_path)
     output_tensors_sizes = self.get_all_output_tensors_sizes()
