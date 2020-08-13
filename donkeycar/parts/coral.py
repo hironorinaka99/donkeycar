@@ -1,8 +1,10 @@
 """Inference Engine used for inference tasks."""
 
 from edgetpu.basic.basic_engine import BasicEngine
+from edgetpu.basic import edgetpu_utils #Nakagawa
 import numpy
 from PIL import Image
+
 
 import donkeycar as dk
 cfg = dk.load_config()
@@ -24,7 +26,7 @@ class InferenceEngine(BasicEngine):
     edge_tpus = edgetpu_utils.ListEdgeTpuPaths(
     edgetpu_utils.EDGE_TPU_STATE_UNASSIGNED)
     print(edge_tpus)
-    
+
     if device_path:
       super().__init__(model_path, device_path)
     else:
