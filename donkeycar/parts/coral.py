@@ -20,6 +20,11 @@ class InferenceEngine(BasicEngine):
     Raises:
       ValueError: An error occurred when the output format of model is invalid.
     """
+    #Nakagawa Test
+    edge_tpus = edgetpu_utils.ListEdgeTpuPaths(
+    edgetpu_utils.EDGE_TPU_STATE_UNASSIGNED)
+    print(edge_tpus)
+    
     if device_path:
       super().__init__(model_path, device_path)
     else:
