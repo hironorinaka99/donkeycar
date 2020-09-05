@@ -454,11 +454,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.02 #横センサーの反応係数
 
-            dis_timer_all = 1.0 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_all = 1 #待ち時間全体 下記2つの時間より長いこと
             dis_timer_back = 0.6 #後退時間
-            dis_timer_wait = 0.2 #後退待ち時間
+            dis_timer_wait = 0.3 #後退待ち時間
             dis_back_throttle = -0.30 #後退速度
-            #dis_back_throttle = -1.1 * abs(user_throttle) #おおよそ 0.3-0.35
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
             angle_adj_2 = 0.2 #中央センサが近い時、開けている方向に向くハンドル操作値
@@ -586,7 +585,11 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
                 #return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
-                return pilot_angle, pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
+
+                if pilot_throttle > 0: #前進時のみ速度補正
+                    pilot_throttle *= speedadjust * cfg.AI_THROTTLE_MULT
+
+                return pilot_angle, pilot_throttle
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
