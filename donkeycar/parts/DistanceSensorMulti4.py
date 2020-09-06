@@ -87,17 +87,17 @@ class DistanceSensorMulti4():
         if self.distanceLL < 0 or self.distanceL < 0 or self.distanceC < 0 or self.distanceR < 0 or self.distanceRR < 0: #エラー処理　マイナス値はエラー表示
             #print("DMS sensor error!!")
 
-            #print("DMS sensor error!!　マイナス値は120cmで返却")
+            #print("DMS sensor error!!　マイナス値は120cmで返却") #2より小さければ120
             #print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
-            if self.distanceLL < 0:
+            if self.distanceLL < 2: #2より小さければ120
                 self.distanceLL = 120
-            if self.distanceL < 0:
+            if self.distanceL < 2:
                 self.distanceL = 120
-            if self.distanceC < 0:
+            if self.distanceC < 2:
                 self.distanceC = 120
-            if self.distanceR < 0:
+            if self.distanceR < 2:
                 self.distanceR = 120
-            if self.distanceRR < 0:
+            if self.distanceRR < 2:
                 self.distanceRR = 120
 
 
