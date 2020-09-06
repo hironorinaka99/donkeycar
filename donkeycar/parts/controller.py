@@ -706,7 +706,7 @@ class JoystickController(object):
         self.dev_fn = dev_fn
         self.js = None
         self.tub = None
-        self.num_records_to_erase = 100
+        self.num_records_to_erase = 40
         self.estop_state = self.ES_IDLE        
         #self.chaos_monkey_status = None  #Modified
         #self.chaos_monkey_steering = None

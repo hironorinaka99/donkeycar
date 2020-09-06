@@ -89,15 +89,15 @@ class DistanceSensorMulti4():
 
             #print("DMS sensor error!!　マイナス値は120cmで返却") #2より小さければ120
             #print ("LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR) 
-            if self.distanceLL < 2: #2より小さければ120
+            if self.distanceLL < 0: #2より小さければ120
                 self.distanceLL = 120
-            if self.distanceL < 2:
+            if self.distanceL < 0:
                 self.distanceL = 120
-            if self.distanceC < 2:
+            if self.distanceC < 0:
                 self.distanceC = 120
-            if self.distanceR < 2:
+            if self.distanceR < 0:
                 self.distanceR = 120
-            if self.distanceRR < 2:
+            if self.distanceRR < 0:
                 self.distanceRR = 120
 
 
@@ -116,7 +116,7 @@ class DistanceSensorMulti4():
             #DMSlisten +=1
             self.listenToDistanceSensor()
             #self.listenToDistanceSensor(self.distanceLL, self.distanceL, self.distanceC, self.distanceR, self.distanceRR)
-            #print ("Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
+            print ("Update LL: %.1f cm" % self.distanceLL +"L: %.1f cm" % self.distanceL +"  " "C: %.1f cm" % self.distanceC + "  " "R: %.1f cm" % self.distanceR + "  " "RR: %.1f cm" % self.distanceRR)
             #print ("UpdatePrev LL: %.1f cm" % self.prev_distanceLL +"L: %.1f cm" % self.prev_distanceL +"  " "C: %.1f cm" % self.prev_distanceC + "  " "R: %.1f cm" % self.prev_distanceR + "  " "RR: %.1f cm" % self.prev_distanceRR)
 
     def listenToDistanceSensor(self):    
