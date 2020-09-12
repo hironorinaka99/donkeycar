@@ -448,15 +448,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_LL_range = 20 #左横センサーの反応範囲
             dis_LL_rev_range = 8 #左横センサーの後退反応範囲
             dis_L_range = 25 #左センサーの反応範囲 
-            dis_C_range = 30 #中央センサーの反応範囲 
+            dis_C_range = 40 #中央センサーの反応範囲 
             dis_R_range = 25 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
             dis_LLRR_value = 0.02 #横センサーの反応係数
 
-            dis_timer_all = 1.5 #待ち時間全体 下記2つの時間より長いこと
-            dis_timer_back = 0.8 #後退時間
-            dis_timer_wait = 0.5 #後退待ち時間
+            dis_timer_all = 1.6 #待ち時間全体 下記2つの時間より長いこと
+            dis_timer_back = 1.0 #後退時間
+            dis_timer_wait = 0.4 #後退待ち時間
             dis_back_throttle = -0.25 #後退速度
 
             angle_adj_1 = 0.5 #惰性前進時のハンドル修正 #初回完走時0.5
