@@ -440,7 +440,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode,
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust,angleadjust): 
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust,angle_speed_adjust): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
@@ -500,7 +500,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #旋回時減速の場合
                 if abs(pilot_angle) > 0.3:
                     # 使わない#user_throttle = user_throttle * (1 - abs(pilot_angle)*0.3) #切れ角に合わせた速度
-                    pilot_throttle = pilot_throttle * angleadjust #切れ角に合わせた速度
+                    pilot_throttle = pilot_throttle * angle_speed_adjust #切れ角に合わせた速度
                     #print("ステアリング値で減速　スロットル　%5.2f" % user_throttle)
 
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
@@ -584,7 +584,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                                 return angle_adj_2 * 1.0, dis_back_throttle
 
                 #return pilot_angle * ((cfg.AI_THROTTLE_MULT -1.0) / 2 +1), pilot_throttle * cfg.AI_THROTTLE_MULT
-                #return pilot_angle * angleadjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
+                #return pilot_angle * angle_speed_adjust , pilot_throttle * speedadjust * cfg.AI_THROTTLE_MULT
 
                 if pilot_throttle > 0: #前進時のみ速度補正
                     pilot_throttle *= speedadjust * cfg.AI_THROTTLE_MULT
@@ -593,7 +593,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
         
     V.add(DriveMode(), 
           inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust','angleadjust'], 
+                  'pilot/angle', 'pilot/throttle', 'distanceLL', 'distanceL','distanceC','distanceR','distanceRR','prev_distanceLL','prev_distanceL','prev_distanceC','prev_distanceR','prev_distanceRR','speedadjust','angle_speed_adjust'], 
           outputs=['angle', 'throttle']) 
 
 
@@ -607,16 +607,18 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    from donkeycar.parts.angleadjust import angleadjustclass
-    angleadjustclass = angleadjustclass()
+    from donkeycar.parts.angle_speed_adjust import angle_speed_adjustclass
+    angle_speed_adjustclass = angle_speed_adjustclass()
     if isinstance(ctr, JoystickController):
-        ctr.set_button_down_trigger("dpad_right", angleadjustclass.angleincrease)
+        #ctr.set_button_down_trigger("dpad_right", angle_speed_adjustclass.angleincrease)
+        ctr.set_button_down_trigger("R3", angle_speed_adjustclass.angleincrease)
     if isinstance(ctr, JoystickController):
-        ctr.set_button_down_trigger("dpad_left", angleadjustclass.angledecrease)
+        #ctr.set_button_down_trigger("dpad_left", angle_speed_adjustclass.angledecrease)
+        ctr.set_button_down_trigger("L3", angle_speed_adjustclass.angledecrease)
 
-    V.add(angleadjustclass,
+    V.add(angle_speed_adjustclass,
         inputs = [],
-        outputs= ['angleadjust'])
+        outputs= ['angle_speed_adjust'])
 
     from donkeycar.parts.speedadjust import speedadjustclass
     speedadjustclass = speedadjustclass()
