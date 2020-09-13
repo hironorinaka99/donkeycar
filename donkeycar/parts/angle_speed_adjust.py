@@ -1,4 +1,4 @@
-class angle_speed_adjustclass(): #ステアリンを切ったときに、速度を調整する
+class angle_speed_adjustclass(): #ステアリングを切ったときに、速度を調整する
     def __init__(self):
         self.angle_speed_adjust = 1.0
         return

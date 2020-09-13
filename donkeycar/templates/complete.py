@@ -440,7 +440,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     class DriveMode:
         def run(self, mode,
                     user_angle, user_throttle,
-                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust,angle_speed_adjust): 
+                    pilot_angle, pilot_throttle,distanceLL,distanceL,distanceC,distanceR,distanceRR,prev_distanceLL,prev_distanceL,prev_distanceC,prev_distanceR,prev_distanceRR,speedadjust,angle_speed_adjust,angle_adjust): 
             #print("Drive Mode:" + mode)
             global time_dis_short_start
             global time_boost_start
@@ -589,6 +589,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 if pilot_throttle > 0: #前進時のみ速度補正
                     pilot_throttle *= speedadjust * cfg.AI_THROTTLE_MULT
 
+                if pilot_throttle > 0: #前進時のみハンドル切れ角補正
+                    pilot_angle *= angle_adjust
+
                 return pilot_angle, pilot_throttle
         
     V.add(DriveMode(), 
@@ -607,18 +610,33 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
     if isinstance(ctr, JoystickController):
         ctr.set_button_down_trigger(cfg.AI_LAUNCH_ENABLE_BUTTON, aiLauncher.enable_ai_launch)
 
-    from donkeycar.parts.angle_speed_adjust import angle_speed_adjustclass
+    from donkeycar.parts.angle_speed_adjust import angle_speed_adjustclass #ステアリングを切ったときに、速度を調整する
     angle_speed_adjustclass = angle_speed_adjustclass()
     if isinstance(ctr, JoystickController):
-        #ctr.set_button_down_trigger("dpad_right", angle_speed_adjustclass.angleincrease)
-        ctr.set_button_down_trigger("R3", angle_speed_adjustclass.angleincrease)
+        ctr.set_button_down_trigger("dpad_right", angle_speed_adjustclass.angleincrease)
     if isinstance(ctr, JoystickController):
-        #ctr.set_button_down_trigger("dpad_left", angle_speed_adjustclass.angledecrease)
-        ctr.set_button_down_trigger("L3", angle_speed_adjustclass.angledecrease)
+        ctr.set_button_down_trigger("dpad_left", angle_speed_adjustclass.angledecrease)
 
     V.add(angle_speed_adjustclass,
         inputs = [],
         outputs= ['angle_speed_adjust'])
+
+
+    from donkeycar.parts.angle_adjust import angle_adjustclass #ステアリングの切れ角を調整する
+    angle_adjustclass = angle_adjustclass()
+    if isinstance(ctr, JoystickController):
+        ctr.set_button_down_trigger("R3", angle_adjustclass.angleincrease)
+    if isinstance(ctr, JoystickController):
+        ctr.set_button_down_trigger("L3", angle_adjustclass.angledecrease)
+
+    V.add(angle_adjustclass,
+        inputs = [],
+        outputs= ['angle_adjust'])
+
+
+
+
+
 
     from donkeycar.parts.speedadjust import speedadjustclass
     speedadjustclass = speedadjustclass()
