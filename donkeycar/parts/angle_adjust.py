@@ -5,11 +5,11 @@ class angle_adjustclass(): #ステアリングの切れ角を調整する
 
     def angleincrease(self):
         self.angle_adjust = round(min(1.5, self.angle_adjust + 0.05), 2)
-        print("In angleincrease",self.angle_adjust)
+        print("In angle_adjust increase",self.angle_adjust)
 
     def angledecrease(self):
         self.angle_adjust = round(max(0.5, self.angle_adjust - 0.05), 2)
-        print("In angledecrease",self.angle_adjust)
+        print("In angle_adjust increase",self.angle_adjust)
 
     def run(self):
         return self.angle_adjust
