@@ -452,7 +452,8 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             dis_R_range = 25 #右センサーの反応範囲 
             dis_RR_range = 20 #右横センサーの反応範囲 
             dis_RR_rev_range = 8 #右横センサーの後退反応範囲
-            dis_LLRR_value = 0.02 #横センサーの反応係数
+            #dis_LLRR_value = 0.02 #横センサーの反応係数
+            dis_LLRR_value = 0.01 #横センサーの反応係数
 
             dis_timer_all = 1.6 #待ち時間全体 下記2つの時間より長いこと
             dis_timer_back = 1.0 #後退時間
@@ -464,7 +465,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
 
             dis_L_LKA_range = 30.0 #左センサーLKA動作範囲 (停止すべき範囲からのその先)
             dis_R_LKA_range = 30.0 #右センサーLKA動作範囲
-            dis_LR_value = 0.003 #左右センサーLKA反応係数 元は60cm,0.005(広い場所用)
+            dis_LR_value = 0.001 #左右センサーLKA反応係数 元は0.003(広い場所用)
 
             #前回測定時との比較　近づいている時は負、離れているときは正、値が近いときはばらつき誤差として０とする
             dis_gap_ignor_range_side = 0.5 #（横）センサーばらつきで、前回差を０とする範囲
@@ -506,14 +507,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #LKA的な動作    真横　#ハンドル右はプラス、左はマイナス 離れていっているとき(gapが正)は行わない
                 if distanceLL < dis_LL_range and distanceLL > 0: #左横センサ近いとき (マイナス値、離れていっているときは除く)
                     if dis_gapLL <= 0: #gapが減っているときのみ補正
-                        LKAadd = 0.1 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分
+                        LKAadd = 0.05 + (dis_LL_range - distanceLL) * dis_LLRR_value  #ハンドル指示値を右に少し 元は0.1+係数分
                         pilot_angle += LKAadd
                         print("左真横 LKA %3.2f" % LKAadd)                    
                     else:
                         print("左真横　LKA離れ始めたので補正しない")
                 if distanceRR < dis_RR_range and distanceRR > 0: #右横センサ近いとき(マイナス値、、離れていっているときは除く)
                     if dis_gapRR <= 0: #gapが減っているときのみ補正
-                        LKAadd = 0.1 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 0.2+係数分               
+                        LKAadd = 0.05 + (dis_RR_range - distanceRR) * dis_LLRR_value  #ハンドル指示値を右に少し 元は0.1+係数分               
                         pilot_angle -= LKAadd 
                         print("右真横 LKA %3.2f" % LKAadd)                    
                     else:
@@ -522,14 +523,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
                 #LKA的な動作　左右前センサー分
                 if distanceL - dis_L_range < dis_L_LKA_range and distanceL - dis_L_range >0: #左センサーが反応範囲に近いとき（マイナス値は除く）
                     #print("LKA: dis L %3.1f" %distanceL + "DisLRan %3.1f" % dis_L_range + "DisLLKARan %3.1f" % dis_L_LKA_range + "DisLRan %3.1f" % dis_L_range)
-                    LKAadd = 0.1 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数
+                    LKAadd = 0.05 + (dis_L_LKA_range - (distanceL - dis_L_range)) * dis_LR_value #元は0.1 +LKA_Rangeの残り分ｘ係数
                     pilot_angle += LKAadd 
-                    #print("左LKA: %3.2f" % LKAadd)
+                    print("左LKA: %3.2f" % LKAadd)
                 if distanceR - dis_R_range < dis_R_LKA_range and distanceR - dis_R_range >0: #右センサーが反応範囲に近いとき（マイナス値は除く）
                     #print("LKA: dis R %3.1f" %distanceR + "DisRRan %3.1f" % dis_R_range + "DisRLKARan %3.1f" % dis_R_LKA_range + "DisRRan %3.1f" % dis_R_range)
-                    LKAadd = 0.1 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #初期値　0.2 +LKA_Rangeの残り分ｘ係数　           
+                    LKAadd = 0.05 + (dis_R_LKA_range - (distanceR - dis_R_range)) * dis_LR_value #元は　0.1 +LKA_Rangeの残り分ｘ係数　           
                     pilot_angle -= LKAadd
-                    #print("右LKA: %3.2f" % LKAadd)
+                    print("右LKA: %3.2f" % LKAadd)
 
                 #急接近の時
                 #if (distanceL < 70 and distanceL > 20 and dis_gapL < -3.0 and pilot_angle < -0.3) or (distanceC < 100 and distanceC > 25 and dis_gapC < -7.0 and abs(pilot_angle) < 0.4) or (distanceR < 70 and distanceR > 20 and dis_gapR < -2.0 and pilot_angle > 0.3): #前センサーで障害物（距離センサーが縮まっている）発見
