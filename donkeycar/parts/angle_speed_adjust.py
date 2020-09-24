@@ -4,7 +4,7 @@ class angle_speed_adjustclass(): #ステアリングを切ったときに、速�
         return
 
     def angleincrease(self):
-        self.angle_speed_adjust = round(min(1.5, self.angle_speed_adjust + 0.05), 2)
+        self.angle_speed_adjust = round(min(2.0, self.angle_speed_adjust + 0.05), 2)
         print("In angle_speed increase",self.angle_speed_adjust)
 
     def angledecrease(self):
