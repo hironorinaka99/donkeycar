@@ -136,6 +136,6 @@ class StopSignDetector(object):
             if self.show_bounding_box:
                 self.draw_bounding_box(traffic_light_obj, img_arr2)
             print("Stop light detected")
-            return 0, img_arr2
+            return 0, img_arr
         else:
             return throttle, img_arr
