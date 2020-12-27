@@ -66,7 +66,7 @@ class StopSignDetector(object):
                                           #keep_aspect_ratio=True,
                                           keep_aspect_ratio=False,
                                           relative_coord=False,
-                                          top_k=10000) #Nakagawa
+                                          top_k=100) #Nakagawa
         max_score = 0
         traffic_light_obj = None
         if ans:
@@ -122,6 +122,7 @@ class StopSignDetector(object):
         img_arr2 = img_arr
         #img_arr2 = img_arr[10:40, 60:100] #Nakagawa真ん中上だけ注目 H上:H下, W左:W右
         #img_arr2 = img_arr[20:70, 30:130] #Nakagawa真ん中上だけ注目 H上:H下, W左:W右
+        img_arr2 = img_arr[30:330, 90:390] #Nakagawa真ん中上だけ注目 H上:H下, W左:W右
         img2h, img2w = img_arr.shape[:2]
 
         #img_arr3 = cv2.resize(img_arr2,(160,120)) #Nakagawa W,H
@@ -129,12 +130,12 @@ class StopSignDetector(object):
         #img_arr3 = cv2.resize(img_arr2,(img2h*10,img2w*10)) #Nakagawa W,H
 
         # Detect traffic light object
-        traffic_light_obj = self.detect_stop_sign(img_arr)
+        traffic_light_obj = self.detect_stop_sign(img_arr2)
 
         if traffic_light_obj:
             if self.show_bounding_box:
-                self.draw_bounding_box(traffic_light_obj, img_arr)
+                self.draw_bounding_box(traffic_light_obj, img_arr2)
             print("Stop light detected")
-            return 0, img_arr
+            return 0, img_arr2
         else:
             return throttle, img_arr
